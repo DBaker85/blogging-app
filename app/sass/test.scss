@@ -1,0 +1,165 @@
+// Reset and normalise
+
+@import "base/_reset";
+
+// boostrap
+@import "test/_bootstrap";
+
+// font-face
+@import "base/mixins/_font-face.scss";
+
+
+
+@include font-face('roboto-light', 'Roboto-Light', 'roboto', 'serif');
+@include font-face('roboto', 'Roboto-Regular', 'roboto', 'serif');
+
+/*********************************
+*** Variables and definitions ****
+*********************************/
+
+// $main-color : #ad1457;
+$main-color : #4db6ac;
+
+
+/*********************************
+***          Styles           ****
+*********************************/
+
+body{
+	font-family: roboto;
+	font-size: 16px;
+	position: relative;
+}
+
+header{
+	background-color:$main-color;
+	padding: 30px 50px;
+	margin-bottom: 30px;
+	h1 {
+		color: white;
+		font-size: 50px;
+		text-shadow: 2px 2px 6px rgba(150, 150, 150, 0.8);
+	}
+}
+
+.space-right-15{
+	margin-right:15px
+}
+
+.space-bottom-15{
+	margin-bottom : 15px
+}
+
+.panel-minimal{
+	box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.panel-report{
+	
+	border: 1px solid $main-color;
+	color: darken($main-color, 20);
+	.panel-heading{
+		// background-color: $main-color;
+		color: darken($main-color, 20);
+		font-weight: bold;
+		font-size: 14px
+
+	}
+	&:hover{
+		background-color: $main-color;
+		color: white;
+		> .panel-heading{
+			color: white;
+		}
+		
+	}
+}
+
+.report-holder{
+
+	.panel{
+		
+		a{
+			color: darken($main-color, 20);
+			&:hover{
+				text-decoration: none;
+			}
+		}
+	}
+	.report-holder__report{
+		border-bottom: #ccc dashed 1px;
+		padding:20px 0;
+		&:last-child {
+			border: none;
+		}
+	}
+}
+
+.icon-red{
+	color: #c62828
+}
+
+.icon-yellow{
+	color: #f9a825	
+}
+
+.icon-green{
+	color: #2e7d32
+}
+
+.icon-blue{
+	color: #0277bd 
+}
+
+.small-text{
+	font-size: 14px
+}
+
+
+.bold-text {
+	font-weight: bold;
+}
+
+
+
+.side-menu {
+	position: fixed;
+	padding: 10px;
+	
+	border: 1px solid $main-color;
+	border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	li {
+		
+		a {
+			padding: 5px 10px;
+			color: darken($main-color, 20);
+			border-radius: 5px; 
+			-moz-border-radius: 5px; 
+			-webkit-border-radius: 5px; 
+
+			&:hover{
+				background-color: desaturate(lighten(#4db6ac, 45), 20);
+				color: darken($main-color, 20);
+			}
+			&:active{
+				background-color: $main-color;
+				color: white;
+			}
+			
+		}
+
+	}
+	.active a {
+		color: white;
+		background-color: $main-color;
+		&:hover {
+			background-color: darken($main-color, 20);
+			color: white;
+		}
+
+
+	}
+	
+}

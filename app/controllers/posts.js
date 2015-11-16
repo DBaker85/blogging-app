@@ -1,0 +1,276 @@
+var marked = require('marked');
+var crypto = require('crypto');
+
+
+function content(db){
+  var oldcategory;
+  var posts = db.collection('posts');
+  var categories = db.collection('categories');
+  var passwords = db.collection('password');
+
+  this.displayAdminPage = function(req, res) {
+    "use strict";
+
+    if (req.session.user){
+      getPosts(function(err, results) {
+        "use strict";
+
+        if (err) return next(err);
+
+        getCategories(function(err, categories) {
+
+          return res.render('_admin/admin', {
+            posts: results,
+            marked: marked,
+            categories : categories,
+            pagetitle : 'Admin panel | '+blogName
+          });
+
+        });
+      });
+    } else {
+      return res.redirect('/login');
+    }
+  }
+
+
+
+  this.getPosts = function(callback){
+    posts.find().sort({date: -1}).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else if (result.length) {
+        console.log('Found:', result.length);
+        callback(err, result);
+      } else {
+        console.log('No document(s) found with defined "find" criteria!');
+        callback(err, false);
+      }
+    });
+  };
+
+
+  this.getPostsByCategory = function(category,callback){
+
+    posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+        callback(err, null);
+      } else if (result.length) {
+        console.log('Found:', result.length);
+        callback(err, result);
+      } else {
+        console.log('No document(s) found with defined "find" criteria!');
+        callback(err, false);
+      }
+    });
+  };
+
+
+
+  this.displayMainPage = function(req, res) {
+    "use strict";
+
+    getPosts(function(err, results) {
+      "use strict";
+
+      if (err) return next(err);
+
+      getCategories(function(err, categories) {
+        return res.render('_landing/postlist', {
+          posts: results,
+          marked: marked,
+          categories: categories,
+          pagetitle: blogName+' | '+blogTagLine
+        });
+      });
+    });
+  }
+
+  this.displayAboutPage = function(req, res) {
+    "use strict";
+    getCategories(function(err, categories) {
+      if (err) {
+        displayErrorPage(req,res,500);
+      } else {
+        return res.render('_landing/about', {
+          marked: marked,
+          categories: categories,
+          pagetitle: 'About this website | '+blogName
+        });
+      }
+    });
+
+  }
+
+
+
+  this.displaySinglePost = function(req, res, url) {
+    "use strict";
+    getCategories(function(err, categories) {
+
+      posts.findOne({urlSlug:req.params.url}, function(err, result){
+        if (err) {
+          displayErrorPage(req,res,500);
+        } else if (result != undefined) {
+          return res.render('_landing/post', {
+            post: result,
+            marked: marked,
+            categories: categories,
+            pagetitle: result.title+' | '+blogName
+          });
+        } else {
+          displayErrorPage(req, res, 404);
+        }
+      });
+    });
+
+  }
+
+
+
+  this.getEditPost = function(req, res) {
+    "use strict";
+
+    posts.findOne({postId:req.body.postId}, function(err, result){
+      if (err) {
+        res.send(500)
+      }else if (result != undefined) {
+        oldcategory = result.category;
+        console.log('from geteditpost '+oldcategory);
+        return res.json(result);
+      }
+    });
+  }
+
+  this.EditPost = function(req, res) {
+    "use strict";
+    var post = {
+      body: req.body.body,
+      category : req.body.category,
+      editdate : new Date()
+    }
+    posts.update({postId: req.body.id} ,{$set: post}, function(err, result){
+      if (err) {
+        res.send(500)
+      }else {
+       getPosts(function(err, results) {
+        "use strict";
+
+        if (err) {
+          res.send(err);
+        }
+        else {
+          return res.render('_admin/article-list', {
+            posts: results,
+          });
+        }
+      });
+     }
+   });
+    if (oldcategory !== req.body.category){
+      updateCategoryStatus(oldcategory);
+      oldcategory = '';
+    }
+    categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
+      if(err){
+        console.log('category not updated');
+      }
+    });
+  }
+
+
+
+
+
+  this.displayErrorPage = function(req,res, status) {
+
+    if (status == 404){
+      res.render('_landing/error', {
+        pagetitle:'Page not found | '+blogName,
+        maintext:'404',
+        subtext:'Sorry We could not find page: ' + req.url
+      })
+    } else {
+      res.render('_landing/error', {
+        pagetitle:'An error occured | '+blogName,
+        maintext: 'error',
+        subtext:'Sorry an error occured. Please try again',
+        message:'message'
+      })
+    }
+  }
+
+  this.createPost = function(req, res){
+    var currentDate = new Date();
+
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth()+1;
+    var year = currentDate.getFullYear();
+
+    // - create a custom md5 has to serve as ID and not replace the _id which is not good practice
+    var hash = crypto.createHash('md5').update(req.body.title+currentDate).digest('hex');
+    /*
+          take title to create url slug
+          convert to lowercase
+          remove special characters
+          collapse all whitespace to a single whitespace
+          split the string into a seperate words
+          select first 6 words
+          merge into a string again
+          replace spaces with hyphens and add the date
+    */
+    var slug = req.body.title
+              .toLowerCase()
+              .replace(/[.,\-!&?]/g,"")
+              .replace(/\s{2,}/g," ")
+              .split(/\s+/)
+              .slice(0,6)
+               .join(" ")
+              .replace(/\s/g, '-')+'_'+day+month+year;
+
+    var post = {
+      postId: hash,
+      title: req.body.title,
+      date: currentDate,
+      body: req.body.body,
+      urlSlug: slug,
+      category : req.body.category
+    };
+
+      //- {"category":"web development","subcategories":[{"subcategory":"nodejs","active":true},{"subcategory":"mongodb","active":true},{"subcategory":"sass","active":false}]}
+      categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
+        if(err){
+          console.log('category not updated');
+        }
+      });
+
+      posts.insert(post, function(err, inserted) {
+        if(err) {
+          res.send('err');
+        } else {
+          getPosts(function(err, results) {
+            "use strict";
+
+            if (err) {
+              res.send(err);
+            }
+            else {
+              return res.render('_admin/article-list', {
+                posts: results,
+              });
+            }
+          });
+        };
+      });
+
+    };
+
+
+
+
+  }
+
+
+  module.exports = content;

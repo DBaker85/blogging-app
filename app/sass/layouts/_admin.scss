@@ -1,0 +1,136 @@
+.article-list__container {
+	.post-list {
+		display: block;
+		padding: 20px;
+		border-bottom: 1px solid #ccc;
+		@extend %clearfix;
+		a{
+			text-decoration: none;
+			color: $color-text;
+			i{
+				font-size: 20px;
+			}
+		}
+		.post-list__title {
+			width: 80%;
+			float: left;
+		}
+		.post-list__delete{
+			width: 10%;
+			float: left;
+			text-align: center;
+		}
+		.post-list__edit {
+			width: 10%;
+			float: left;
+			text-align: center;
+		}
+		&:last-child{
+			border: 0px;
+		}
+	}
+}
+
+.create-post {
+	@extend %clearfix;
+
+	.create-post__form-container {
+		width: 60%;
+		float: left;
+		padding: 10px;
+	}
+	.create-post__preview-container {
+		width: 40%;
+		float: right;
+		padding: 10px;
+
+		.preview{
+			border: 1px solid $color-dark-lightest;
+			border-radius: $border-radius-main;
+			min-height:100px;
+			margin-bottom:30px;
+		}
+	}
+}
+
+.edit-post {
+	position: relative;
+	display: none;
+	&.show{
+		display: block;
+	}
+	.edit-post__form-container {
+		width: 60%;
+		float: left;
+		padding: 10px;
+	}
+	.edit-post__preview-container {
+		width: 40%;
+		float: right;
+		padding: 10px;
+
+		.preview{
+			border: 1px solid $color-dark-lightest;
+			border-radius: $border-radius-main;
+			min-height:100px;
+			margin-bottom:30px;
+		}
+	}
+
+}
+
+.edit-tag {
+
+	.edit-tag__form-container {
+		width: 40%;
+		float: right;
+		padding: 10px;
+		border: 1px solid $color-dark-lightest;
+		border-radius: $border-radius-main;
+	}
+	.edit-tag__list-container {
+		width: 60%;
+		float: left;
+		padding: 10px;
+	}
+	.edit-tag__subcategory-holder{
+		@extend %clearfix;
+		padding: 10px 0 0 0;
+		.edit-tag__subcategory--input{
+			width: 90%;
+			float:left;
+		}
+		.edit-tag__subcategory--delete{
+			width: 10%;
+			float: right;
+			margin-top: 30px;
+		}
+	}
+
+}
+
+.edit-tag__list-container {
+	.category {
+		display: block;
+		padding: 20px;
+		border-bottom: 1px solid #ccc;
+		@extend %clearfix;
+		&:last-child {
+			border: 0px;
+		}
+		.category__subcategory {
+				@extend %clearfix;
+				.subcategory__title {
+					float: left;
+					width: 60%;
+				}
+				.subcategory__status {
+					float: right;
+					width: 40%;
+				}
+				&.active{
+					color: $color-success;
+				}
+		}
+	}
+}

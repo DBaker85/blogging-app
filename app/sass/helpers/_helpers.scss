@@ -1,0 +1,39 @@
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.mobile-only{
+	@include media(desktop){
+		display: none;
+	}
+
+}
+
+.desktop-only{
+  display: none;
+  @include media(desktop){
+    display: block;
+  }
+}
+
+.is-lazy-loading{
+	width: 16px !important;
+	height: 11px !important;
+	margin: auto !important;
+	border: none !important;
+	background: transparent !important;
+}
+
+.sr-only{
+  display: none;
+}
+
+.text-left{
+  text-align: left;
+}
+
+

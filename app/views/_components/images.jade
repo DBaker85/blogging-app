@@ -1,0 +1,16 @@
+mixin img(options)
+
+	- src = options.src || '';
+	- width = options.width || '';
+	- height = options.height || '';
+	- classes = options.classes || '';
+	- alt = options.alt || 'alt text';
+	- lazy = options.lazy || 'true';
+
+	if lazy == 'true'
+		img.is-lazy-loading(data-src="/images/#{src}" src="/images/icons/loader.gif" width="#{width}" height="#{height}" alt="#{alt}" class="#{classes}")
+		noscript
+			img(src="/images/#{src}" width="#{width}" height="#{height}" alt="#{alt}" class="#{classes}")
+	else
+		img(src="/images/#{src}" width="#{width}" height="#{height}" alt="#{alt}" class="#{classes}")
+

@@ -1,0 +1,30 @@
+extends ../_base/layout
+
+block content
+	.container
+		.container__aside
+			include aside
+		.container__main-content
+			article
+				h1 #{post.title}
+				.small
+					+icon({
+						icon:'clock'
+					})
+					| #{post.date.toDateString()}
+					//- if category associated, display category with link to category page
+					if post.category
+						span
+							|  || posted in
+							a(href="/category/#{post.category}")
+								| #{post.category}
+					//- if article was edited, show edit date
+					if post.editdate
+						span
+							|  || last edited on #{post.editdate.toDateString()}
+				.main-content__posts
+					.post__content
+						| !{marked(post.body)}
+
+
+
