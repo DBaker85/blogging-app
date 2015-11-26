@@ -6,26 +6,34 @@
   }
 }
 
-.mobile-only{
+.mobile-only {
 	@include media(desktop){
 		display: none;
 	}
 
 }
 
-.desktop-only{
+.desktop-only {
   display: none;
   @include media(desktop){
     display: block;
   }
 }
 
-.is-lazy-loading{
-	width: 16px !important;
-	height: 11px !important;
-	margin: auto !important;
-	border: none !important;
-	background: transparent !important;
+.is-lazy-loading {
+    position: relative;
+    animation: rotate 2s linear infinite;
+    width: 30px;
+    height: 30px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .sr-only{
@@ -36,4 +44,9 @@
   text-align: left;
 }
 
+.img-responsive{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 

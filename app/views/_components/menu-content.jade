@@ -7,39 +7,43 @@ mixin menucontent(options)
 			src:'avatars/avatar.jpg',
 			width:'120',
 			height:'120',
-			alt:'avatar',
+			alt: content.aboutMe.name,
 			lazy: 'false'
 		})
 	.aside__legend
-		| David Baker
+		| #{content.aboutMe.name}
 		.small
-			| Frontend Developper
+			| #{content.aboutMe.description}
 	.aside__social-links
-		+button({
-			type:'icon',
-			icon:'skype-with-circle',
-			classes: buttonClass,
-			href:'#',
-			target: '_self'
-		})
-		+button({
-			type:'icon',
-			icon:'github-with-circle',
-			classes: buttonClass,
-			href:'#'
-		})
-		+button({
-			type:'icon',
-			icon:'linkedin-with-circle',
-			classes: buttonClass,
-			href:'#'
-		})
-		+button({
-			type:'icon',
-			icon:'twitter-with-circle',
-			classes: buttonClass,
-			href:'#'
-		})
+		if content.aboutMe.skypeLink
+			+button({
+				type:'icon',
+				icon:'skype-with-circle',
+				classes: buttonClass,
+				href: content.aboutMe.skypeLink,
+				target: '_self'
+			})
+		if content.aboutMe.githubLink
+			+button({
+				type:'icon',
+				icon:'github-with-circle',
+				classes: buttonClass,
+				href: content.aboutMe.githubLink
+			})
+		if content.aboutMe.linkedIn
+			+button({
+				type:'icon',
+				icon:'linkedin-with-circle',
+				classes: buttonClass,
+				href: content.aboutMe.linkedIn
+			})
+		if content.aboutMe.twitter
+			+button({
+				type:'icon',
+				icon:'twitter-with-circle',
+				classes: buttonClass,
+				href: content.aboutMe.twitter
+			})
 	.aside__legend
 		.small
-			| A blog about coding, programming and various things. Build on NodeJs using ExpressJS, Jade and Db'ing in MongoDB
+			| #{content.blogSetup.blogDescription}

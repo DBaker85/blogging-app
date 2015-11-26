@@ -22,17 +22,17 @@ block content
 									+icon({
 										icon:'clock'
 									})
-									|  #{post.date.toDateString()}
+									| #{post.date.toDateString()}&nbsp;
 									//- if category associated, display category with link to category page
 									if post.category
 										span
-											|  || posted in
+											| || posted in&nbsp;
 											a(href="/category/#{post.category}")
-												|  #{post.category}
+												| #{post.category}
 									//- if article was edited, show edit date
 									if post.editdate
 										span
-											|  || last edited on #{post.editdate.toDateString()}
+											| &nbsp;|| last edited on #{post.editdate.toDateString()}
 								if post.body
 									//- if post is longer than 300 characters, slice and show only preview and a readmore link
 									if post.body.length > 300

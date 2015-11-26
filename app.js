@@ -5,29 +5,38 @@ var app = express();
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var session = require('client-sessions');
+var contentJson = require('./app/content/content.json')
 
 // set express render engine
 app.set('view engine', 'jade');
 app.set('views', './app/views/');
-// use the commented one for deployment
-// app.set('port', (process.env.PORT || 4040));
-app.set('port', (4040));
+
+// if port is set in config use that else use env port (heroku requirement)
+if (contentJson.config.port) {
+  app.set('port', (contentJson.config.port));
+} else {
+  app.set('port', (process.env.PORT))
+}
+
+// use content from JSON
+app.locals.content = contentJson;
 
 // set blogname and tagline
-global.blogName = 'Blog name';
-global.blogTagLine = 'Tagline';
+global.blogName = contentJson.blogSetup.blogname;
+global.blogTagLine = contentJson.blogSetup.blogTagLine;
 
+console.log()
 // Use middleware
 app.use(bodyParser.json());
 
 app.use(session({
   cookieName: 'session',
-  secret: 'random_string_goes_here',
+  secret: contentJson.config.sessionSecret,
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }));
 
-
+// secret: 'random_string_goes_here',
 
 app.use(express.static('public'));
 
@@ -40,14 +49,14 @@ app.use(function(req, res, next){
 
 
 
-var url = 'mongodb://localhost:27017/blog';
+var url = contentJson.config.mongoConnect;
 
 MongoClient.connect(url, function (err, db) {
   if (err) {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
-
     console.log('Connection established to', url);
+    // console.log(locals);
 
     // require routes and controllers
     require('./app/routes/posts')(app,db);
