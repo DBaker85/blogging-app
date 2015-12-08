@@ -1,0 +1,24 @@
+include ../_base/components
+
+if stats
+  ul.article-list__container
+    each stat in stats
+      li.post-list
+        .post-list__title
+          h5 #{stat.visits}
+          p
+            span.small connection on&nbsp;
+            span #{stat.date.toDateString()}&nbsp;
+            span.small from&nbsp;
+            span #{stat.city}, #{stat.region}, #{stat.country}
+        each agent, test in stat.userAgent
+          if agent === true
+            span.small
+              | #{test}&nbsp;&nbsp;
+        span.small #{stat.userAgent.browser} #{stat.userAgent.version}
+        .small #{stat.userAgent.os},&nbsp;
+          span.small #{stat.userAgent.platform}
+        p.small #{stat.userAgent.source}
+else
+  p
+    | No visits yet !

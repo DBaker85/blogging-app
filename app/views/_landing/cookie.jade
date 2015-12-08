@@ -1,0 +1,15 @@
+extends ../_base/layout
+
+block content
+
+  .container
+    .container__aside
+      include aside
+    .container__main-content
+      article
+        h1 Cookie policy
+        .main-content__posts
+          .post__content
+            | !{marked(../../content/cookiepolicy.html)}
+
+
