@@ -57,8 +57,8 @@ var createPost = function () {
 	 		url         : form.attr('action'),
 	 		type        : form.attr('method'),
 	 		data        : JSON.stringify(form.serializeObject()),
-	  	  // format returned from server
-	  	// dataType    : 'HTML',
+	  	    // format returned from server
+	  	    // dataType    : 'HTML',
         	// data format to server
         	contentType : 'application/json',
         	complete 	: function(){},

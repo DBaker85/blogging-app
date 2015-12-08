@@ -1,6 +1,3 @@
-var marked = require('marked');
-
-
 function categoryHandler(db){
 
 
@@ -45,7 +42,6 @@ function categoryHandler(db){
       getCategories(function(err, categories) {
         return res.render('_landing/postlist', {
           posts: results,
-          marked: marked,
           categories: categories,
           pagetitle: category+' posts | '+blogName
         });

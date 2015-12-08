@@ -35,15 +35,26 @@ a {
   }
 }
 
-.small{
+.small {
   font-size: 12px;
 }
 
-%serif{
+%serif {
   font-family: 'sura', serif;
+}
+
+%icons {
+  font-family: 'icomoon';
 }
 
 pre {
   font-size: 14px;
+}
+
+code {
+  font-size: 14px;
+  background-color: $color-monokai-background;
+  color: $color-monokai-blue;
+  padding: 2px 5px;
 }
 

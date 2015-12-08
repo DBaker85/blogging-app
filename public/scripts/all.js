@@ -3,15 +3,14 @@
 global.$ = require("./..\\..\\bower_components\\jquery\\dist\\jquery.js");
 global.jQuery = require("./..\\..\\bower_components\\jquery\\dist\\jquery.js");
 
-
-var easyResponsiveTabs = require('../../bower_components/tabs/js/easyResponsiveTabs');
-var slidebars = require('../../bower_components/Slidebars/dist/slidebars.js');
-
 require("./..\\..\\bower_components\\jquery-unveil\\jquery.unveil.js");
 require("./..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js");
 require("./..\\..\\bower_components\\metisMenu\\dist\\metisMenu.js");
 require("./..\\..\\bower_components\\parsleyjs\\dist\\parsley.js");
+require("./..\\..\\bower_components\\scrollup\\dist\\jquery.scrollUp.min.js");
+require('../../bower_components/Slidebars/dist/slidebars.js');
 
+var easyResponsiveTabs = require('../../bower_components/tabs/js/easyResponsiveTabs');
 var init = require('./init/init');
 var colorChange = require('./controllers/co-colorchange');
 var createPost = require('./controllers/co-create-post');
@@ -30,6 +29,10 @@ $(document).ready(function(){
 
   $.slidebars();
 
+  $.scrollUp({
+    scrollText: '<button class="btn btn-primary"><i class="icon-chevron-thin-up"></i></button>',
+  });
+
   $('.admin-tabs').easyResponsiveTabs({
     type: 'vertical'
   });
@@ -40,10 +43,11 @@ $(document).ready(function(){
     $(this).removeClass('is-lazy-loading');
   });
 
+
 })
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../bower_components/Slidebars/dist/slidebars.js":13,"../../bower_components/tabs/js/easyResponsiveTabs":19,"./..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js":14,"./..\\..\\bower_components\\jquery-unveil\\jquery.unveil.js":15,"./..\\..\\bower_components\\jquery\\dist\\jquery.js":16,"./..\\..\\bower_components\\metisMenu\\dist\\metisMenu.js":17,"./..\\..\\bower_components\\parsleyjs\\dist\\parsley.js":18,"./controllers/co-colorchange":7,"./controllers/co-create-post":8,"./controllers/co-create-tag":9,"./controllers/co-edit-delete-post":10,"./controllers/co-login":11,"./init/init":12}],2:[function(require,module,exports){
+},{"../../bower_components/Slidebars/dist/slidebars.js":13,"../../bower_components/tabs/js/easyResponsiveTabs":20,"./..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js":14,"./..\\..\\bower_components\\jquery-unveil\\jquery.unveil.js":15,"./..\\..\\bower_components\\jquery\\dist\\jquery.js":16,"./..\\..\\bower_components\\metisMenu\\dist\\metisMenu.js":17,"./..\\..\\bower_components\\parsleyjs\\dist\\parsley.js":18,"./..\\..\\bower_components\\scrollup\\dist\\jquery.scrollUp.min.js":19,"./controllers/co-colorchange":7,"./controllers/co-create-post":8,"./controllers/co-create-tag":9,"./controllers/co-edit-delete-post":10,"./controllers/co-login":11,"./init/init":12}],2:[function(require,module,exports){
 var colorChanger = function () {
 
   this.checkColor = function(){
@@ -214,8 +218,8 @@ var createPost = function () {
 	 		url         : form.attr('action'),
 	 		type        : form.attr('method'),
 	 		data        : JSON.stringify(form.serializeObject()),
-	  	  // format returned from server
-	  	// dataType    : 'HTML',
+	  	    // format returned from server
+	  	    // dataType    : 'HTML',
         	// data format to server
         	contentType : 'application/json',
         	complete 	: function(){},
@@ -242,7 +246,7 @@ var createPost = function () {
 
 module.exports = new createPost();
 
-},{"./..\\..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js":14,"marked":20}],5:[function(require,module,exports){
+},{"./..\\..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js":14,"marked":21}],5:[function(require,module,exports){
 var alertify = require("./..\\..\\..\\bower_components\\alertify.js\\dist\\js\\alertify.js");
 
 var editDelete = function(){
@@ -544,6 +548,8 @@ $.fn.serializeObject = function() {
    });
    return o;
 };
+
+
 
 
 };
@@ -12714,6 +12720,14 @@ if ('undefined' !== typeof window.ParsleyValidator)
 }));
 
 },{"./..\\..\\jquery\\dist\\jquery.js":16}],19:[function(require,module,exports){
+/*!
+ * scrollup v2.4.1
+ * Url: http://markgoodyear.com/labs/scrollup/
+ * Copyright (c) Mark Goodyear — @markgdyr — http://markgoodyear.com
+ * License: MIT
+ */
+!function(l,o,e){"use strict";l.fn.scrollUp=function(o){l.data(e.body,"scrollUp")||(l.data(e.body,"scrollUp",!0),l.fn.scrollUp.init(o))},l.fn.scrollUp.init=function(r){var s,t,c,i,n,a,d,p=l.fn.scrollUp.settings=l.extend({},l.fn.scrollUp.defaults,r),f=!1;switch(d=p.scrollTrigger?l(p.scrollTrigger):l("<a/>",{id:p.scrollName,href:"#top"}),p.scrollTitle&&d.attr("title",p.scrollTitle),d.appendTo("body"),p.scrollImg||p.scrollTrigger||d.html(p.scrollText),d.css({display:"none",position:"fixed",zIndex:p.zIndex}),p.activeOverlay&&l("<div/>",{id:p.scrollName+"-active"}).css({position:"absolute",top:p.scrollDistance+"px",width:"100%",borderTop:"1px dotted"+p.activeOverlay,zIndex:p.zIndex}).appendTo("body"),p.animation){case"fade":s="fadeIn",t="fadeOut",c=p.animationSpeed;break;case"slide":s="slideDown",t="slideUp",c=p.animationSpeed;break;default:s="show",t="hide",c=0}i="top"===p.scrollFrom?p.scrollDistance:l(e).height()-l(o).height()-p.scrollDistance,n=l(o).scroll(function(){l(o).scrollTop()>i?f||(d[s](c),f=!0):f&&(d[t](c),f=!1)}),p.scrollTarget?"number"==typeof p.scrollTarget?a=p.scrollTarget:"string"==typeof p.scrollTarget&&(a=Math.floor(l(p.scrollTarget).offset().top)):a=0,d.click(function(o){o.preventDefault(),l("html, body").animate({scrollTop:a},p.scrollSpeed,p.easingType)})},l.fn.scrollUp.defaults={scrollName:"scrollUp",scrollDistance:300,scrollFrom:"top",scrollSpeed:300,easingType:"linear",animation:"fade",animationSpeed:200,scrollTrigger:!1,scrollTarget:!1,scrollText:"Scroll to top",scrollTitle:!1,scrollImg:!1,activeOverlay:!1,zIndex:2147483647},l.fn.scrollUp.destroy=function(r){l.removeData(e.body,"scrollUp"),l("#"+l.fn.scrollUp.settings.scrollName).remove(),l("#"+l.fn.scrollUp.settings.scrollName+"-active").remove(),l.fn.jquery.split(".")[1]>=7?l(o).off("scroll",r):l(o).unbind("scroll",r)},l.scrollUp=l.fn.scrollUp}(jQuery,window,document);
+},{}],20:[function(require,module,exports){
 // Easy Responsive Tabs Plugin
 // Author: Samson.Onna <Email : samson3d@gmail.com>
 (function ($) {
@@ -12840,7 +12854,7 @@ if ('undefined' !== typeof window.ParsleyValidator)
 })(jQuery);
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function (global){
 /**
  * marked - a markdown parser

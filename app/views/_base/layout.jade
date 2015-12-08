@@ -9,11 +9,11 @@ body
 	#sb-site
 
 		block content
-			
+
 		footer.small
-			p All images and content © copyright of David Baker
-			p This site uses cookies to provide the best user experience
-			a(href='http://www.freepik.com/free-vector/space-cosmos-vector-image_715599.htm' target="_blank") Some icons designed by Freepik
+			each line in content.footer
+				p !{marked(line)}
+
 
 		include footer-scripts
 
@@ -65,6 +65,6 @@ body
 								text: 'Enter a color',
 								classes:'js-themer-input'
 							})
-	
+
 
 

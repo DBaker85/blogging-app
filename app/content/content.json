@@ -38,6 +38,7 @@
       "widgetID":"1234"
     },
     "footer":{
-      "content":"footer"
+      "line1":"copyright",
+      "line2":"<a href=\"#\">links</a>"
     }
 }

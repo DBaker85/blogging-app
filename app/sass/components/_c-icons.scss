@@ -15,32 +15,8 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-spinner2:before {
-	content: "\e90e";
-}
-.icon-clock:before {
-	content: "\e014";
-}
-.icon-search:before {
-	content: "\e036";
-}
-.icon-plus:before {
-	content: "\e114";
-}
-.icon-minus:before {
-	content: "\e115";
-}
-.icon-check:before {
-	content: "\e116";
-}
-.icon-cross:before {
-	content: "\e117";
-}
-.icon-menu:before {
-	content: "\e120";
-}
-.icon-ellipsis:before {
-	content: "\e129";
+.icon-bar-graph:before {
+	content: "\e90f";
 }
 .icon-chevron-thin-down:before {
 	content: "\e900";
@@ -72,9 +48,6 @@
 .icon-skype-with-circle:before {
 	content: "\e907";
 }
-.icon-xing-with-circle:before {
-	content: "\e908";
-}
 .icon-github-with-circle:before {
 	content: "\e909";
 }
@@ -83,4 +56,31 @@
 }
 .icon-twitter-with-circle:before {
 	content: "\e90b";
+}
+.icon-clock:before {
+	content: "\e014";
+}
+.icon-search:before {
+	content: "\e036";
+}
+.icon-plus:before {
+	content: "\e114";
+}
+.icon-minus:before {
+	content: "\e115";
+}
+.icon-check:before {
+	content: "\e116";
+}
+.icon-cross:before {
+	content: "\e117";
+}
+.icon-menu:before {
+	content: "\e120";
+}
+.icon-ellipsis:before {
+	content: "\e129";
+}
+.icon-spinner2:before {
+	content: "\e90e";
 }

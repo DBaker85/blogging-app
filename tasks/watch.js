@@ -13,7 +13,7 @@ module.exports = {
 			spawn: false,
 			reload: true,
 		},
-		files: ['app.js','Gruntfile.js','tasks/*.js','app/controllers/*.js','app/routes/*.js'],
+		files: ['app.js','Gruntfile.js','tasks/*.js','app/controllers/*.js','app/routes/*.js','app/content/*.*'],
 		tasks: 'express:dev'
 	},
 

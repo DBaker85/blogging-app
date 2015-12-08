@@ -5,7 +5,10 @@ var app = express();
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var session = require('client-sessions');
-var contentJson = require('./app/content/content.json')
+var contentJson = require('./app/content/content.json');
+var useragent = require('express-useragent');
+var cookieParser = require('cookie-parser');
+var marked = require('marked');
 
 // set express render engine
 app.set('view engine', 'jade');
@@ -18,16 +21,24 @@ if (contentJson.config.port) {
   app.set('port', (process.env.PORT))
 }
 
-// use content from JSON
-app.locals.content = contentJson;
-
 // set blogname and tagline
 global.blogName = contentJson.blogSetup.blogname;
 global.blogTagLine = contentJson.blogSetup.blogTagLine;
+app.locals.siteTitle = blogName;
+app.locals.siteTagLine = blogTagLine;
 
-console.log()
+// use content from JSON
+app.locals.content = contentJson;
+
+// use marked everywhere
+app.locals.marked = marked;
+
 // Use middleware
 app.use(bodyParser.json());
+// - useragent sniffer for stats
+app.use(useragent.express());
+
+app.enable('trust proxy');
 
 app.use(session({
   cookieName: 'session',
@@ -36,16 +47,18 @@ app.use(session({
   activeDuration: 5 * 60 * 1000,
 }));
 
-// secret: 'random_string_goes_here',
+// - cookie parsers
+app.use(cookieParser());
 
 app.use(express.static('public'));
 
 // - pass blogname and title to all responses
 app.use(function(req, res, next){
-  res.locals.siteTitle = blogName;
-  res.locals.siteTagLine = blogTagLine;
+  // check visit stats
+  logVisit(req,res);
   next();
 });
+
 
 
 

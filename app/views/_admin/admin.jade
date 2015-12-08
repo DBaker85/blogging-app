@@ -25,6 +25,12 @@ block content
                     })
                     span.mobile-only
                         | Edit tags
+                li.js-tag-tab
+                    +icon({
+                        icon:'bar-graph'
+                    })
+                    span.mobile-only
+                        | visitor stats
 
 
             .resp-tabs-container
@@ -40,7 +46,7 @@ block content
                                     name:'title',
                                     text: 'Post title',
                                     attributes:{
-                                        'maxlength':'40',
+                                        'maxlength':'60',
                                         'minlength':'4',
                                         'required':'required',
                                         'data-parsley-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
@@ -192,7 +198,10 @@ block content
                                                     'data-tooltip':'Remove subcategory'
                                                 }
                                             })
-
+                #stats
+                    h2 Visitor stats
+                    .stats-list.js-stats-list
+                        include stats-list
 
 
 

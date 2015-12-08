@@ -23,6 +23,9 @@ module.exports = function(app,db) {
 
 	app.get('/about', function (req, res) {
     	displayAboutPage(req, res);
-  });
+  	});
+  	app.get('/cookies', function (req, res) {
+    	displayCookiePage(req, res);
+  	});
 
 }
