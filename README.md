@@ -31,9 +31,9 @@ Installs all node and bower components
 The content is set up in `"./app/content"`
 
 Inside are 3 files:
-1. `about.html` - This is optional and is just an about page if you wish to use it.
-2. `cookiepolicy.html` - again optional and is the site's cookie policy.
-3. `content.json` - This is not optional and is where all configuration is done.
+* `about.html` - This is optional and is just an about page if you wish to use it.
+* `cookiepolicy.html` - again optional and is the site's cookie policy.
+* `content.json` - This is not optional and is where all configuration is done.
 
 #### Config.json
 The config file is broken up in various parts :
