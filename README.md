@@ -1,17 +1,7 @@
-# Blogging App v1.2.1
+# Blogging App
 
 A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
 Comes packed with a test suite that does Js and Css linting as well as Css stats.
-
-### Changelog
-
-v1.2.1 - optimised themer storage and added theme logging.
-
-v1.2.0 - Moved content to external files and added content Json
-
-v1.1.0 - Added stat tracker.
-
-v1.0.1 - changed spinners to be more efficient.
 
 #### Requirements
 This package requires:
