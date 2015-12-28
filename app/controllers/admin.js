@@ -36,18 +36,23 @@ function admin(db){
 
     this.getStats = function(callback){
 
-    visitStats.find().sort({date: -1}).toArray(function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else if (result.length) {
-        console.log('Found:', result.length);
-        callback(err, result);
-      } else {
-        console.log('No document(s) found with defined "find" criteria!');
-        callback(err, false);
-      }
-    });
+    // visitStats.find().sort({date: -1}).toArray(function (err, result) {
+    //   if (err) {
+    //     console.log(err);
+    //     callback(err, null);
+    //   } else if (result.length) {
+    //     console.log('Found:', result.length);
+    //     callback(err, result);
+    //   } else {
+    //     console.log('No document(s) found with defined "find" criteria!');
+    //     callback(err, false);
+    //   }
+    // });
+    console.log('visit Stats search');
+    visitStats.aggregate([{$group:{_id:{country:{$country:"$country"}}}}]).toArray(function (err, result){
+      console.log(result);
+
+    })
   };
 
 

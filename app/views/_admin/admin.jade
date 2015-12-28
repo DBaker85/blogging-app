@@ -202,7 +202,32 @@ block content
                     h2 Visitor stats
                     .stats-list.js-stats-list
                         include stats-list
+        if countries
+            - var countryData = ['["Country", "hits"]']
+            each country in countries
+                if country._id.country
+                    - countryData.push('["'+country._id.country+'",'+country.count+']')
+            input#js-country-data(type="hidden" data-countries="#{countryData}")
+            script(src="https://www.google.com/jsapi" type="text/javascript")  
+            script.
+                var mapsArray = JSON.parse("["+document.getElementById("js-country-data").dataset.countries+"]");
+                google.load("visualization", "1", {packages:["geochart"]});
+                google.setOnLoadCallback(drawRegionsMap);
+                function drawRegionsMap() {
 
+                    var mapData = google.visualization.arrayToDataTable(
+                        mapsArray
+                    );
 
+                    var mapOptions = {
+                        colorAxis: {colors: ['#f486a9','#d81e5b']},
+                        backgroundColor: '#ffffff',
+                        datalessRegionColor: '#e8e8e8',
+                        defaultColor: '#f5f5f5',
+                    };
 
+                    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                    setTimeout(function(){ chart.draw(mapData, mapOptions); }, 2000);
+                    
+                }               
 

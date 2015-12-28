@@ -18,13 +18,14 @@ function content(db){
         if (err) return next(err);
 
         getCategories(function(err, categories) {
-          getStats(function(err, stats) {
-          return res.render('_admin/admin', {
-            posts: results,
-            categories : categories,
-            stats: stats,
-            pagetitle : 'Admin panel | '+blogName
-          });
+          getStats(function(err, source,country) {
+            return res.render('_admin/admin', {
+              posts: results,
+              categories : categories,
+              sources: source,
+              countries: country,
+              pagetitle : 'Admin panel | '+blogName
+            });
           });
         });
       });
@@ -35,206 +36,222 @@ function content(db){
 
   this.getStats = function(callback){
 
-    visitStats.find().sort({date: -1}).toArray(function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else if (result.length) {
-        console.log('Found:', result.length);
-        callback(err, result);
-      } else {
-        console.log('No document(s) found with defined "find" criteria!');
-        callback(err, false);
-      }
-    });
-  };
+    visitStats.aggregate([
+      { $group : {
+        _id : {source: "$userAgent.source"},
+        count: { $sum: 1 }
+      }}
+      ]).sort({_id: 1}).toArray(function (err, source) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        }
+        visitStats.aggregate([
+          { $group : {
+            _id : {country: "$country"},
+            count: { $sum: 1 }
+          }}
+          ]).sort({_id: 1}).toArray(function (err, country) {
+            if (err) {
+              console.log(err);
+              callback(err, null);
+            } else if (country.length) {
+              callback(err,source,country);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false, false);
+            }
+          });
+
+        });
+};
 
 
-  this.getPosts = function(callback){
-    posts.find().sort({date: -1}).toArray(function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else if (result.length) {
-        console.log('Found:', result.length);
-        callback(err, result);
-      } else {
-        console.log('No document(s) found with defined "find" criteria!');
-        callback(err, false);
-      }
-    });
-  };
+this.getPosts = function(callback){
+  posts.find().sort({date: -1}).toArray(function (err, result) {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    } else if (result.length) {
+      console.log('Found:', result.length);
+      callback(err, result);
+    } else {
+      console.log('No document(s) found with defined "find" criteria!');
+      callback(err, false);
+    }
+  });
+};
 
 
-  this.getPostsByCategory = function(category,callback){
+this.getPostsByCategory = function(category,callback){
 
-    posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else if (result.length) {
-        console.log('Found:', result.length);
-        callback(err, result);
-      } else {
-        console.log('No document(s) found with defined "find" criteria!');
-        callback(err, false);
-      }
-    });
-  };
+  posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    } else if (result.length) {
+      console.log('Found:', result.length);
+      callback(err, result);
+    } else {
+      console.log('No document(s) found with defined "find" criteria!');
+      callback(err, false);
+    }
+  });
+};
 
 
 
-  this.displayMainPage = function(req, res) {
+this.displayMainPage = function(req, res) {
+  "use strict";
+
+  getPosts(function(err, results) {
     "use strict";
 
-    getPosts(function(err, results) {
+    if (err) return next(err);
+
+    getCategories(function(err, categories) {
+      return res.render('_landing/postlist', {
+        posts: results,
+        categories: categories,
+        pagetitle: blogName+' | '+blogTagLine
+      });
+    });
+  });
+}
+
+this.displayAboutPage = function(req, res) {
+  "use strict";
+  getCategories(function(err, categories) {
+    if (err) {
+      displayErrorPage(req,res,500);
+    } else {
+      return res.render('_landing/about', {
+        categories: categories,
+        pagetitle: 'About this website | '+blogName
+      });
+    }
+  });
+
+}
+
+this.displayCookiePage = function(req, res) {
+  "use strict";
+  getCategories(function(err, categories) {
+    if (err) {
+      displayErrorPage(req,res,500);
+    } else {
+      return res.render('_landing/cookie', {
+        categories: categories,
+        pagetitle: 'Cookie policy | '+blogName
+      });
+    }
+  });
+
+}
+
+
+
+this.displaySinglePost = function(req, res, url) {
+  "use strict";
+  getCategories(function(err, categories) {
+
+    posts.findOne({urlSlug:req.params.url}, function(err, result){
+      if (err) {
+        displayErrorPage(req,res,500);
+      } else if (result != undefined) {
+        return res.render('_landing/post', {
+          post: result,
+          categories: categories,
+          pagetitle: result.title+' | '+blogName
+        });
+      } else {
+        displayErrorPage(req, res, 404);
+      }
+    });
+  });
+
+}
+
+
+
+this.getEditPost = function(req, res) {
+  "use strict";
+
+  posts.findOne({postId:req.body.postId}, function(err, result){
+    if (err) {
+      res.send(500)
+    }else if (result != undefined) {
+      oldcategory = result.category;
+      console.log('from geteditpost '+oldcategory);
+      return res.json(result);
+    }
+  });
+}
+
+this.EditPost = function(req, res) {
+  "use strict";
+  var post = {
+    body: req.body.body,
+    category : req.body.category,
+    editdate : new Date()
+  }
+  posts.update({postId: req.body.id} ,{$set: post}, function(err, result){
+    if (err) {
+      res.send(500)
+    }else {
+     getPosts(function(err, results) {
       "use strict";
 
-      if (err) return next(err);
-
-      getCategories(function(err, categories) {
-        return res.render('_landing/postlist', {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        return res.render('_admin/article-list', {
           posts: results,
-          categories: categories,
-          pagetitle: blogName+' | '+blogTagLine
-        });
-      });
-    });
-  }
-
-  this.displayAboutPage = function(req, res) {
-    "use strict";
-    getCategories(function(err, categories) {
-      if (err) {
-        displayErrorPage(req,res,500);
-      } else {
-        return res.render('_landing/about', {
-          categories: categories,
-          pagetitle: 'About this website | '+blogName
         });
       }
     });
-
+   }
+ });
+  if (oldcategory !== req.body.category){
+    updateCategoryStatus(oldcategory);
+    oldcategory = '';
   }
-
-  this.displayCookiePage = function(req, res) {
-    "use strict";
-    getCategories(function(err, categories) {
-      if (err) {
-        displayErrorPage(req,res,500);
-      } else {
-        return res.render('_landing/cookie', {
-          categories: categories,
-          pagetitle: 'Cookie policy | '+blogName
-        });
-      }
-    });
-
-  }
-
-
-
-  this.displaySinglePost = function(req, res, url) {
-    "use strict";
-    getCategories(function(err, categories) {
-
-      posts.findOne({urlSlug:req.params.url}, function(err, result){
-        if (err) {
-          displayErrorPage(req,res,500);
-        } else if (result != undefined) {
-          return res.render('_landing/post', {
-            post: result,
-            categories: categories,
-            pagetitle: result.title+' | '+blogName
-          });
-        } else {
-          displayErrorPage(req, res, 404);
-        }
-      });
-    });
-
-  }
-
-
-
-  this.getEditPost = function(req, res) {
-    "use strict";
-
-    posts.findOne({postId:req.body.postId}, function(err, result){
-      if (err) {
-        res.send(500)
-      }else if (result != undefined) {
-        oldcategory = result.category;
-        console.log('from geteditpost '+oldcategory);
-        return res.json(result);
-      }
-    });
-  }
-
-  this.EditPost = function(req, res) {
-    "use strict";
-    var post = {
-      body: req.body.body,
-      category : req.body.category,
-      editdate : new Date()
+  categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
+    if(err){
+      console.log('category not updated');
     }
-    posts.update({postId: req.body.id} ,{$set: post}, function(err, result){
-      if (err) {
-        res.send(500)
-      }else {
-       getPosts(function(err, results) {
-        "use strict";
+  });
+}
 
-        if (err) {
-          res.send(err);
-        }
-        else {
-          return res.render('_admin/article-list', {
-            posts: results,
-          });
-        }
-      });
-     }
-   });
-    if (oldcategory !== req.body.category){
-      updateCategoryStatus(oldcategory);
-      oldcategory = '';
-    }
-    categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
-      if(err){
-        console.log('category not updated');
-      }
-    });
+
+
+
+
+this.displayErrorPage = function(req,res, status) {
+
+  if (status == 404){
+    res.render('_landing/error', {
+      pagetitle:'Page not found | '+blogName,
+      maintext:'404',
+      subtext:'Sorry We could not find page: ' + req.url
+    })
+  } else {
+    res.render('_landing/error', {
+      pagetitle:'An error occured | '+blogName,
+      maintext: 'error',
+      subtext:'Sorry an error occured. Please try again',
+      message:'message'
+    })
   }
+}
 
+this.createPost = function(req, res){
+  var currentDate = new Date();
 
-
-
-
-  this.displayErrorPage = function(req,res, status) {
-
-    if (status == 404){
-      res.render('_landing/error', {
-        pagetitle:'Page not found | '+blogName,
-        maintext:'404',
-        subtext:'Sorry We could not find page: ' + req.url
-      })
-    } else {
-      res.render('_landing/error', {
-        pagetitle:'An error occured | '+blogName,
-        maintext: 'error',
-        subtext:'Sorry an error occured. Please try again',
-        message:'message'
-      })
-    }
-  }
-
-  this.createPost = function(req, res){
-    var currentDate = new Date();
-
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth()+1;
-    var year = currentDate.getFullYear();
+  var day = currentDate.getDate();
+  var month = currentDate.getMonth()+1;
+  var year = currentDate.getFullYear();
 
     // - create a custom md5 has to serve as ID and not replace the _id which is not good practice
     var hash = crypto.createHash('md5').update(req.body.title+currentDate).digest('hex');
@@ -247,24 +264,24 @@ function content(db){
           select first 6 words
           merge into a string again
           replace spaces with hyphens and add the date
-    */
-    var slug = req.body.title
-              .toLowerCase()
-              .replace(/[.,\-!&?]/g,"")
-              .replace(/\s{2,}/g," ")
-              .split(/\s+/)
-              .slice(0,6)
-               .join(" ")
-              .replace(/\s/g, '-')+'_'+day+month+year;
+          */
+          var slug = req.body.title
+          .toLowerCase()
+          .replace(/[.,\-!&?]/g,"")
+          .replace(/\s{2,}/g," ")
+          .split(/\s+/)
+          .slice(0,6)
+          .join(" ")
+          .replace(/\s/g, '-')+'_'+day+month+year;
 
-    var post = {
-      postId: hash,
-      title: req.body.title,
-      date: currentDate,
-      body: req.body.body,
-      urlSlug: slug,
-      category : req.body.category
-    };
+          var post = {
+            postId: hash,
+            title: req.body.title,
+            date: currentDate,
+            body: req.body.body,
+            urlSlug: slug,
+            category : req.body.category
+          };
 
       //- {"category":"web development","subcategories":[{"subcategory":"nodejs","active":true},{"subcategory":"mongodb","active":true},{"subcategory":"sass","active":false}]}
       categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
@@ -309,9 +326,9 @@ function content(db){
             };
             visitStats.insert(visitor, function(err, inserted){
               if (err) {
-                  console.log(err);
-                  return
-                }
+                console.log(err);
+                return
+              }
             })
           }
         })

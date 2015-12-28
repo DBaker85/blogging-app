@@ -1,24 +1,28 @@
 include ../_base/components
 
-if stats
+if countries
   ul.article-list__container
-    each stat in stats
+    li.post-list
+      .post-list__title
+        h5 Hits by country
+      #regions_div
+        
+
+if sources
+  h5 Hits by Useragent
+  ul.article-list__container
+    each source in sources
       li.post-list
         .post-list__title
-          h5 #{stat.visits}
-          p
-            span.small connection on&nbsp;
-            span #{stat.date.toDateString()}&nbsp;
-            span.small from&nbsp;
-            span #{stat.city}, #{stat.region}, #{stat.country}
-        each agent, test in stat.userAgent
-          if agent === true
-            span.small
-              | #{test}&nbsp;&nbsp;
-        span.small #{stat.userAgent.browser} #{stat.userAgent.version}
-        .small #{stat.userAgent.os},&nbsp;
-          span.small #{stat.userAgent.platform}
-        p.small #{stat.userAgent.source}
+          if source._id.source
+            p
+              div.small #{source._id.source}
+              div #{source.count} hits
+          else
+            p
+              div.small Anonymous
+              div #{source.count} hits
+
 else
   p
     | No visits yet !

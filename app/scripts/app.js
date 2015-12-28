@@ -41,5 +41,6 @@ $(document).ready(function(){
     $(this).removeClass('is-lazy-loading');
   });
 
+  
 
 })
