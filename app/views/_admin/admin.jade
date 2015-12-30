@@ -203,10 +203,10 @@ block content
                     .stats-list.js-stats-list
                         include stats-list
         if countries
-            - var countryData = ['["Country", "hits"]']
+            - var countryData = ['["Country", "Hits"]']
             each country in countries
-                if country._id.country
-                    - countryData.push('["'+country._id.country+'",'+country.count+']')
+                if country.country
+                    - countryData.push('["'+country.country+'",'+country.count+']')
             input#js-country-data(type="hidden" data-countries="#{countryData}")
             script(src="https://www.google.com/jsapi" type="text/javascript")  
             script.

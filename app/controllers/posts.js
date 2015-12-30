@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var request = require('request');
+var isoCountries = require('../content/countries');
 
 function content(db){
   var oldcategory;
@@ -34,8 +35,15 @@ function content(db){
     }
   }
 
-  this.getStats = function(callback){
+  this.getCountryName = function(countryCode) {
+    if (isoCountries.hasOwnProperty(countryCode)) {
+        return isoCountries[countryCode];
+    } else {
+        return countryCode;
+    }
+  }
 
+  this.getStats = function(callback){
     visitStats.aggregate([
       { $group : {
         _id : {source: "$userAgent.source"},
@@ -51,11 +59,18 @@ function content(db){
             _id : {country: "$country"},
             count: { $sum: 1 }
           }}
-          ]).sort({_id: 1}).toArray(function (err, country) {
+          ]).sort({_id: 1}).toArray(function (err, countries) {
             if (err) {
               console.log(err);
               callback(err, null);
-            } else if (country.length) {
+            } else if (countries.length) {
+              var country = [];
+              countries.forEach(function(item){
+                country.push({
+                  country: getCountryName(item._id.country),
+                  count: item.count
+                })
+              })
               callback(err,source,country);
             } else {
               console.log('No document(s) found with defined "find" criteria!');
@@ -64,7 +79,7 @@ function content(db){
           });
 
         });
-};
+  };
 
 
 this.getPosts = function(callback){
