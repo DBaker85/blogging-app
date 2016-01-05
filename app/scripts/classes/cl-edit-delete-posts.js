@@ -1,5 +1,5 @@
 var alertify = require('alertify.js');
-
+var _createPost = require('./cl-create-posts');
 var editDelete = function(){
 
     this.closeEditor = function(){
@@ -44,20 +44,21 @@ var editDelete = function(){
             complete  : function(){},
             success   : function(data){
               // populate fields for editing and show edit page
-              $('.js-edit-post .js-post-editor').val(data.body);
+              $('.js-edit-post .js-edit-post-editor').val(data.body);
               $('.js-edit-post .js-edit-post-title').html(data.title);
               $('.js-edit-post .js-post-id').val(data.postId);
               $('.js-edit-post .js-post-category').val(data.category);
               $('.js-edit-post .js-old-category').val(data.category);
               $('.js-edit-post-container').addClass('show');
+              _createPost.markupPrev(_createPost.editPostEditor,_createPost.editSlicedPreview,_createPost.editPreviewArea);
             },
             error   : function(){}
         })
 
   }
 
-  var previewArea = '.editpost .js-preview-area';
-  var slicedPreview = '.editpost .js-preview-sliced-area';
+  var previewArea = '.editpost .js-edit-preview-area';
+  var slicedPreview = '.editpost .js-edit-preview-sliced-area';
   var articleListContainer = '.js-article-list';
 
   this.editPost = function(context){

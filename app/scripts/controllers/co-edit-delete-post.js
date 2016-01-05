@@ -1,5 +1,6 @@
 var _editDelete = require('../classes/cl-edit-delete-posts');
 
+
 module.exports = function () {
 
 	$(document).on('click', '.js-delete-post-button', function(e){
@@ -24,7 +25,5 @@ module.exports = function () {
   $( '.js-close-editor' ).on( "click", function() {
     _editDelete.closeEditor();
    });
-
-
 
 }

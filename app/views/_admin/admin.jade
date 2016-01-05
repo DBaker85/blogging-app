@@ -101,7 +101,7 @@ block content
                                     type: 'textarea',
                                     name: 'body',
                                     text: 'Post body',
-                                    classes: 'js-post-editor',
+                                    classes: 'js-edit-post-editor',
                                     attributes:{
                                         'required':'required'
                                     }
@@ -126,10 +126,10 @@ block content
                             //- .js-text-mode
                             p
                             | Sliced preview on 300 characters :
-                            .preview.js-preview-sliced-area
+                            .preview.js-edit-preview-sliced-area
                             p
                                 | Full preview :
-                            .preview.js-preview-area
+                            .preview.js-edit-preview-area
                     .article-list.js-article-list
                         include article-list
 
@@ -208,7 +208,7 @@ block content
                 if country.country
                     - countryData.push('["'+country.country+'",'+country.count+']')
             input#js-country-data(type="hidden" data-countries="#{countryData}")
-            script(src="https://www.google.com/jsapi" type="text/javascript")  
+            script(src="https://www.google.com/jsapi" type="text/javascript")
             script.
                 var mapsArray = JSON.parse("["+document.getElementById("js-country-data").dataset.countries+"]");
                 google.load("visualization", "1", {packages:["geochart"]});
@@ -228,6 +228,6 @@ block content
 
                     var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
                     setTimeout(function(){ chart.draw(mapData, mapOptions); }, 2000);
-                    
-                }               
+
+                }
 

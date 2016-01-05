@@ -38,9 +38,11 @@ $(document).ready(function(){
   $('.js-collapsible-menu').metisMenu();
 
   $('.lazy').unveil(100, function() {
-    $(this).removeClass('is-lazy-loading');
+    $(this).load(function() {
+      $(this).removeClass('is-lazy-loading');
+    });
   });
 
-  
+
 
 })

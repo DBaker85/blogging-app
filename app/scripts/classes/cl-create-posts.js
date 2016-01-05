@@ -6,35 +6,41 @@ var createPost = function () {
   var postEditor = '.js-post-editor';
   var previewArea = '.js-preview-area';
   var slicedPreview = '.js-preview-sliced-area';
+  var editPostEditor = '.js-edit-post-editor';
+  var editPreviewArea = '.js-edit-preview-area';
+  var editSlicedPreview = '.js-edit-preview-sliced-area';
   var textMode = '.js-text-mode';
   var titleStore = localStorage.getItem("PostTitle");
   var postStore = localStorage.getItem("PostContent");
-  var titleEditor = '.js-title-editor--';
+  var titleEditor = '.js-title-editor';
   var articleListContainer = '.js-article-list';
 
-	this.markdownPrev = function(){
-		$(postEditor).on('input',function () {
-			$(previewArea).html(markdown.toHTML($(postEditor).val()));
-			$(slicedPreview).html(markdown.toHTML($(postEditor).val().slice(0,300)));
+	this.markdownPrev = function(editor, sliced, preview){
+		$(editor).on('input',function () {
+			$(preview).html(markdown.toHTML($(editor).val()));
+			$(sliced).html(markdown.toHTML($(editor).val().slice(0,300)));
 		});
-		$(previewArea).html(markdown.toHTML($(postEditor).val()));
+		$(preview).html(markdown.toHTML($(editor).val()));
+    $(sliced).html(markdown.toHTML($(editor).val().slice(0,300)));
 		$(textMode).html('Markdown');
+
 	}
 
 
-	this.markupPrev = function(){
-		$(postEditor).on('input',function () {
-			$(previewArea).html($(postEditor).val());
-			$(slicedPreview).html($(postEditor).val().slice(0,300));
+	this.markupPrev = function(editor, sliced, preview){
+		$(editor).on('input',function () {
+			$(preview).html($(editor).val());
+			$(sliced).html($(editor).val().slice(0,300));
 		});
-		$(previewArea).html($(postEditor).val());
+		$(preview).html($(editor).val());
+    $(sliced).html($(editor).val().slice(0,300));
 		$(textMode).html('Markup');
 	}
 
 	this.saveDraft = function(){
 
 		if (titleStore){
-			$(titleEditor).html(titleStore);
+			$(titleEditor).val(titleStore);
 		};
 
 		$(titleEditor).on('input',function () {
@@ -81,6 +87,16 @@ var createPost = function () {
         	}
         })
         }
+
+        /*
+          Make local variables accessible outside
+         */
+        this.postEditor        = postEditor;
+        this.previewArea       = previewArea;
+        this.slicedPreview     = slicedPreview;
+        this.editPostEditor    = editPostEditor;
+        this.editPreviewArea   = editPreviewArea;
+        this.editSlicedPreview = editSlicedPreview;
 }
 
 module.exports = new createPost();
