@@ -2,8 +2,11 @@ var _createPost = require('../classes/cl-create-posts');
 
 
 module.exports = function () {
-	_createPost.saveDraft();
-	_createPost.markupPrev(_createPost.postEditor,_createPost.slicedPreview,_createPost.previewArea);
+
+	if ($(_createPost.postEditor).length > 0){
+		_createPost.saveDraft();
+		_createPost.markupPrev(_createPost.postEditor,_createPost.slicedPreview,_createPost.previewArea);
+	}
 
 	$('.js-markup-preview').on('click',function () {
 		$(this).toggleClass('active');
