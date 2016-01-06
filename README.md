@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DBaker85/blogging-app.svg)](https://travis-ci.org/DBaker85/blogging-app)
+
 # Blogging App
 
 A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
