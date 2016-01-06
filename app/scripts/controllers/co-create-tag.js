@@ -1,4 +1,4 @@
-var _createTag = require('../classes/cl-create-Tag');
+var _createTag = require('../classes/cl-create-tag');
 
 
 module.exports = function () {
