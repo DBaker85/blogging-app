@@ -45,7 +45,8 @@ function content(db){
 
   this.getStats = function(callback){
     visitStats.aggregate([
-      { $group : {
+      {
+        $group : {
         _id : {source: "$userAgent.source"},
         count: { $sum: 1 }
       }}
@@ -55,6 +56,9 @@ function content(db){
           callback(err, null);
         }
         visitStats.aggregate([
+          {
+            $match: { "userAgent.source" :{ $not: /bot|spider/i }}
+          },
           { $group : {
             _id : {country: "$country"},
             count: { $sum: 1 }
@@ -64,6 +68,7 @@ function content(db){
               console.log(err);
               callback(err, null);
             } else if (countries.length) {
+              console.log(countries);
               var country = [];
               countries.forEach(function(item){
                 country.push({
