@@ -1,4 +1,4 @@
-/bower_components
-/node_modules
-/app/content/content.json
-/app/logs
+app/content/content.json
+app/logs/*.*
+bower_components
+node_modules
