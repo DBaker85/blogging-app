@@ -1,0 +1,50 @@
+extends ../_base/layout.pug
+
+block content
+	.container
+		.container__aside
+			include aside
+		.container__main-content
+			//- semantic h1 for main page
+			h1.sr-only
+				| Search results for #{query}
+
+			ul.main-content__posts
+				//- if posts are found, display posts
+				if posts
+					.small
+						if (results > 1)
+							| #{results} results found for #{query}
+						else
+							| #{results} result found for #{query}
+					each post in posts
+						li.post__content
+							article
+								if post.title
+									a(href="/post/#{post.urlSlug}")
+										| #{post.title}
+								if post.body
+									.small
+										| !{marked(post.body.slice(0,150)+' ...')}
+								.small
+									if post.category
+										span
+											| Posted in&nbsp;
+											a(href="/category/#{post.category}")
+												| #{post.category}
+
+
+
+
+
+
+				else
+					li.post__content
+						h3
+							| #{results} results found for #{query}
+
+
+
+
+
+

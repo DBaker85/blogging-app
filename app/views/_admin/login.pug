@@ -1,0 +1,80 @@
+extends ../_base/layout.pug
+
+block content
+	.container
+		//- if no password exists in base, create admin password
+		if login == 'nopass'
+			.login
+				h1 Create a password
+				.alert.alert-warning
+					| This is your main admin password and can only be created once please choose with care
+				form.js-signup-form(method="post" action="/signup" data-parsley-validate)
+					+input({
+						text:'username',
+						name:'username',
+						attributes:{
+							'required':'required',
+							'minlength':'4'
+						}
+					})
+					+input({
+						text:'password',
+						name:'password',
+						type:'password',
+						attributes:{
+							'required':'required',
+							'minlength':'6',
+							'placeholder': 'At least 6 characters, a number and a letter',
+							'data-parsley-pattern':'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$',
+							'data-parsley-error-message':'Password must contain at least one letter, at least one number, and be longer than six charaters'
+						}
+					})
+					+input({
+						text:'confirm password',
+						name:'passwordconfirm',
+						type:'password',
+						attributes:{
+							'required':'required',
+							'data-parsley-equalto':'#password',
+							'data-parsley-error-message':'passwords do not match'
+						}
+					})
+					+button({
+						type:'submit',
+						text:'submit'
+					})
+		//- if password exists, show login page
+		if login == 'notlogged'
+			.login
+				h1 Login
+				form.js-login-form(method="post" action="/login" data-parsley-validate)
+					+input({
+						text:'username',
+						name:'username',
+						attributes:{
+							'required':'required'
+						}
+					})
+					+input({
+						text:'password',
+						name:'password',
+						type:'password',
+						attributes:{
+							'required':'required'
+						}
+					})
+					+button({
+						type:'submit',
+						text:'submit'
+					})
+		//- turn login into logout page
+		if login == 'logged'
+			.login
+				h1 Logout
+				form.js-logout-form(method="post" action="/logout")
+					| you are currently logged in.
+					a(href="/admin") Go to admin panel
+					+button({
+						type:'submit',
+						text:'logout'
+					})

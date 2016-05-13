@@ -1,0 +1,28 @@
+include ../_base/components.pug
+
+if countries
+  ul.article-list__container
+    li.post-list
+      .post-list__title
+        h5 Hits by country
+      #regions_div
+
+
+if sources
+  h5 Hits by Useragent
+  ul.article-list__container
+    each source in sources
+      li.post-list
+        .post-list__title
+          if source._id.source
+            p
+              div.small #{source._id.source}
+              div #{source.count} hits
+          else
+            p
+              div.small Anonymous
+              div #{source.count} hits
+
+else
+  p
+    | No visits yet !

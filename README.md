@@ -1,9 +1,17 @@
-[![Build Status](https://travis-ci.org/DBaker85/blogging-app.svg)](https://travis-ci.org/DBaker85/blogging-app)
-
-# Blogging App
+# Blogging App v1.2.1
 
 A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
 Comes packed with a test suite that does Js and Css linting as well as Css stats.
+
+### Changelog
+
+v1.2.1 - optimised themer storage and added theme logging.
+
+v1.2.0 - Moved content to external files and added content Json
+
+v1.1.0 - Added stat tracker.
+
+v1.0.1 - changed spinners to be more efficient.
 
 #### Requirements
 This package requires:
@@ -23,9 +31,9 @@ Installs all node and bower components
 The content is set up in `"./app/content"`
 
 Inside are 3 files:
-* `about.html` - This is optional and is just an about page if you wish to use it.
-* `cookiepolicy.html` - again optional and is the site's cookie policy.
-* `content.json` - This is not optional and is where all configuration is done.
+1. `about.html` - This is optional and is just an about page if you wish to use it.
+2. `cookiepolicy.html` - again optional and is the site's cookie policy.
+3. `content.json` - This is not optional and is where all configuration is done.
 
 #### Config.json
 The config file is broken up in various parts :

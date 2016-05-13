@@ -1,0 +1,70 @@
+doctype html
+
+html(lang="en", dir="ltr")
+	include head
+	include components
+
+body
+	include ../_base/nav.pug
+	#sb-site
+
+		block content
+
+		footer.small
+			each line in content.footer
+				p !{marked(line)}
+
+
+		include footer-scripts
+
+	.menu.sb-slidebar.sb-right.sb-style-overlay
+		ul.menu__container.js-collapsible-menu
+			li.menu__first-level.mobile-only
+				a.link(href="#", aria-expanded='false')
+					| About me
+					+icon({
+						icon:'chevron-thin-right'
+					})
+				ul.subnav(aria-expanded="false")
+					li
+						+menucontent({
+							style:'inversed'
+						})
+			if categories
+				//- if categories are active, auto show links to these categories
+				each category in categories
+					li.menu__first-level
+						a.link(href="#", aria-expanded='false')
+							| #{category.category}
+							+icon({
+								icon: 'chevron-thin-right'
+							})
+						ul.subnav(aria-expanded="false")
+							each subcategory in category.subcategories
+								if subcategory.active
+									li
+										a.link(href="/category/#{subcategory.subcategory}")
+											| #{subcategory.subcategory}
+
+			li.menu__first-level
+				a.link(href="/about")
+					| About this site
+			li.menu__first-level
+				a.link(href="#", aria-expanded='false')
+					| themer
+					+icon({
+						icon: 'chevron-thin-right'
+					})
+				ul.subnav(aria-expanded="false")
+					li
+						p.small.text-left
+							| Does this color theme offend you?
+							| Type in any color you would rather see into the texbox and press enter
+						P
+							+input({
+								text: 'Enter a color',
+								classes:'js-themer-input'
+							})
+
+
+

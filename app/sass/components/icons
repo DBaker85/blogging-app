@@ -1,0 +1,86 @@
+
+
+@include declare-font-face('icomoon', 'icomoon', icons, $font-weight: normal, $font-style: normal, $font-stretch: normal);
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bar-graph:before {
+	content: "\e90f";
+}
+.icon-chevron-thin-down:before {
+	content: "\e900";
+}
+.icon-chevron-thin-left:before {
+	content: "\e901";
+}
+.icon-chevron-thin-right:before {
+	content: "\e902";
+}
+.icon-chevron-thin-up:before {
+	content: "\e903";
+}
+.icon-trash:before {
+	content: "\e904";
+}
+.icon-book:before {
+	content: "\e905";
+}
+.icon-location-pin:before {
+	content: "\e906";
+}
+.icon-pencil:before {
+	content: "\e90c";
+}
+.icon-price-tag:before {
+	content: "\e90d";
+}
+.icon-skype-with-circle:before {
+	content: "\e907";
+}
+.icon-github-with-circle:before {
+	content: "\e909";
+}
+.icon-linkedin-with-circle:before {
+	content: "\e90a";
+}
+.icon-twitter-with-circle:before {
+	content: "\e90b";
+}
+.icon-clock:before {
+	content: "\e014";
+}
+.icon-search:before {
+	content: "\e036";
+}
+.icon-plus:before {
+	content: "\e114";
+}
+.icon-minus:before {
+	content: "\e115";
+}
+.icon-check:before {
+	content: "\e116";
+}
+.icon-cross:before {
+	content: "\e117";
+}
+.icon-menu:before {
+	content: "\e120";
+}
+.icon-ellipsis:before {
+	content: "\e129";
+}
+.icon-spinner2:before {
+	content: "\e90e";
+}

@@ -1,0 +1,23 @@
+if categories
+	ul
+		each category in categories
+			li.category
+				h5 #{category.category}
+				each subcategory in category.subcategories
+						if subcategory.active
+							.category__subcategory.active
+								.subcategory__title
+									| #{subcategory.subcategory}
+								.subcategory__status
+									| Active
+
+						else
+							.category__subcategory
+								.subcategory__title
+									| #{subcategory.subcategory}
+								.subcategory__status
+									| Inactive
+
+else
+	p
+		| No categories yet

@@ -1,0 +1,234 @@
+extends ../_base/layout.pug
+
+block content
+    .container
+
+        h1 Admin panel
+
+        .admin-tabs
+            ul.resp-tabs-list
+                li
+                    +icon({
+                        icon:'book'
+                    })
+                    span.mobile-only
+                        | Create post
+                li
+                    +icon({
+                        icon:'pencil'
+                    })
+                    span.mobile-only
+                        | Edit posts
+                li.js-tag-tab
+                    +icon({
+                        icon:'price-tag'
+                    })
+                    span.mobile-only
+                        | Edit tags
+                li.js-tag-tab
+                    +icon({
+                        icon:'bar-graph'
+                    })
+                    span.mobile-only
+                        | visitor stats
+
+
+            .resp-tabs-container
+                #createpost
+                    h2 Create post
+                    .create-post
+
+                        .create-post__form-container
+
+                            form.js-create-post(method="post" action="/submit-post" data-parsley-validate)
+                                +input({
+                                    classes:'input js-title-editor',
+                                    name:'title',
+                                    text: 'Post title',
+                                    attributes:{
+                                        'maxlength':'60',
+                                        'minlength':'4',
+                                        'required':'required',
+                                        'data-parsley-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
+                                        'data-parsley-error-message':'Field is alphanumerical with spaces and basic punctuation only'
+                                    }
+                                })
+                                +input({
+                                    type: 'textarea',
+                                    name: 'body',
+                                    text: 'Post body',
+                                    classes: 'js-post-editor',
+                                    attributes:{
+                                        'required':'required'
+                                    }
+                                })
+                                if categories
+                                    select(name="category")
+                                        each category in categories
+                                            optgroup(label="#{category.category}")
+                                                each subcategory in category.subcategories
+                                                    option(value="#{subcategory.subcategory}")
+                                                        | #{subcategory.subcategory}
+                                +button({
+                                    type:'submit',
+                                    text:'submit'
+                                })
+                        .create-post__preview-container
+                            //- .js-text-mode
+                            p
+                                | Sliced preview on 300 characters :
+                            .preview.js-preview-sliced-area
+                            p
+                                | Full preview :
+                            .preview.js-preview-area
+                #editcontent
+                    h2 Edit posts
+                    .edit-post.js-edit-post-container
+                        .edit-post__form-container
+                            //- TODO: Implement markdown functionality
+                            //- +button({type:'primary',text:'markup',classes:'js-markup-preview small'})
+                            //- +button({type:'tertiary',text:'markdown',classes:'js-markdown-preview small'})
+                            form.js-edit-post(method="put" action="/edit-post" data-parsley-validate)
+
+                                +input({
+                                    classes:'js-post-id',
+                                    type: 'hidden',
+                                    name: 'id'
+                                    })
+
+                                h5.js-edit-post-title
+                                +input({
+                                    type: 'textarea',
+                                    name: 'body',
+                                    text: 'Post body',
+                                    classes: 'js-edit-post-editor',
+                                    attributes:{
+                                        'required':'required'
+                                    }
+                                })
+                                if categories
+                                    select.js-post-category(name="category")
+                                        each category in categories
+                                            optgroup(label="#{category.category}")
+                                                each subcategory in category.subcategories
+                                                    option(value="#{subcategory.subcategory}")
+                                                        | #{subcategory.subcategory}
+                                +button({
+                                    type:'submit',
+                                    text:'edit'
+                                })
+                                +button({
+                                    type: 'secondary',
+                                    classes: 'js-close-editor',
+                                    text: 'close editor'
+                                })
+                        .edit-post__preview-container
+                            //- .js-text-mode
+                            p
+                            | Sliced preview on 300 characters :
+                            .preview.js-edit-preview-sliced-area
+                            p
+                                | Full preview :
+                            .preview.js-edit-preview-area
+                    .article-list.js-article-list
+                        include article-list
+
+                #addtag
+                    h2 Categories
+                    .edit-tag.js-edit-tag-container
+                        .edit-tag__list-container.js-category-list
+                            include category-list
+                        .edit-tag__form-container
+                            h3 Create categories
+                            form.js-add-tags(method="put" action="/categories" data-parsley-validate)
+                                +input({
+                                    text:'category',
+                                    name:'category',
+                                    classes:'js-category-input',
+                                    attributes: {
+                                        'required':'required',
+                                        'data-parsley-type':'alphanum'
+                                    }
+                                })
+                                +button({
+                                        type: 'primary',
+                                        icon: 'plus',
+                                        text: 'Add a subcategory',
+                                        classes:'js-add-subcategory small',
+                                        attributes :{
+                                            'data-tooltip':'Add a subcategory'
+                                        }
+                                })
+                                .js-subcategory-holders
+                                    .edit-tag__subcategory-holder
+                                        .edit-tag__subcategory--input
+                                            +input({
+                                                text: 'subcategory',
+                                                name:'subcategory',
+                                                classes: 'js-subcategories',
+                                                attributes: {
+                                                    'required':'required',
+                                                    'data-parsley-type':'alphanum'
+                                                }
+                                            })
+
+
+
+                                +button({
+                                    type:'submit',
+                                    text:'Create category'
+                                })
+                            .edit-tag__subcategory-holder.sr-only.skeleton
+                                        .edit-tag__subcategory--input
+                                            +input({
+                                                text: 'subcategory',
+                                                name:'subcategory',
+                                                classes: 'js-subcategories',
+                                                attributes: {
+                                                    'required':'required',
+                                                    'data-parsley-type':'alphanum'
+                                                }
+                                            })
+                                        .edit-tag__subcategory--delete
+                                            +button({
+                                                type: 'icon',
+                                                icon: 'cross',
+                                                classes: 'js-remove-subcategory small',
+                                                attributes: {
+                                                    'data-tooltip':'Remove subcategory'
+                                                }
+                                            })
+                #stats
+                    h2 Visitor stats
+                    .stats-list.js-stats-list
+                        include stats-list
+        if countries
+            - var countryData = ['["Country", "Hits"]']
+            each country in countries
+                if country.country
+                    - countryData.push('["'+country.country+'",'+country.count+']')
+            input#js-country-data(type="hidden" data-countries="#{countryData}")
+            script(src="https://www.google.com/jsapi" type="text/javascript")
+            script.
+                var mapsArray = JSON.parse("["+document.getElementById("js-country-data").dataset.countries+"]");
+                google.load("visualization", "1", {packages:["geochart"]});
+                google.setOnLoadCallback(drawRegionsMap);
+                function drawRegionsMap() {
+
+                    var mapData = google.visualization.arrayToDataTable(
+                        mapsArray
+                    );
+
+                    var mapOptions = {
+                        colorAxis: {colors: ['#f486a9','#d81e5b']},
+                        backgroundColor: '#ffffff',
+                        datalessRegionColor: '#e8e8e8',
+                        defaultColor: '#f5f5f5'
+
+                    };
+
+                    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                    setTimeout(function(){ chart.draw(mapData, mapOptions); }, 2000);
+
+                }
+

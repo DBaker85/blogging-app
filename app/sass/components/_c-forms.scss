@@ -62,7 +62,15 @@ input[type="search"] {
 }
 
 .search-input{
-  width: 0;
-  padding: 0;
+  width: 0px;
+  padding: 0px;
   border: 0;
+  .active &{
+    width: 300px !important;
+    padding: 3px;
+  }
 }
+
+
+
+

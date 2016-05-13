@@ -6,12 +6,12 @@
 @import "test/_bootstrap";
 
 // font-face
-@import "base/mixins/_font-face.scss";
+@import "mixins/_font-face.scss";
 
 
 
-@include font-face('roboto-light', 'Roboto-Light', 'roboto', 'serif');
-@include font-face('roboto', 'Roboto-Regular', 'roboto', 'serif');
+@include declare-font-face('roboto-light', 'Roboto-Light', 'roboto', 'serif');
+@include declare-font-face('roboto', 'Roboto-Regular', 'roboto', 'serif');
 
 /*********************************
 *** Variables and definitions ****
@@ -55,7 +55,7 @@ header{
 }
 
 .panel-report{
-	
+
 	border: 1px solid $main-color;
 	color: darken($main-color, 20);
 	.panel-heading{
@@ -71,14 +71,14 @@ header{
 		> .panel-heading{
 			color: white;
 		}
-		
+
 	}
 }
 
 .report-holder{
 
 	.panel{
-		
+
 		a{
 			color: darken($main-color, 20);
 			&:hover{
@@ -100,7 +100,7 @@ header{
 }
 
 .icon-yellow{
-	color: #f9a825	
+	color: #f9a825
 }
 
 .icon-green{
@@ -108,7 +108,7 @@ header{
 }
 
 .icon-blue{
-	color: #0277bd 
+	color: #0277bd
 }
 
 .small-text{
@@ -125,19 +125,19 @@ header{
 .side-menu {
 	position: fixed;
 	padding: 10px;
-	
+
 	border: 1px solid $main-color;
-	border-radius: 5px; 
-	-moz-border-radius: 5px; 
-	-webkit-border-radius: 5px; 
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	li {
-		
+
 		a {
 			padding: 5px 10px;
 			color: darken($main-color, 20);
-			border-radius: 5px; 
-			-moz-border-radius: 5px; 
-			-webkit-border-radius: 5px; 
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
 
 			&:hover{
 				background-color: desaturate(lighten(#4db6ac, 45), 20);
@@ -147,7 +147,7 @@ header{
 				background-color: $main-color;
 				color: white;
 			}
-			
+
 		}
 
 	}
@@ -161,5 +161,5 @@ header{
 
 
 	}
-	
+
 }

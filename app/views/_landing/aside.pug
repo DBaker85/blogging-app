@@ -1,0 +1,9 @@
++menucontent()
+
+//- twitter widget goes here
+if useragent.isDesktop
+	.aside__twitter
+		a.twitter-timeline(href="https://twitter.com/#{content.asideTwitter.twitterName}" data-widget-id="#{content.asideTwitter.widgetID}")
+			| Tweets by @#{content.asideTwitter.twitterName}
+			
+

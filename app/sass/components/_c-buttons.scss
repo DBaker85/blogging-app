@@ -132,6 +132,15 @@ $types : primary secondary tertiary;
 	}
 }
 
+.icon-search{
+	transition: all, .4s, ease-in-out;
+
+	.sb-active &{
+		@extend .icon-cross;
+		transform: rotate(90deg);
+	}
+}
+
 .btn + .btn {
   margin-left: 10px;
 }

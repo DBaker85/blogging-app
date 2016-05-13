@@ -1,0 +1,38 @@
+include ../_base/components.pug
+
+if posts
+	ul.article-list__container
+		each post in posts
+			li.post-list
+				.post-list__title
+					h5 #{post.title}
+					| posted on #{post.date.toDateString()}
+					| filed under #{post.category}
+					if post.editdate
+						p latest edit on #{post.editdate.toDateString()}
+
+				.post-list__delete
+					+button({
+						type:'icon',
+						icon: 'trash',
+						classes:'js-delete-post-button small',
+						attributes:{
+							'data-post-title':post.title,
+							'data-post-id':post.postId,
+							'data-post-category':post.category,
+							'data-tooltip':'Delete post'
+						}
+					})
+				.post-list__edit
+					+button({
+						type:'icon',
+						icon: 'pencil',
+						classes:'js-edit-post-button small',
+						attributes:{
+							'data-post-id':post.postId,
+							'data-tooltip':'Edit post'
+						}
+					})
+else
+	p
+		| No posts yet !

@@ -1,17 +1,21 @@
 // required modules and declare express variable
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
-var session = require('client-sessions');
-var contentJson = require('./app/content/content.json');
-var useragent = require('express-useragent');
+var express      = require('express');
+var bodyParser   = require('body-parser');
+var app          = express();
+var mongodb      = require('mongodb');
+var MongoClient  = mongodb.MongoClient;
+
+var session      = require('client-sessions');
+var contentJson  = require('./app/content/content.json');
+var useragent    = require('express-useragent');
 var cookieParser = require('cookie-parser');
-var marked = require('marked');
+var marked       = require('marked');
+
+var errorHandler = require('errorhandler');
+var exports      = module.exports = {};
 
 // set express render engine
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('views', './app/views/');
 
 // if port is set in config use that else use env port (heroku requirement)
@@ -39,6 +43,8 @@ app.use(bodyParser.json());
 app.use(useragent.express());
 
 app.enable('trust proxy');
+
+app.use(errorHandler());
 
 app.use(session({
   cookieName: 'session',
@@ -74,6 +80,7 @@ MongoClient.connect(url, function (err, db) {
     // require routes and controllers
     require('./app/routes/posts')(app,db);
     require('./app/routes/admin')(app,db);
+    require('./app/routes/search')(app,db);
     require('./app/routes/colorchanger')(app);
 
 
@@ -96,6 +103,11 @@ MongoClient.connect(url, function (err, db) {
   app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
   });
+
+  exports.closeServer = function(){
+    db.close();
+  };
+
 })
 
 

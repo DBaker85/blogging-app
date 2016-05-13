@@ -1,86 +1,183 @@
-
-
-@include declare-font-face('icomoon', 'icomoon', icons, $font-weight: normal, $font-style: normal, $font-stretch: normal);
-
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Icons";
+  src: url('temp_iconsIcons.eot');
+  src: url('temp_iconsIcons.eot?#iefix') format('eot'),
+    url('temp_iconsIcons.woff2') format('woff2'),
+    url('temp_iconsIcons.woff') format('woff'),
+    url('temp_iconsIcons.ttf') format('truetype'),
+    url('temp_iconsIcons.svg#Icons') format('svg');
 }
 
-.icon-bar-graph:before {
-	content: "\e90f";
+@mixin icon-styles {
+  font-family: "Icons";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  // speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+  text-decoration: none;
+  text-transform: none;
 }
-.icon-chevron-thin-down:before {
-	content: "\e900";
+
+%icon {
+  @include icon-styles;
 }
-.icon-chevron-thin-left:before {
-	content: "\e901";
+
+@function icon-char($filename) {
+  $char: "";
+
+  @if $filename == bar-graph {
+    $char: "\E001";
+  }
+  @if $filename == book {
+    $char: "\E002";
+  }
+  @if $filename == check {
+    $char: "\E003";
+  }
+  @if $filename == chevron-thin-down {
+    $char: "\E004";
+  }
+  @if $filename == chevron-thin-left {
+    $char: "\E005";
+  }
+  @if $filename == chevron-thin-right {
+    $char: "\E006";
+  }
+  @if $filename == chevron-thin-up {
+    $char: "\E007";
+  }
+  @if $filename == clock {
+    $char: "\E008";
+  }
+  @if $filename == cross {
+    $char: "\E009";
+  }
+  @if $filename == ellipsis {
+    $char: "\E00A";
+  }
+  @if $filename == github-with-circle {
+    $char: "\E00B";
+  }
+  @if $filename == linkedin-with-circle {
+    $char: "\E00C";
+  }
+  @if $filename == location-pin {
+    $char: "\E00D";
+  }
+  @if $filename == menu {
+    $char: "\E00E";
+  }
+  @if $filename == minus {
+    $char: "\E00F";
+  }
+  @if $filename == pencil {
+    $char: "\E010";
+  }
+  @if $filename == plus {
+    $char: "\E011";
+  }
+  @if $filename == price-tag {
+    $char: "\E012";
+  }
+  @if $filename == search {
+    $char: "\E013";
+  }
+  @if $filename == skype-with-circle {
+    $char: "\E014";
+  }
+  @if $filename == spinner2 {
+    $char: "\E015";
+  }
+  @if $filename == trash {
+    $char: "\E016";
+  }
+  @if $filename == twitter-with-circle {
+    $char: "\E017";
+  }
+
+  @return $char;
 }
-.icon-chevron-thin-right:before {
-	content: "\e902";
+
+@mixin icon($filename, $insert: before, $extend: true) {
+  &:#{$insert} {
+    @if $extend {
+      @extend %icon;
+    } @else {
+      @include icon-styles;
+    }
+    content: icon-char($filename);
+  }
 }
-.icon-chevron-thin-up:before {
-	content: "\e903";
+
+.icon-bar-graph {
+  @include icon(bar-graph);
 }
-.icon-trash:before {
-	content: "\e904";
+.icon-book {
+  @include icon(book);
 }
-.icon-book:before {
-	content: "\e905";
+.icon-check {
+  @include icon(check);
 }
-.icon-location-pin:before {
-	content: "\e906";
+.icon-chevron-thin-down {
+  @include icon(chevron-thin-down);
 }
-.icon-pencil:before {
-	content: "\e90c";
+.icon-chevron-thin-left {
+  @include icon(chevron-thin-left);
 }
-.icon-price-tag:before {
-	content: "\e90d";
+.icon-chevron-thin-right {
+  @include icon(chevron-thin-right);
 }
-.icon-skype-with-circle:before {
-	content: "\e907";
+.icon-chevron-thin-up {
+  @include icon(chevron-thin-up);
 }
-.icon-github-with-circle:before {
-	content: "\e909";
+.icon-clock {
+  @include icon(clock);
 }
-.icon-linkedin-with-circle:before {
-	content: "\e90a";
+.icon-cross {
+  @include icon(cross);
 }
-.icon-twitter-with-circle:before {
-	content: "\e90b";
+.icon-ellipsis {
+  @include icon(ellipsis);
 }
-.icon-clock:before {
-	content: "\e014";
+.icon-github-with-circle {
+  @include icon(github-with-circle);
 }
-.icon-search:before {
-	content: "\e036";
+.icon-linkedin-with-circle {
+  @include icon(linkedin-with-circle);
 }
-.icon-plus:before {
-	content: "\e114";
+.icon-location-pin {
+  @include icon(location-pin);
 }
-.icon-minus:before {
-	content: "\e115";
+.icon-menu {
+  @include icon(menu);
 }
-.icon-check:before {
-	content: "\e116";
+.icon-minus {
+  @include icon(minus);
 }
-.icon-cross:before {
-	content: "\e117";
+.icon-pencil {
+  @include icon(pencil);
 }
-.icon-menu:before {
-	content: "\e120";
+.icon-plus {
+  @include icon(plus);
 }
-.icon-ellipsis:before {
-	content: "\e129";
+.icon-price-tag {
+  @include icon(price-tag);
 }
-.icon-spinner2:before {
-	content: "\e90e";
+.icon-search {
+  @include icon(search);
 }
+.icon-skype-with-circle {
+  @include icon(skype-with-circle);
+}
+.icon-spinner2 {
+  @include icon(spinner2);
+}
+.icon-trash {
+  @include icon(trash);
+}
+.icon-twitter-with-circle {
+  @include icon(twitter-with-circle);
+}
+
