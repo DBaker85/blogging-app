@@ -41,7 +41,7 @@ $types : primary secondary tertiary;
   		background-color: darken(nth($color-list, $i), 5%)
   	}
   	&[disabled]{
-  		color: $color-dark-lighter;
+  		color: #000000;
   		background-color: $color-disabled;
   		box-shadow: 0 3px 0 0 darken($color-disabled, 15%);
   	}
@@ -64,22 +64,23 @@ $types : primary secondary tertiary;
 
 
 .btn-reset{
-	
-		color: $color-text;
 		text-decoration: none;
 		&:hover{
 			text-decoration: underline;
-			color: $color-primary;
 		}
-	
-
+    .dark & {
+      color: $color-text-dark;
+    }
+    .light & {
+      color: $color-text-light;
+    }
 }
 
 .btn-icon{
 	height: 40px;
 	width:40px;
 	border-radius: $border-radius-main;
-	color: $color-dark;
+	// color: $color-dark;
 	margin: 0 5px;
 	background: none;
 	padding: 5px;
@@ -91,22 +92,22 @@ $types : primary secondary tertiary;
 
 	}
 	&:hover{
-		color: $color-primary;
+		color: $color-pink;
 	}
 	&:active{
 		box-shadow: none;
-		color: darken($color-primary, 15%)
+		color: darken($color-pink, 15%)
 	}
 
 	&.inversed{
 		color: #fff;
 		&:hover{
-			background-color: $color-primary;
-			box-shadow: 0 3px 0 0 darken($color-primary, 15%);
+			background-color: $color-pink;
+			box-shadow: 0 3px 0 0 darken($color-pink, 15%);
 		}
 		&:active{
 		  	top: 2px;
-		  	box-shadow: 0 1px 0 0 darken($color-primary, 15%);
+		  	box-shadow: 0 1px 0 0 darken($color-pink, 15%);
 		}
 
 	}

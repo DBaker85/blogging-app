@@ -9,7 +9,13 @@ html{
 body{
 
 	text-align: center;
-	background-color: $color-pale;
+  &.dark{
+    background-color: $color-background-dark;
+  }
+  &.light{
+    background-color: $color-background-light;
+  }
+
 
 }
 

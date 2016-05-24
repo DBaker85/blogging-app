@@ -6,7 +6,7 @@
 		@extend %clearfix;
 		a{
 			text-decoration: none;
-			color: $color-text;
+			// color: $color-text;
 			i{
 				font-size: 20px;
 			}
@@ -45,7 +45,7 @@
 		padding: 10px;
 
 		.preview{
-			border: 1px solid $color-dark-lightest;
+			// border: 1px solid $color-dark-lightest;
 			border-radius: $border-radius-main;
 			min-height:100px;
 			margin-bottom:30px;
@@ -70,7 +70,7 @@
 		padding: 10px;
 
 		.preview{
-			border: 1px solid $color-dark-lightest;
+			// border: 1px solid $color-dark-lightest;
 			border-radius: $border-radius-main;
 			min-height:100px;
 			margin-bottom:30px;
@@ -85,7 +85,7 @@
 		width: 40%;
 		float: right;
 		padding: 10px;
-		border: 1px solid $color-dark-lightest;
+		// border: 1px solid $color-dark-lightest;
 		border-radius: $border-radius-main;
 	}
 	.edit-tag__list-container {

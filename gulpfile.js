@@ -10,6 +10,8 @@ var nodemon     = require('nodemon');
 var webpackS     = require('webpack-stream');
 var header      = require('gulp-header');
 
+var plumber     = require('gulp-plumber');
+var sourcemaps  = require('gulp-sourcemaps');
 var webpack     = require("webpack");
 var config      = require('./app/content/content');
 var banner      = [
@@ -77,12 +79,6 @@ gulp.task('nodemon', function (cb) {
   });
 });
 
-gulp.task('default', ['nodemon'], function () {
-  browserSync.init(null, {
-        proxy: "http://localhost:"+config.config.port
-    });
-});
-
 
 // main tasks to be run
 
@@ -101,25 +97,29 @@ gulp.task('js', function() {
           new webpack.ResolverPlugin(
               new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
           ),
-          new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            // compress: {
-            //   // sequences: true,
-            //   // dead_code: true,
-            //   // conditionals: true,
-            //   // booleans: true,
-            //   // unused: false,
-            //   // if_return: true,
-            //   // join_vars: true,
-            //   drop_console: true
-            // },
-            mangle: {
-              except: ['$super', '$', 'exports', 'require']
-            },
-            output: {
-              comments: false
-            }
-        })
+          new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+          }),
+        //   new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: true,
+        //     // compress: {
+        //     //   // sequences: true,
+        //     //   // dead_code: true,
+        //     //   // conditionals: true,
+        //     //   // booleans: true,
+        //     //   // unused: false,
+        //     //   // if_return: true,
+        //     //   // join_vars: true,
+        //     //   drop_console: true
+        //     // },
+        //     mangle: {
+        //       except: ['$super', '$', 'exports', 'require']
+        //     },
+        //     output: {
+        //       comments: false
+        //     }
+        // })
       ],
       output: {
         filename: 'all.min.js',
@@ -127,6 +127,23 @@ gulp.task('js', function() {
     }))
     .pipe(header(banner, { pkg : pkg } ))
     .pipe(gulp.dest('public/scripts'));
+});
+
+gulp.task('sass',function(){
+  return gulp.src('./app/sass/main.scss')
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./public/css'));
+});
+
+
+gulp.task('default', ['nodemon', 'sass', 'js'], function () {
+  browserSync.init(null, {
+        proxy: "http://localhost:"+config.config.port
+    });
+  gulp.watch('./app/icons/*.svg', ['icon'])
 });
 
 

@@ -1,7 +1,7 @@
 {
   "name": "Portfolio",
   "description": "My personal website",
-  "main": "app.js",
+  "main": "app/scripts/app.js",
   "authors": [
     "David Baker"
   ],
@@ -26,7 +26,7 @@
     "alertify.js": "git://github.com/alertifyjs/alertify.js.git",
     "metisMenu": "~2.2.0",
     "parsleyjs": "~2.1.3",
-    "scrollup": "~2.4.1"
-  },
-  "main":"app/scripts/app.js"
+    "scrollup": "~2.4.1",
+    "foundation-sites": "^6.2.1"
+  }
 }

@@ -33,8 +33,8 @@
 
 		.menu__first-level{
 			line-height: 30px;
-			border-bottom: 1px solid rgba($color-primary,0.3);
-			color: $color-pale;
+			border-bottom: 1px solid rgba($color-pink,0.3);
+			// color: $color-pale;
 
 			.icon-chevron-thin-right {
 				transition: transform .3s cubic-bezier(.17, .9, .66, 1.57);
@@ -44,7 +44,7 @@
 				line-height: 30px;
 			}
 			a.link {
-				color: $color-pale;
+				// color: $color-pale;
 				text-decoration: none;
 				text-align: left;
 				display: block;
@@ -52,7 +52,7 @@
 				line-height: 30px;
 				padding: 5px;
 				&:hover{
-					background-color: $color-primary;
+					background-color: $color-pink;
 					border-radius: $border-radius-main;
 					overflow: hidden;
 				}
@@ -82,20 +82,20 @@
 	text-align: center;
 	margin-top: 5px;
 	.menu-content & {
-		color: $color-pale;
+		// color: $color-pale;
 	}
 }
 .aside__social-links {
 	text-align: center;
 	margin-top: 30px;
 	.menu & {
-		color: $color-pale;
+		// color: $color-pale;
 		.btn-icon {
-			color: $color-pale;
+			// color: $color-pale;
 
 		}
 		.btn-icon:hover{
-			color: $color-primary;
+			color: $color-pink;
 		}
 	}
 }
@@ -106,7 +106,7 @@
 .aside__legend {
 	text-align: center;
 	.menu-content & {
-		color: $color-pale;
+		// color: $color-pale;
 	}
 }
 

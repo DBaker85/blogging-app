@@ -8,7 +8,12 @@ body {
 	font-family:  'work_sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: $color-text;
+  &.dark {
+    color: $color-text-dark;
+  }
+  &.light {
+    color: $color-text-light;
+  }
 }
 
 p {
@@ -21,14 +26,13 @@ $headings: 42px 34px 28px 22px 18px 14px;
     h#{$i} {
       font-size: $heading;
       font-family: 'sura', serif;
-      color: $color-primary;
+      color: $color-white;
       line-height: 1.5;
       margin: 10px 0 30px 0;
       }
 }
 
 a {
-  color: $color-primary;
   text-decoration: none;
   &:hover{
     text-decoration: underline;

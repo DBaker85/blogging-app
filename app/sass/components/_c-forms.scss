@@ -7,13 +7,18 @@ select {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.5;
-    color: $color-text;
     background-color: #fff;
     background-image: none;
-    border: 1px solid $color-dark-lightest;
+    border: 1px solid $color-white;
     border-radius: $border-radius-main;
     transition: all 0.30s ease-in-out;
     margin: 5px 0;
+    .dark & {
+      color: $color-text-dark;
+    }
+    .light & {
+      color: $color-text-light;
+    }
 
   // Disabled and read-only inputs
   //
@@ -32,7 +37,7 @@ select {
     cursor: not-allowed;
   }
   &:focus{
-  	box-shadow: 0 0 3px rgba($color-primary, .5);
+  	// box-shadow: 0 0 3px rgba($color-primary, .5);
   	outline: none;
   }
 

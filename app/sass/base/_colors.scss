@@ -1,46 +1,20 @@
-// // blue
-// $main-color: #39aeeb;
-// // green
-// $main-color: #17a538;
-// // grey
-// $main-color: #839192;
-// // orange
-// $main-color: #E67E22;
-// // pink
-// $main-color: #d81e5b;
-// // purple
-// $main-color: #8E44AD;
-// // red
-// $main-color: #ec1111;
-// //  yellow
-// $main-color: #f1e90f;
+// #d81e5b vibrant pink
+$color-pink: #d81e5b;
 
+// not sure to use this
+$color-green: #d81e5b;
 
 $color-white: #FFFFFF;
 
-// #d81e5b vibrant pink
-$color-primary: $main-color;
+$color-background-dark: #292929;
+$color-text-dark: #FFFFFF;
 
-// cream sort of color
-$color-pale: lighten(desaturate(adjust-hue($color-primary, -291.4337), 41.4325), 36.2745);
+$color-background-light: #292929;
+$color-text-light: #1a1a1a;
 
-// blue
-$color-secondary: lighten(desaturate(adjust-hue($color-primary, -121.4260), 2.7454), 12.7451);
+$color-disabled : #cccccc;
 
-// pale pink
-$color-tertiary: darken(desaturate(adjust-hue($color-primary, -65.7771), 52.2055), 20.5882);
-
-// brown
-$color-dark:  darken(desaturate(adjust-hue($color-primary, -306.4095), 52.8375), 28.4314);
-
-$color-dark-lighter: darken(desaturate(adjust-hue($color-primary, -340.3226), 75.1220), 8.0392);
-$color-dark-lightest: lighten(desaturate(adjust-hue($color-primary, -340.3226), 75.6098), 23.5294);
-
-$color-disabled : $color-dark-lightest;
-
-$color-text: $color-dark;
-
-$color-list: $color-primary $color-secondary $color-tertiary;
+$color-list: #d81e5b darken(#d81e5b,10) darken(#d81e5b,20);
 
 $color-success: #78ce2c;
 $color-danger: #db5461;

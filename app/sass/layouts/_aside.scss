@@ -8,20 +8,20 @@
 	text-align: center;
 	margin-top: 5px;
 	.menu-content & {
-		color: $color-pale;
+		// color: $color-pale;
 	}
 }
 .aside__social-links {
 	text-align: center;
 	margin-top: 30px;
 	.menu-content & {
-		color: $color-pale;
+		// color: $color-pale;
 		.btn-icon {
-			color: $color-pale;
+			// color: $color-pale;
 
 		}
 		.btn-icon:hover{
-			color: $color-primary;
+			color: $color-pink;
 		}
 	}
 }
@@ -32,6 +32,6 @@
 .aside__legend {
 	text-align: center;
 	.menu-content & {
-		color: $color-pale;
+		// color: $color-pale;
 	}
 }
