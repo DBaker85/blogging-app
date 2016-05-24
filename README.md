@@ -1,9 +1,10 @@
-# Blogging App v1.2.1
+# Blogging App v2.0
 
 A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
 Comes packed with a test suite that does Js and Css linting as well as Css stats.
 
 ### Changelog
+v2.0 - Shifted whole workflow to use gulp, webpack and pug
 
 v1.2.1 - optimised themer storage and added theme logging.
 
@@ -17,7 +18,6 @@ v1.0.1 - changed spinners to be more efficient.
 This package requires:
 * Node
 * Bower
-* Ruby and [scss-lint](https://github.com/causes/scss-lint) `>= 0.18.0`.
 * Mongodb
 
 #### Installation
@@ -148,17 +148,6 @@ The whole content of the footer. Each line is processed onto a seperate line and
 #### Default task
 Default task that starts the server, compiles css and js and launches browserSync. You must be connected to a mongo instance for this to work.
 ```shell
-> grunt
+> gulp
 ```
 
-#### Build task
-Compiles all the css stylesheets and Javascript. All minified.
-```shell
-> grunt build
-```
-
-#### Test task
-Grunt test will compile styles for the test platform, and perform a full suite of tests on the codes and present it in a consumable format in your browser.
-```shell
-> grunt test
-```
