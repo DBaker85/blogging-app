@@ -12,15 +12,15 @@ var easyResponsiveTabs = require('../../bower_components/tabs/js/easyResponsiveT
 
 // modules
 require('./init/init');
-require('./modules/themer');
+// require('./modules/themer');
 require('./modules/search');
 require('./modules/login');
 require('./modules/create-post');
 require('./modules/create-tag');
 require('./modules/edit-delete-post');
 
-$(document).ready(function(){
 
+$(document).ready(function(){
   $.slidebars();
 
   $.scrollUp({

@@ -3,6 +3,7 @@ var iconfontCss = require('gulp-iconfont-css');
 var gulp        = require('gulp');
 var merge       = require('merge-stream');
 var clean       = require('gulp-clean');
+var replace     = require('gulp-replace');
 
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
@@ -47,8 +48,8 @@ gulp.task('icon-build', function(){
   var iconPipe = gulp.src(['./temp_icons/*.eot','./temp_icons/*.svg','./temp_icons/*.ttf','./temp_icons/*.woff' ])
     .pipe(gulp.dest('public/fonts/icons'));
 
-  var sassPipe = gulp.src(['./temp_icons/sass/*.scss'])
-    .pipe(header(banner, { pkg : pkg } ))
+  var sassPipe = gulp.src(['./temp_icons/sass/_c-icons.scss'])
+    .pipe(replace('temp_iconsIcons', '../fonts/icons/Icons'))
     .pipe(gulp.dest('app/sass/components/'));
 
   return merge (icon, iconPipe, sassPipe);

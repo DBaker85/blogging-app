@@ -1,5 +1,6 @@
 module.exports = function() {
 
+
 (function() {
   // Listen for keypress on input field
   $.fn.enterKey = function(fnc) {
@@ -40,6 +41,7 @@ if($('.aside__twitter').length > 0){
 global.toType = function(obj) {
   return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
 }
+
 
 
 };
