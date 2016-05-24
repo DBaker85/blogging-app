@@ -21,7 +21,7 @@ block content
 						li.post__content
 							article
 								if post.title
-									a(href="/post/#{post.urlSlug}")
+									a(href="/post/"+post.urlSlug)
 										| #{post.title}
 								if post.body
 									.small
@@ -30,7 +30,7 @@ block content
 									if post.category
 										span
 											| Posted in&nbsp;
-											a(href="/category/#{post.category}")
+											a(href="/category/"+post.category)
 												| #{post.category}
 
 

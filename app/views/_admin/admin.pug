@@ -65,9 +65,9 @@ block content
                                 if categories
                                     select(name="category")
                                         each category in categories
-                                            optgroup(label="#{category.category}")
+                                            optgroup(label=category.category)
                                                 each subcategory in category.subcategories
-                                                    option(value="#{subcategory.subcategory}")
+                                                    option(value=subcategory.subcategory)
                                                         | #{subcategory.subcategory}
                                 +button({
                                     type:'submit',
@@ -109,9 +109,9 @@ block content
                                 if categories
                                     select.js-post-category(name="category")
                                         each category in categories
-                                            optgroup(label="#{category.category}")
+                                            optgroup(label=category.category)
                                                 each subcategory in category.subcategories
-                                                    option(value="#{subcategory.subcategory}")
+                                                    option(value=subcategory.subcategory)
                                                         | #{subcategory.subcategory}
                                 +button({
                                     type:'submit',
@@ -207,7 +207,7 @@ block content
             each country in countries
                 if country.country
                     - countryData.push('["'+country.country+'",'+country.count+']')
-            input#js-country-data(type="hidden" data-countries="#{countryData}")
+            input#js-country-data(type="hidden" data-countries=countryData)
             script(src="https://www.google.com/jsapi" type="text/javascript")
             script.
                 var mapsArray = JSON.parse("["+document.getElementById("js-country-data").dataset.countries+"]");

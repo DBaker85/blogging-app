@@ -16,7 +16,7 @@ block content
 					if post.category
 						span
 							| || posted in&nbsp;
-							a(href="/category/#{post.category}")
+							a(href="/category/"+post.category)
 								| #{post.category}
 					//- if article was edited, show edit date
 					if post.editdate
