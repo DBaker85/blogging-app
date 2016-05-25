@@ -4,7 +4,7 @@
 	padding: 30px;
 	text-align: left;
 	margin: 60px auto 0 auto;
-	background-color: $color-white;
+	// background-color: $color-white;
 	@extend %clearfix;
 	&:before{
 		display: none;

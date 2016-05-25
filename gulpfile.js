@@ -136,7 +136,8 @@ gulp.task('sass',function(){
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/css'));
+    .pipe(gulp.dest('./public/css'))
+    .pipe(browserSync.stream());
 });
 
 
@@ -145,6 +146,7 @@ gulp.task('default', ['nodemon', 'sass', 'js'], function () {
         proxy: "http://localhost:"+config.config.port
     });
   gulp.watch('./app/icons/*.svg', ['icon'])
+  gulp.watch('./app/sass/**/*.scss', ['sass'])
 });
 
 
