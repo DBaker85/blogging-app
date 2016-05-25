@@ -11,11 +11,11 @@ mixin button(options)
 
 	if type == 'icon'
 		if href != ''
-			a.btn.btn-icon(href="#{href}" role="button" class="#{style} #{classes}" type="button" target="#{target}")&attributes(attributes)
-				i(class="icon-#{icon}")
+			a.btn.btn-icon(href=href role="button" class=style+' '+classes type="button" target=target)&attributes(attributes)
+				i(class="icon-"+icon)
 		else
-			button.btn.btn-icon(role="button" class="#{style} #{classes}" type="button")&attributes(attributes)
-				i(class="icon-#{icon}")
+			button.btn.btn-icon(role="button" class=style+' '+classes type="button")&attributes(attributes)
+				i(class="icon-"+icon)
 
 
 	if type == 'primary' || type == 'secondary' || type == 'tertiary'

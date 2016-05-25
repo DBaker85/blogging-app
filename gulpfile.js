@@ -1,21 +1,22 @@
-var iconfont    = require('gulp-iconfont');
-var iconfontCss = require('gulp-iconfont-css');
-var gulp        = require('gulp');
-var merge       = require('merge-stream');
-var clean       = require('gulp-clean');
-var replace     = require('gulp-replace');
+var iconfont       = require('gulp-iconfont');
+var iconfontCss    = require('gulp-iconfont-css');
+var gulp           = require('gulp');
+var merge          = require('merge-stream');
+var clean          = require('gulp-clean');
+var replace        = require('gulp-replace');
 
-var browserSync = require('browser-sync').create();
-var sass        = require('gulp-sass');
-var nodemon     = require('nodemon');
-var webpackS     = require('webpack-stream');
-var header      = require('gulp-header');
+var browserSync    = require('browser-sync').create();
+var sass           = require('gulp-sass');
+var nodemon        = require('nodemon');
+var uglify         = require('gulp-uglify');
+var header         = require('gulp-header');
+var concat         = require('gulp-concat');
 
-var plumber     = require('gulp-plumber');
-var sourcemaps  = require('gulp-sourcemaps');
-var webpack     = require("webpack");
-var config      = require('./app/content/content');
-var banner      = [
+var plumber        = require('gulp-plumber');
+var sourcemaps     = require('gulp-sourcemaps');
+var mainBowerFiles = require('main-bower-files');
+var config         = require('./app/content/content');
+var banner         = [
   '/*',
   ' * @version v<%= pkg.version %>',
   ' * @author <%= pkg.author %>',
@@ -90,44 +91,17 @@ gulp.task('icon', ['icon-build'], function () {
 
 gulp.task('js', function() {
   return gulp.src('app/scripts/app.js')
-    .pipe(webpackS({
-      resolve: {
-        modulesDirectories: ["bower_components", "node_modules"]
-      },
-      plugins: [
-          new webpack.ResolverPlugin(
-              new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-          ),
-          new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-          }),
-        //   new webpack.optimize.UglifyJsPlugin({
-        //     sourceMap: true,
-        //     // compress: {
-        //     //   // sequences: true,
-        //     //   // dead_code: true,
-        //     //   // conditionals: true,
-        //     //   // booleans: true,
-        //     //   // unused: false,
-        //     //   // if_return: true,
-        //     //   // join_vars: true,
-        //     //   drop_console: true
-        //     // },
-        //     mangle: {
-        //       except: ['$super', '$', 'exports', 'require']
-        //     },
-        //     output: {
-        //       comments: false
-        //     }
-        // })
-      ],
-      output: {
-        filename: 'all.min.js',
-      },
-    }))
+    .pipe(uglify())
     .pipe(header(banner, { pkg : pkg } ))
-    .pipe(gulp.dest('public/scripts'));
+    .pipe(gulp.dest('public/scripts/'));
+});
+
+gulp.task('bower', function() {
+    return gulp.src(mainBowerFiles())
+      .pipe(concat('vendors.js'))
+      .pipe(uglify())
+      .pipe(header(banner, { pkg : pkg } ))
+      .pipe(gulp.dest('public/scripts'));
 });
 
 gulp.task('sass',function(){
@@ -141,14 +115,16 @@ gulp.task('sass',function(){
 });
 
 gulp.task('js-watch', ['js'], browserSync.reload);
+gulp.task('bower-watch', ['bower'], browserSync.reload);
 
-gulp.task('default', ['nodemon', 'sass', 'js'], function () {
+gulp.task('default', ['nodemon', 'sass', 'bower', 'js'], function () {
   browserSync.init(null, {
         proxy: "http://localhost:"+config.config.port
     });
   gulp.watch('./app/icons/*.svg', ['icon']);
   gulp.watch('./app/sass/**/*.scss', ['sass']);
   gulp.watch('./app/scripts/**/*.js', ['js-watch']);
+  gulp.watch('bower.json', ['bower-watch']);
   gulp.watch('./app/views/**/*.pug').on('change', browserSync.reload);
 });
 
