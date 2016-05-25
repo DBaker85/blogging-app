@@ -3,4 +3,5 @@ app/content/content.json
 app/logs/*.*
 bower_components
 node_modules
+public
 
