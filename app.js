@@ -10,6 +10,7 @@ var contentJson  = require('./app/content/content.json');
 var useragent    = require('express-useragent');
 var cookieParser = require('cookie-parser');
 var marked       = require('marked');
+var logger       = require('morgan');
 
 var errorHandler = require('errorhandler');
 var exports      = module.exports = {};
@@ -43,8 +44,9 @@ app.use(bodyParser.json());
 app.use(useragent.express());
 
 app.enable('trust proxy');
-
+app.use(logger('dev'));
 app.use(errorHandler());
+
 
 app.use(session({
   cookieName: 'session',

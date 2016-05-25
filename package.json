@@ -26,6 +26,7 @@
     "gulp-uglify": "^1.5.3",
     "main-bower-files": "^2.13.1",
     "merge-stream": "^1.0.0",
+    "morgan": "^1.7.0",
     "protractor": "^3.3.0"
   },
   "dependencies": {
