@@ -31,10 +31,10 @@ Installs all node and bower components
 The content is set up in `"./app/content"`
 
 Inside are 3 files:
-1. `about.html` - This is optional and is just an about page if you wish to use it.
-2. `cookiepolicy.html` - again optional and is the site's cookie policy.
-3. `content.json` - This is not optional and is where all configuration is done.
-4. `countries.json` - A list of countries that is used for converting global iso code to regular country names.
+1. `about.html` - This is optional and is just an about page if you wish to use it
+2. `cookiepolicy.html` - again optional and is the site's cookie policy
+3. `content.json` - This is not optional and is where all configuration is done
+4. `countries.json` - A list of countries that is used for converting global iso code to regular country names
 
 #### Config.json
 The config file is broken up in various parts :
