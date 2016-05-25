@@ -140,13 +140,16 @@ gulp.task('sass',function(){
     .pipe(browserSync.stream());
 });
 
+gulp.task('js-watch', ['js'], browserSync.reload);
 
 gulp.task('default', ['nodemon', 'sass', 'js'], function () {
   browserSync.init(null, {
         proxy: "http://localhost:"+config.config.port
     });
-  gulp.watch('./app/icons/*.svg', ['icon'])
-  gulp.watch('./app/sass/**/*.scss', ['sass'])
+  gulp.watch('./app/icons/*.svg', ['icon']);
+  gulp.watch('./app/sass/**/*.scss', ['sass']);
+  gulp.watch('./app/scripts/**/*.js', ['js-watch']);
+  gulp.watch('./app/views/**/*.pug').on('change', browserSync.reload);
 });
 
 
