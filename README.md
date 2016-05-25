@@ -148,6 +148,8 @@ The whole content of the footer. Each line is processed onto a seperate line and
 
 #### Default task
 Default task that starts the server, compiles css and js and launches browserSync. You must be connected to a mongo instance for this to work.
+Bower installs will automatically be recompiled and injected into the browser.
+Icons added to the font folder will also be recompiled and the browser reloaded.
 ```shell
 > gulp
 ```

@@ -116,12 +116,13 @@ gulp.task('sass',function(){
 
 gulp.task('js-watch', ['js'], browserSync.reload);
 gulp.task('bower-watch', ['bower'], browserSync.reload);
+gulp.task('icon-watch', ['icon'], browserSync.reload);
 
-gulp.task('default', ['nodemon', 'sass', 'bower', 'js'], function () {
+gulp.task('default', ['nodemon','icon', 'sass', 'bower', 'js'], function () {
   browserSync.init(null, {
         proxy: "http://localhost:"+config.config.port
     });
-  gulp.watch('./app/icons/*.svg', ['icon']);
+  gulp.watch('./app/icons/*.svg', ['icon-watch']);
   gulp.watch('./app/sass/**/*.scss', ['sass']);
   gulp.watch('./app/scripts/**/*.js', ['js-watch']);
   gulp.watch('bower.json', ['bower-watch']);
