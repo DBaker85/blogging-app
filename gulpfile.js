@@ -11,11 +11,16 @@ var nodemon        = require('nodemon');
 var uglify         = require('gulp-uglify');
 var header         = require('gulp-header');
 var concat         = require('gulp-concat');
+var postcss        = require('gulp-postcss');
 
+var autoprefixer   = require('autoprefixer');
 var plumber        = require('gulp-plumber');
 var sourcemaps     = require('gulp-sourcemaps');
 var mainBowerFiles = require('main-bower-files');
 var config         = require('./app/content/content');
+
+var pug            = require('gulp-pug');
+
 var banner         = [
   '/*',
   ' * @version v<%= pkg.version %>',
@@ -91,9 +96,12 @@ gulp.task('icon', ['icon-build'], function () {
 
 gulp.task('js', function() {
   return gulp.src('app/scripts/app.js')
+    .pipe( sourcemaps.init() )
     .pipe(uglify())
+    .pipe( sourcemaps.write('.') )
     .pipe(header(banner, { pkg : pkg } ))
-    .pipe(gulp.dest('public/scripts/'));
+    .pipe(gulp.dest('public/scripts/'))
+
 });
 
 gulp.task('bower', function() {
@@ -101,24 +109,43 @@ gulp.task('bower', function() {
       .pipe(concat('vendors.js'))
       .pipe(uglify())
       .pipe(header(banner, { pkg : pkg } ))
-      .pipe(gulp.dest('public/scripts'));
+      .pipe(gulp.dest('public/scripts'))
+
 });
 
-gulp.task('sass',function(){
-  return gulp.src('./app/sass/main.scss')
+gulp.task('sass', function() {
+    return gulp.src('./app/sass/main.scss')
+      .pipe(plumber())
+      .pipe( sourcemaps.init() )
+      .pipe(sass({outputStyle: 'compressed'}))
+      .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
+      .pipe( sourcemaps.write('.') )
+      .pipe(header(banner, { pkg : pkg } ))
+      .pipe(gulp.dest('public/css'))
+      .pipe(browserSync.stream({match: '**/*.css'}));
+});
+
+gulp.task('pug',function(){
+  return gulp.src('./app/views/_templates/*.pug')
     .pipe(plumber())
-    .pipe(sourcemaps.init())
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./public/css'))
-    .pipe(browserSync.stream());
+    .pipe(pug({
+      'pretty' : true
+    }))
+    .pipe(gulp.dest('./public/templates'))
+
 });
 
 gulp.task('js-watch', ['js'], browserSync.reload);
 gulp.task('bower-watch', ['bower'], browserSync.reload);
 gulp.task('icon-watch', ['icon'], browserSync.reload);
+gulp.task('pug-watch', ['pug'], browserSync.reload);
 
-gulp.task('default', ['nodemon','icon', 'sass', 'bower', 'js'], function () {
+
+/*
+  Default task that builds everything and serves the local instance
+*/
+
+gulp.task('default', ['icon', 'pug' ,'sass', 'bower', 'js','nodemon'], function () {
   browserSync.init(null, {
         proxy: "http://localhost:"+config.config.port
     });
@@ -126,7 +153,7 @@ gulp.task('default', ['nodemon','icon', 'sass', 'bower', 'js'], function () {
   gulp.watch('./app/sass/**/*.scss', ['sass']);
   gulp.watch('./app/scripts/**/*.js', ['js-watch']);
   gulp.watch('bower.json', ['bower-watch']);
-  gulp.watch('./app/views/**/*.pug').on('change', browserSync.reload);
+  gulp.watch('./app/views/**/*.pug', ['pug-watch']);
 });
 
 
