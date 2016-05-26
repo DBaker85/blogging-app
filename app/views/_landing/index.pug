@@ -1,0 +1,40 @@
+extends ../_base/layout.pug
+
+block content
+  .container
+    .row
+      +box({
+        "size":"small"
+      })
+        | search
+      +box({
+        "size":"small"
+      })
+        | menu
+    .row
+      .row__main
+        +box({})
+          | this is the content
+      .row__sidebar
+        .level
+          +box({
+            "size":"tile",
+            "theme":"duolingo"
+          })
+            | Duolingo
+          +box({
+            "size":"tile"
+          })
+            | this is the title
+          .expand-area
+            .expand-content
+        .level
+          +box({
+            "size":"tile"
+          })
+            | this is the title
+          .expand-area
+            .expand-content
+
+
+

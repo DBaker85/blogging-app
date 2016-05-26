@@ -1,0 +1,144 @@
+.row {
+  @extend %clearfix;
+  .row__sidebar{
+    width: 35%;
+    float:right;
+  }
+  .row__main{
+     width: 65%;
+    float: left;
+  }
+}
+
+.box {
+  float: left;
+  display: block;
+  padding: 10px;
+  overflow: hidden;
+  .expand-content {
+    position: absolute;
+    display:none;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .content {
+    height: 100%;
+    position: relative;
+    background-color: #ccc;
+  }
+}
+
+.box1 {
+  width: 75px;
+  height: 75px;
+}
+
+
+.box4 {
+  width: 326px;
+  height: 326px;
+}
+
+.box8 {
+  width: 670px;
+  height: 326px;
+}
+
+
+/*******************************************************
+
+Animated tiles
+
+********************************************************/
+/* Base */
+.box2 {
+  width: 160px;
+  height: 160px;
+  transition: all ease-in-out .5s;
+  .title {
+    background-color: rgba(0,0,0,.6);
+    position: absolute;
+    top: 0;
+    width: 90%;
+    height: 100%;
+    display: block;
+    left: -160px;
+    transition: all ease-in-out .5s;
+  }
+  &:hover {
+    .title {
+      left: 0;
+    }
+  }
+  &::after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: none;
+    margin: 0 auto;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+  }
+}
+.box2.expand-box{
+  &::after{
+      display: block;
+  }
+}
+/* Themes */
+.box2 {
+    &[data-theme="1"] {
+    .content {
+      background-color: #ccc
+    }
+    &::after{
+      border-bottom: 5px solid #ccc;
+    }
+  }
+  &[data-theme="duolingo"] {
+    .content {
+      background-color: #7bc142
+    }
+    &::after{
+      border-bottom: 5px solid #7bc142
+    }
+  }
+}
+
+/*******************************************************
+  levels
+********************************************************/
+.level{
+  .expand-area{
+    transition: height ease-in-out .6s;
+    padding: 0 15px 0 10px;
+
+    height: 0;
+    display: block;
+    width: 326px;
+    float:left;
+    .expand-content {
+      height: 100%;
+      display: block;
+    }
+  }
+}
+.level.expand{
+  .expand-area {
+    height: 200px;
+  }
+}
+/*Themes*/
+.level{
+  &[data-theme="1"] {
+    .expand-content {
+      background-color: #ccc
+    }
+  }
+  &[data-theme="duolingo"] {
+    .expand-content {
+      background-color: #7bc142
+    }
+  }
+}

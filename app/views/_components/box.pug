@@ -2,24 +2,37 @@ mixin box(options)
   - size = options.size || 'panel';
   - expand = options.expand || 'true';
   - theme = options.theme || '1';
+  - icon = options.icon || '';
 
 
   if size == 'small'
-    .box1.columns.small-1.large-1(data-expand=expand data-theme=theme)
-      block
+    .box.box1(data-expand=expand data-theme=theme)
+      .content
+        block
 
 
   if size == 'tile'
-    .box2.columns.small-2.large-2(data-expand=expand data-theme=theme)
-      block
+    .box.box2(data-expand=expand data-theme=theme)
+      .content
+        if icon
+          .icon
+            i()
+        if img
+          .image
+            img()
+        .title
+          block
+
 
 
   if size == 'large-tile'
-    .box4.columns.small-4.large-4(data-expand=expand data-theme=theme)
-      block
+    .box.box4(data-expand=expand data-theme=theme)
+      .content
+        block
 
 
   if size == 'panel'
-    .box8.columns.small-8.large-8(data-expand=expand data-theme=theme)
-      block
+    .box.box8(data-expand=expand data-theme=theme)
+      .content
+        block
 

@@ -130,7 +130,7 @@ this.displayMainPage = function(req, res) {
     if (err) return next(err);
 
     getCategories(function(err, categories) {
-      return res.render('_landing/postlist', {
+      return res.render('_landing/index', {
         posts: results,
         categories: categories,
         pagetitle: blogName+' | '+blogTagLine
@@ -251,13 +251,13 @@ this.EditPost = function(req, res) {
 this.displayErrorPage = function(req,res, status) {
 
   if (status == 404){
-    res.render('_landing/error', {
+    res.render('_landing/index', {
       pagetitle:'Page not found | '+blogName,
       maintext:'404',
       subtext:'Sorry We could not find page: ' + req.url
     })
   } else {
-    res.render('_landing/error', {
+    res.render('_landing/index', {
       pagetitle:'An error occured | '+blogName,
       maintext: 'error',
       subtext:'Sorry an error occured. Please try again',

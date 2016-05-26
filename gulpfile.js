@@ -91,7 +91,8 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('icon', ['icon-build'], function () {
   gulp.src('temp_icons', {read: false, force: true})
-    .pipe(clean());
+    .pipe(clean())
+    .pipe(browserSync.stream());
 });
 
 gulp.task('js', function() {
@@ -101,7 +102,7 @@ gulp.task('js', function() {
     .pipe( sourcemaps.write('.') )
     .pipe(header(banner, { pkg : pkg } ))
     .pipe(gulp.dest('public/scripts/'))
-
+    .pipe(browserSync.stream());
 });
 
 gulp.task('bower', function() {
@@ -110,7 +111,7 @@ gulp.task('bower', function() {
       .pipe(uglify())
       .pipe(header(banner, { pkg : pkg } ))
       .pipe(gulp.dest('public/scripts'))
-
+      .pipe(browserSync.stream());
 });
 
 gulp.task('sass', function() {
@@ -132,6 +133,7 @@ gulp.task('pug',function(){
       'pretty' : true
     }))
     .pipe(gulp.dest('./public/templates'))
+    .pipe(browserSync.stream());
 
 });
 
