@@ -10,29 +10,8 @@ mixin box(options)
       .content
         block
 
-
-  if size == 'tile'
-    .box.box2(data-expand=expand data-theme=theme)
-      .content
-        if icon
-          .icon
-            i()
-        if img
-          .image
-            img()
-        .title
-          block
-
-
-
   if size == 'large-tile'
     .box.box4(data-expand=expand data-theme=theme)
-      .content
-        block
-
-
-  if size == 'panel'
-    .box.box8(data-expand=expand data-theme=theme)
       .content
         block
 

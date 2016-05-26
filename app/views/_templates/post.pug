@@ -1,20 +1,21 @@
 include ../_base/components.pug
-
-article
-  h1 title
-  .small
-    +icon({
-      icon:'clock'
-    })
-    | date&nbsp;
-    //- if category associated, display category with link to category page
-    span
-      | || posted in&nbsp;
-      a(href="/category/")
-        | category
-    //- if article was edited, show edit date
-    span
-      | &nbsp;|| last edited on edited date
-  .main-content__posts
-    .post__content
-      | content
+.box.box8(data-expand=expand data-theme=theme)
+  .content
+    article
+      h1 title
+      .small
+        +icon({
+          icon:'clock'
+        })
+        | date&nbsp;
+        //- if category associated, display category with link to category page
+        span
+          | || posted in&nbsp;
+          a(href="/category/")
+            | category
+        //- if article was edited, show edit date
+        span
+          | &nbsp;|| last edited on edited date
+      .main-content__posts
+        .post__content
+          | content

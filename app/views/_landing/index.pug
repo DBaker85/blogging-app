@@ -1,7 +1,7 @@
 extends ../_base/layout.pug
 
 block content
-  .container
+  .container(ng-controller="ContentController as vm")
     .row
       +box({
         "size":"small"
@@ -13,26 +13,10 @@ block content
         | menu
     .row
       .row__main
-        +box({})
-          | this is the content
+        post-bloc
       .row__sidebar
-        .level
-          +box({
-            "size":"tile",
-            "theme":"duolingo"
-          })
-            | Duolingo
-          +box({
-            "size":"tile"
-          })
-            | this is the title
-          .expand-area
-            .expand-content
-        .level
-          +box({
-            "size":"tile"
-          })
-            | this is the title
+        .level(ng-repeat="level in vm.levels")
+          content-tiles(ng-repeat="tile in level.tiles")
           .expand-area
             .expand-content
 
