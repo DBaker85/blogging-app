@@ -77,8 +77,11 @@ angular
         image:'@',
         icon:'@',
         title:'@'
+      },
+      controller: ['$scope', function ($scope){
+        $scope.expanded = false;
+      }]
       }
-    }
   }])
   .directive('postBloc',[function(){
     return{
