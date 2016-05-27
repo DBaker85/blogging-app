@@ -54,7 +54,7 @@ angular
               'theme': '1',
               'title': 'Default',
               'image' : 'bicycle',
-              'expand': true
+              'expand': false
             }
 
       ];
@@ -70,17 +70,18 @@ angular
         type:'@',
         image:'@',
         icon:'@',
-        title:'@',
-        index:'@'
+        title:'@'
       },
       controller: ['$scope','$element', function ($scope, $element){
-        $scope.expander = function(elem){
-          console.log($element)
-          if ($element.find('.tile').hasClass('expanded') == false){
-            $element.find('.tile').addClass('expanded');
-            $element.siblings().find('.tile').removeClass('expanded');
-          } else {
-            $element.find('.tile').removeClass('expanded');
+        $scope.expander = function(){
+          if ($scope.expand == "true"){
+            // only id data expand true maybe go through scope directly
+            if ($element.find('.tile').hasClass('expanded') == false){
+              $element.find('.tile').addClass('expanded');
+              $element.siblings('content-tiles').find('.tile').removeClass('expanded');
+            } else {
+              $element.find('.tile').removeClass('expanded');
+            }
           }
 
         }

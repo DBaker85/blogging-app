@@ -92,10 +92,13 @@ $arrow-size : 14px;
   width: $tile-size;
   height: $tile-size;
   transition: height .4s ease-in-out;
-
+  // data expand cursor pointer
   &.expanded {
     height: $expander-height;
 
+   }
+   &[data-expand="true"]{
+    cursor: pointer
    }
   }
 

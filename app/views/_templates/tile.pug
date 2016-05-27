@@ -1,6 +1,6 @@
 include ../_base/components.pug
 
-.tile(data-expand="{{expand}}" data-theme="{{theme}}" ng-click="expander($event)")
+.tile(data-expand="{{expand}}" data-theme="{{theme}}" ng-click="expander()" class="expanded? 'expanded':''")
   .tile__content
     .tile__picture(ng-switch="type")
       .tile__image(ng-switch-when="image")
@@ -10,7 +10,7 @@ include ../_base/components.pug
             icon:'{{icon}}'
           })
       .tile__description
-        | {{title}} {{index}}
+        | {{title}}
   .tile__expander
     .expanded__content
      | {{content}}
