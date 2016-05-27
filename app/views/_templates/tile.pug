@@ -1,12 +1,13 @@
 include ../_base/components.pug
 
-.box.box2(data-expand="{{tile.expand}}" data-theme="{{tile.theme}}")
+.tile(data-expand="{{tile.expand}}" data-theme="{{tile.theme}}")
   .content
-    if icon
-      .icon
-        i()
     if img
       .image
         img()
+    else
+      +icon({
+          icon:'{{tile.icon}}'
+        })
     .title
       | {{tile.title}}

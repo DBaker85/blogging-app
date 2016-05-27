@@ -51,50 +51,59 @@
   @if $filename == clock {
     $char: "\E008";
   }
-  @if $filename == cross {
+  @if $filename == codeschool {
     $char: "\E009";
   }
-  @if $filename == ellipsis {
+  @if $filename == cross {
     $char: "\E00A";
   }
-  @if $filename == github-with-circle {
+  @if $filename == duolingo {
     $char: "\E00B";
   }
-  @if $filename == linkedin-with-circle {
+  @if $filename == ellipsis {
     $char: "\E00C";
   }
-  @if $filename == location-pin {
+  @if $filename == github-with-circle {
     $char: "\E00D";
   }
-  @if $filename == menu {
+  @if $filename == linkedin-with-circle {
     $char: "\E00E";
   }
-  @if $filename == minus {
+  @if $filename == location-pin {
     $char: "\E00F";
   }
-  @if $filename == pencil {
+  @if $filename == menu {
     $char: "\E010";
   }
-  @if $filename == plus {
+  @if $filename == minus {
     $char: "\E011";
   }
-  @if $filename == price-tag {
+  @if $filename == pencil {
     $char: "\E012";
   }
-  @if $filename == search {
+  @if $filename == plus {
     $char: "\E013";
   }
-  @if $filename == skype-with-circle {
+  @if $filename == price-tag {
     $char: "\E014";
   }
-  @if $filename == spinner2 {
+  @if $filename == search {
     $char: "\E015";
   }
-  @if $filename == trash {
+  @if $filename == skype-with-circle {
     $char: "\E016";
   }
-  @if $filename == twitter-with-circle {
+  @if $filename == spinner2 {
     $char: "\E017";
+  }
+  @if $filename == trash {
+    $char: "\E018";
+  }
+  @if $filename == twitter-with-circle {
+    $char: "\E019";
+  }
+  @if $filename == twitter {
+    $char: "\E01A";
   }
 
   @return $char;
@@ -135,8 +144,14 @@
 .icon-clock {
   @include icon(clock);
 }
+.icon-codeschool {
+  @include icon(codeschool);
+}
 .icon-cross {
   @include icon(cross);
+}
+.icon-duolingo {
+  @include icon(duolingo);
 }
 .icon-ellipsis {
   @include icon(ellipsis);
@@ -179,5 +194,8 @@
 }
 .icon-twitter-with-circle {
   @include icon(twitter-with-circle);
+}
+.icon-twitter {
+  @include icon(twitter);
 }
 

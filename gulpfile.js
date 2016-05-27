@@ -1,7 +1,7 @@
 var iconfont       = require('gulp-iconfont');
 var iconfontCss    = require('gulp-iconfont-css');
 var gulp           = require('gulp');
-var merge          = require('merge-stream');
+var runSequence    = require('run-sequence');
 var clean          = require('gulp-clean');
 var replace        = require('gulp-replace');
 
@@ -32,7 +32,7 @@ var banner         = [
 var pkg         = require('./package.json');
 
 gulp.task('icon-build', function(){
-  var icon = gulp.src(['./app/icons/*.svg'])
+  return icon = gulp.src(['./app/icons/*.svg'])
     .pipe(iconfontCss({
       fontName: 'Icons',
       path: 'app/icons/template/icon.scss',
@@ -43,6 +43,8 @@ gulp.task('icon-build', function(){
         fontName: 'Icons', // required
         prependUnicode: true, // recommended option
         formats: ['ttf', 'eot', 'woff', 'svg'], // default, 'woff2' and 'svg' are available
+        normalize:true,
+        fontHeight: 1001,
         timestamp: Math.round(Date.now()/1000) // recommended to get consistent builds when watching files
         }))
     .on('glyphs', function(glyphs, options) {
@@ -51,16 +53,27 @@ gulp.task('icon-build', function(){
           })
     .pipe(gulp.dest('temp_icons'));
 
-  var iconPipe = gulp.src(['./temp_icons/*.eot','./temp_icons/*.svg','./temp_icons/*.ttf','./temp_icons/*.woff' ])
-    .pipe(gulp.dest('public/fonts/icons'));
-
-  var sassPipe = gulp.src(['./temp_icons/sass/_c-icons.scss'])
-    .pipe(replace('temp_iconsIcons', '../fonts/icons/Icons'))
-    .pipe(gulp.dest('app/sass/components/'));
-
-  return merge (icon, iconPipe, sassPipe);
 
 });
+
+gulp.task('pipe-icons', function () {
+  return gulp.src(['./temp_icons/*.eot','./temp_icons/*.svg','./temp_icons/*.ttf','./temp_icons/*.woff' ])
+    .pipe(gulp.dest('public/fonts/icons'));
+})
+
+gulp.task('pipe-sass', function () {
+  return gulp.src(['./temp_icons/sass/_c-icons.scss'])
+    .pipe(replace('temp_iconsIcons', '../fonts/icons/Icons'))
+    .pipe(gulp.dest('app/sass/components/'));
+})
+
+gulp.task('clean-icons', function () {
+  return gulp.src('temp_icons', {read: false, force: true})
+    .pipe(clean())
+    .pipe(browserSync.stream());
+})
+
+
 
 
 gulp.task('nodemon', function (cb) {
@@ -89,10 +102,11 @@ gulp.task('nodemon', function (cb) {
 
 // main tasks to be run
 
-gulp.task('icon', ['icon-build'], function () {
-  gulp.src('temp_icons', {read: false, force: true})
-    .pipe(clean())
-    .pipe(browserSync.stream());
+gulp.task('icon',function (callback) {
+  runSequence('icon-build',
+              ['pipe-icons', 'pipe-sass'],
+              'clean-icons',
+              callback)
 });
 
 gulp.task('js', function() {
