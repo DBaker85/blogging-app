@@ -4,7 +4,7 @@ var gulp           = require('gulp');
 var runSequence    = require('run-sequence');
 var clean          = require('gulp-clean');
 var replace        = require('gulp-replace');
-
+var gutil          = require('gulp-util');
 var browserSync    = require('browser-sync').create();
 var sass           = require('gulp-sass');
 var nodemon        = require('nodemon');
@@ -111,6 +111,12 @@ gulp.task('icon',function (callback) {
 
 gulp.task('js', function() {
   return gulp.src('app/scripts/app.js')
+    .pipe(plumber({
+        errorHandler: function(err){
+          gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
+          this.emit('end');
+        }
+      }))
     .pipe( sourcemaps.init() )
     .pipe(uglify())
     .pipe( sourcemaps.write('.') )
@@ -121,6 +127,12 @@ gulp.task('js', function() {
 
 gulp.task('bower', function() {
     return gulp.src(mainBowerFiles())
+      .pipe(plumber({
+        errorHandler: function(err){
+          gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
+          this.emit('end');
+        }
+      }))
       .pipe(concat('vendors.js'))
       .pipe(uglify())
       .pipe(header(banner, { pkg : pkg } ))
@@ -130,9 +142,15 @@ gulp.task('bower', function() {
 
 gulp.task('sass', function() {
     return gulp.src('./app/sass/main.scss')
-      .pipe(plumber())
+      .pipe(plumber({
+        errorHandler: function(err){
+          gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
+          this.emit('end');
+        }
+      }))
       .pipe( sourcemaps.init() )
-      .pipe(sass({outputStyle: 'compressed'}))
+      // .pipe(sass({outputStyle: 'compressed'}))
+      .pipe(sass())
       .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
       .pipe( sourcemaps.write('.') )
       .pipe(header(banner, { pkg : pkg } ))

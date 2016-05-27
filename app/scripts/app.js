@@ -26,28 +26,43 @@ angular
   .module('BloggingApp', [])
   .controller('ContentController', ['$scope', function ($scope) {
       var vm = this;
-      vm.levels = [
-        {
-          tiles: [
+      vm.tiles = [
             {
+              'type': 'icon',
               'theme': 'twitter',
               'title':'Twitter',
               'icon' : 'twitter',
               'expand': true
             },
              {
+              'type': 'icon',
               'theme': 'duolingo',
               'title':'Duolingo',
               'icon' : 'duolingo',
               'expand': true
             },
-          ]
-        },
-        {
-          tiles: [
-            {}
-          ]
-        },
+            {
+              'type': 'icon',
+              'theme': 'codeschool',
+              'title':'Codeschool',
+              'icon' : 'codeschool',
+              'expand': true
+            },
+            {
+              'type': 'icon',
+              'theme': '1',
+              'title':'Default',
+              'icon' : 'menu',
+              'expand': true
+            },
+            {
+              'type': 'image',
+              'theme': '1',
+              'title':'Default',
+              'image' : 'bicycle',
+              'expand': true
+            }
+
       ];
   }])
   .directive('contentTiles',[function(){

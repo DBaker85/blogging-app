@@ -1,13 +1,12 @@
 include ../_base/components.pug
 
 .tile(data-expand="{{tile.expand}}" data-theme="{{tile.theme}}")
-  .content
-    if img
-      .image
-        img()
-    else
+  .tile__content(ng-switch="tile.type")
+    .tile__image(ng-switch-when="image")
+      img(src="images/tiles/{{tile.image}}.jpg" title="" width="100%" height="100")
+    .tile__icon(ng-switch-when="icon")
       +icon({
           icon:'{{tile.icon}}'
         })
-    .title
+    .tile__description
       | {{tile.title}}

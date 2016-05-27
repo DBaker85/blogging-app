@@ -15,10 +15,7 @@ block content
       .row__main
         post-bloc
       .row__sidebar
-        .level(ng-repeat="level in vm.levels")
-          content-tiles(ng-repeat="tile in level.tiles")
-          .expand-area
-            .expand-content
+        content-tiles(ng-repeat="tile in vm.tiles")
 
 
 

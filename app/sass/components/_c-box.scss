@@ -1,3 +1,6 @@
+$tile-size : 160px;
+$tile-padding : 10px;
+
 .row {
   @extend %clearfix;
   .row__sidebar{
@@ -80,14 +83,84 @@
 =======================================================*/
 /* Base */
 .tile {
-  width: 160px;
-  height: 160px;
+  padding: $tile-padding;
   display: inline-block;
-  background-color: gray;
-  [class^="icon"] {
-    font-size: 160px;
+  width: $tile-size;
+  height: $tile-size;
+
+  .tile__content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+
+    [class^="icon"] {
+      font-size: $tile-size - ($tile-padding*2);
+      line-height: $tile-size - ($tile-padding*2);
+    }
+
+    img {
+      height: $tile-size - ($tile-padding*2);
+      width: $tile-size - ($tile-padding*2);
+      display: block;
+    }
+
+    .tile__icon,
+    .tile__image {
+      transition: all .2s linear;
+    }
+
+    &:hover > .tile__description {
+      bottom: 0;
+    }
+
+    &:hover > .tile__icon,
+    &:hover > .tile__image {
+      transform:scale(1.3);
+    }
+
+
+  }
+
+  .tile__description {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    bottom: -160px;
+    left: 0;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0,0,0,.6);
+    transition: bottom .4s ease-out;
   }
 }
+/*themes*/
+  .tile__content {
+    [data-theme="1"] & {
+      background-color: rgba(0,0,0,.2);
+      [class^="icon"] {
+        color: white;
+      }
+    }
+    [data-theme="duolingo"] & {
+      background-color: #7bc142;
+      [class^="icon"] {
+        color: white;
+      }
+    }
+    [data-theme="codeschool"] & {
+      background-color: #4cadc0;
+      [class^="icon"] {
+        color: white;
+      }
+    }
+    [data-theme="twitter"] & {
+      background-color: #292f33;
+      [class^="icon"] {
+        color: #55acee;
+      }
+    }
+  }
 
 
 /*******************************************************
