@@ -33,7 +33,8 @@ angular
               'title': 'Twitter',
               'icon' : 'twitter',
               'expand': true
-            },
+            }
+            ,
              {
               'type': 'icon',
               'theme': 'duolingo',
