@@ -30,35 +30,35 @@ angular
             {
               'type': 'icon',
               'theme': 'twitter',
-              'title':'Twitter',
+              'title': 'Twitter',
               'icon' : 'twitter',
               'expand': true
             },
              {
               'type': 'icon',
               'theme': 'duolingo',
-              'title':'Duolingo',
+              'title': 'Duolingo',
               'icon' : 'duolingo',
               'expand': true
             },
             {
               'type': 'icon',
               'theme': 'codeschool',
-              'title':'Codeschool',
+              'title': 'Codeschool',
               'icon' : 'codeschool',
               'expand': true
             },
             {
               'type': 'icon',
               'theme': '1',
-              'title':'Default',
+              'title': 'Default',
               'icon' : 'menu',
               'expand': true
             },
             {
               'type': 'image',
               'theme': '1',
-              'title':'Default',
+              'title': 'Default',
               'image' : 'bicycle',
               'expand': true
             }
@@ -68,8 +68,16 @@ angular
   .directive('contentTiles',[function(){
     return{
       restrict: 'E',
-      replace: true,
+      // replace: true,
       templateUrl: 'templates/tile.html',
+      scope: {
+        expand:'@',
+        theme:'@',
+        type:'@',
+        image:'@',
+        icon:'@',
+        title:'@'
+      }
     }
   }])
   .directive('postBloc',[function(){

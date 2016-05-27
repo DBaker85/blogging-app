@@ -15,7 +15,15 @@ block content
       .row__main
         post-bloc
       .row__sidebar
-        content-tiles(ng-repeat="tile in vm.tiles")
+        content-tiles(
+          ng-repeat="tile in vm.tiles"
+          expand="{{tile.expand}}"
+          theme="{{tile.theme}}"
+          type="{{tile.type}}"
+          image="{{tile.image}}"
+          icon="{{tile.icon}}"
+          title="{{tile.title}}"
+        )
 
 
 

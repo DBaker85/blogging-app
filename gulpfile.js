@@ -149,8 +149,7 @@ gulp.task('sass', function() {
         }
       }))
       .pipe( sourcemaps.init() )
-      // .pipe(sass({outputStyle: 'compressed'}))
-      .pipe(sass())
+      .pipe(sass({outputStyle: 'compressed'}))
       .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
       .pipe( sourcemaps.write('.') )
       .pipe(header(banner, { pkg : pkg } ))
