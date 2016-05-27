@@ -50,13 +50,6 @@ angular
               'expand': true
             },
             {
-              'type': 'icon',
-              'theme': '1',
-              'title': 'Default',
-              'icon' : 'menu',
-              'expand': true
-            },
-            {
               'type': 'image',
               'theme': '1',
               'title': 'Default',
@@ -77,10 +70,20 @@ angular
         type:'@',
         image:'@',
         icon:'@',
-        title:'@'
+        title:'@',
+        index:'@'
       },
-      controller: ['$scope', function ($scope){
-        $scope.expanded = false;
+      controller: ['$scope','$element', function ($scope, $element){
+        $scope.expander = function(elem){
+          console.log($element)
+          if ($element.find('.tile').hasClass('expanded') == false){
+            $element.find('.tile').addClass('expanded');
+            $element.siblings().find('.tile').removeClass('expanded');
+          } else {
+            $element.find('.tile').removeClass('expanded');
+          }
+
+        }
       }]
       }
   }])

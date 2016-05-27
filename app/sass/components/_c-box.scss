@@ -119,7 +119,7 @@ $arrow-size : 14px;
 
     .tile__icon,
     .tile__image {
-      transition: all .2s linear;
+      transition: all .15s linear;
 
     }
     .tile__picture {
@@ -135,7 +135,6 @@ $arrow-size : 14px;
         height: 10px;
         border-left: $arrow-size solid transparent;
         border-right: $arrow-size solid transparent;
-        border-bottom: $arrow-size solid red;
         position: absolute;
         bottom: 0;
         z-index: 200000;
@@ -213,7 +212,7 @@ $arrow-size : 14px;
 
        &::after {
 
-        border-bottom: $arrow-size solid darken(#292f33,5);
+        border-bottom: $arrow-size solid darken(#292f33,8);
       }
     }
 
@@ -224,7 +223,7 @@ $arrow-size : 14px;
 
        &::after {
 
-        border-bottom: $arrow-size solid darken(#7bc142,5);
+        border-bottom: $arrow-size solid darken(#7bc142,8);
       }
     }
 
@@ -235,16 +234,23 @@ $arrow-size : 14px;
 
        &::after {
 
-        border-bottom: $arrow-size solid darken(#4cadc0,5);
+        border-bottom: $arrow-size solid darken(#4cadc0,8);
       }
     }
 
   }
 
   .tile[data-theme="1"] {
-      &::before {
-      border-bottom: $arrow-size solid rgba(0,0,0,.5);
+    .tile__picture {
+
+       &::after {
+
+        border-bottom: $arrow-size solid rgba(0,0,0,.5);
+      }
     }
+
+
+
 
   }
 
@@ -273,16 +279,19 @@ $arrow-size : 14px;
     height: $expander-height - $tile-size;
 
   [data-theme="duolingo"] & {
-      background-color: darken(#7bc142,5);
+      background-color: darken(#7bc142,8);
     }
 
   [data-theme="codeschool"] & {
-      background-color: darken(#4cadc0,5);
+      background-color: darken(#4cadc0,8);
     }
 
   [data-theme="twitter"] & {
-      background-color: darken(#292f33,5);
+      background-color: darken(#292f33,8);
     }
+  [data-theme="1"] & {
+      background-color: rgba(0,0,0,.5);
+  }
   }
 }
 
