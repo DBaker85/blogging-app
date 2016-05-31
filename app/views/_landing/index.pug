@@ -15,17 +15,83 @@ block content
       .row__main
         post-bloc
       .row__sidebar
-        content-tiles(
-          ng-repeat="tile in vm.tiles"
-          expand="{{tile.expand}}"
-          theme="{{tile.theme}}"
-          type="{{tile.type}}"
-          image="{{tile.image}}"
-          icon="{{tile.icon}}"
-          title="{{tile.title}}"
-          state="{{tile.state}}"
-          error="{{tile.error}}"
-          content="{{tile.content}}"
-        )
-
+        .tile(ng-repeat="tile in vm.tiles" data-expand="{{tile.expand}}" data-theme="{{tile.theme}}" ng-click="vm.expander($index)" class="{{ (tile.state == 'loaded') ? '' : 'loading' }} {{ tile.error ? 'error' : '' }}{{ tile.expanded == true ? 'expanded' : '' }}")
+          .tile__content
+            .tile__picture(ng-switch="tile.type")
+              .tile__image(ng-switch-when="image")
+                img(src="images/tiles/{{tile.image}}.jpg" title="" width="100%" height="100")
+              .tile__icon(ng-switch-when="icon")
+                +icon({
+                    icon:'{{tile.icon}}'
+                  })
+              .tile__description
+                | {{tile.title}}
+          .tile__expander(ng-switch="tile.theme")
+            .expanded__content(ng-switch-when="twitter")
+              twitter-timeline(twitter-timeline-id='"'+widgetID+'"' twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
+            .expanded__content(ng-switch-when="about")
+              //- .aside__avatar
+              //-   +img({
+              //-     src:'avatars/avatar.jpg',
+              //-     width:'120',
+              //-     height:'120',
+              //-     alt: content.aboutMe.name,
+              //-     lazy: 'false'
+              //-   })
+              .aside__legend
+                | #{content.aboutMe.name}
+                .small
+                  | #{content.aboutMe.description}
+              .aside__social-links
+                if content.aboutMe.skypeLink
+                  +button({
+                    type:'icon',
+                    icon:'skype-with-circle',
+                    classes: buttonClass,
+                    href: content.aboutMe.skypeLink,
+                    target: '_self'
+                  })
+                if content.aboutMe.githubLink
+                  +button({
+                    type:'icon',
+                    icon:'github-with-circle',
+                    classes: buttonClass,
+                    href: content.aboutMe.githubLink
+                  })
+                if content.aboutMe.linkedIn
+                  +button({
+                    type:'icon',
+                    icon:'linkedin-with-circle',
+                    classes: buttonClass,
+                    href: content.aboutMe.linkedIn
+                  })
+                if content.aboutMe.twitter
+                  +button({
+                    type:'icon',
+                    icon:'twitter-with-circle',
+                    classes: buttonClass,
+                    href: content.aboutMe.twitter
+                  })
+              .aside__legend
+                .small
+                  | #{content.blogSetup.blogDescription}
+            .expanded__content(ng-switch-when="codeschool")
+              .codeschool-holder
+                .codeschool-holder__user
+                  .codeschool-holder__user--left
+                    img(src="{{tile.content.user.avatar}}")
+                  .codeschool-holder__user--right
+                    .username {{tile.content.user.username}}
+                    .score {{tile.content.user.total_score}}
+                .codeschool-holder__badges
+                  .badge(ng-repeat="badge in tile.content.courses.completed")
+                    a(href="{{badge.url}}" target="_blank")
+                      img(src="{{badge.badge}}")
+                      p {{badge.title}}
+                .codeschool-holder__badges-inprogress
+                  .badge.inprogress(ng-repeat="badge in tile.content.courses.in_progress")
+                    a(href="{{badge.url}}" target="_blank")
+                      img(src="{{badge.badge}}")
+                      p {{badge.title}}
+            .expanded__content(ng-switch-default ng-bind-html="content")
 

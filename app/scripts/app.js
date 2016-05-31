@@ -26,13 +26,29 @@ angular
       var vm = this;
 
 
+
+      vm.expander = function(index){
+          console.log(index);
+          if (vm.tiles[index].expand == true){
+          if (vm.tiles[index].expanded){
+            vm.tiles[index].expanded = false
+          } else {
+            for (var i = vm.tiles.length - 1; i >= 0; i--) {
+              vm.tiles[i].expanded = false;
+            }
+            vm.tiles[index].expanded = true;
+          }
+        }
+
+        };
+
       vm.tiles = [
             {
               'type': 'image',
               'theme': 'about',
               'title': 'About Me',
               'image' : 'avatar',
-              'expand': true,
+              'expand': true
             }
             ,
             {
@@ -49,24 +65,25 @@ angular
               'theme': 'duolingo',
               'title': 'Duolingo',
               'icon' : 'duolingo',
-              'expand': true,
+              'expand': true
             },
             {
               'type': 'icon',
               'theme': 'codeschool',
               'title': 'Codeschool',
               'icon' : 'codeschool',
-              'expand': true,
+              'expand': true
             }
       ];
+
 
 
     TileContent.duolingo()
         .then(function(response){
             var duolingoTile = vm.tiles[2]
             console.log(response.data);
+            duolingoTile.content = response.data;
             duolingoTile.state = 'loaded';
-            duolingoTile.content = '<div><i class="icon-clock"></i></div>'
         }, function(error){
             var duolingoTile = vm.tiles[2]
             duolingoTile.state = 'loaded';
@@ -80,17 +97,20 @@ angular
             var codeschoolTile = vm.tiles[3];
             console.log(response.data);
             codeschoolTile.state = 'loaded';
+            codeschoolTile.content = response.data;
         }, function(error){
             var codeschoolTile = vm.tiles[3]
             codeschoolTile.state = 'loaded';
             codeschoolTile.error = true;
             codeschoolTile.title = 'An error occured';
         });
+
     TileContent.aboutMe()
         .then(function(response){
             var aboutMeTile = vm.tiles[0];
             console.log(response.data);
             aboutMeTile.state = 'loaded';
+            aboutMeTile.content = response.data;
         }, function(error){
             var aboutMeTile = vm.tiles[0]
             aboutMeTile.state = 'loaded';
@@ -101,41 +121,6 @@ angular
 
 
 }])
-  .directive('contentTiles',[function(){
-    return{
-      restrict: 'E',
-      // replace: true,
-      templateUrl: 'templates/tile.html',
-      scope: {
-        expand:'@',
-        theme:'@',
-        type:'@',
-        image:'@',
-        icon:'@',
-        title:'@',
-        state: '@',
-        error: '@',
-        content: '@',
-        id: '@'
-      },
-      controller: ['$scope','$element',function ($scope, $element){
-
-        $scope.expander = function(){
-          if ($scope.expand == "true" && $scope.error == false && $scope.state == 'loaded'){
-            // only id data expand true maybe go through scope directly
-            if ($element.find('.tile').hasClass('expanded') == false){
-              $element.find('.tile').addClass('expanded');
-              $element.siblings('content-tiles').find('.tile').removeClass('expanded');
-            } else {
-              $element.find('.tile').removeClass('expanded');
-            }
-          }
-
-        };
-
-      }]
-      }
-  }])
   .directive('postBloc',[function(){
     return{
       restrict: 'E',

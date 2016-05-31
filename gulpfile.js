@@ -6,6 +6,7 @@ var clean          = require('gulp-clean');
 var replace        = require('gulp-replace');
 var gutil          = require('gulp-util');
 var browserSync    = require('browser-sync').create();
+
 var sass           = require('gulp-sass');
 var nodemon        = require('nodemon');
 var uglify         = require('gulp-uglify');
@@ -19,6 +20,7 @@ var sourcemaps     = require('gulp-sourcemaps');
 var mainBowerFiles = require('main-bower-files');
 var config         = require('./app/content/content');
 
+const babel        = require('gulp-babel');
 var pug            = require('gulp-pug');
 
 var banner         = [
@@ -117,6 +119,9 @@ gulp.task('js', function() {
           this.emit('end');
         }
       }))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
     .pipe( sourcemaps.init() )
     .pipe(uglify())
     .pipe( sourcemaps.write('.') )
