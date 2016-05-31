@@ -93,6 +93,14 @@ $arrow-size : 14px;
   height: $tile-size;
   transition: height .4s ease-in-out;
   // data expand cursor pointer
+  &::before {
+    font-size: ($tile-size - $tile-padding)/2;
+    line-height: $tile-size - ($tile-padding*2);
+    position: absolute;
+    color: rgba(0,0,0,.3);
+    margin-left: ($tile-size - (($tile-size - $tile-padding)/2))/3;
+
+  }
   &.expanded {
     height: $expander-height;
 
@@ -100,6 +108,25 @@ $arrow-size : 14px;
    &[data-expand="true"]{
     cursor: pointer
    }
+   &.loading,
+   &.error {
+     .tile__content {
+        img,
+        [class^="icon"] {
+          display: none;
+        }
+     }
+   }
+   &.loading{
+      @include icon(spinner)
+      &::before{
+       display: block;
+       animation: spin .8s infinite steps(20);
+      }
+  }
+  &.error{
+    @include icon(cancel-symbol-inside-a-circle)
+  }
   }
 
   .tile__content {
@@ -184,7 +211,7 @@ $arrow-size : 14px;
 
 /*themes*/
   .tile__content {
-    [data-theme="1"] & {
+    [data-theme="about"] & {
       background-color: rgba(0,0,0,.2);
       [class^="icon"] {
         color: white;
@@ -243,7 +270,7 @@ $arrow-size : 14px;
 
   }
 
-  .tile[data-theme="1"] {
+  .tile[data-theme="about"] {
     .tile__picture {
 
        &::after {
@@ -292,10 +319,14 @@ $arrow-size : 14px;
   [data-theme="twitter"] & {
       background-color: darken(#292f33,8);
     }
-  [data-theme="1"] & {
+  [data-theme="about"] & {
       background-color: rgba(0,0,0,.5);
   }
   }
+}
+
+@keyframes spin {
+  to { transform: rotate(1turn); }
 }
 
 @keyframes popin {

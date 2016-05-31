@@ -33,77 +33,83 @@
   @if $filename == book {
     $char: "\E002";
   }
-  @if $filename == check {
+  @if $filename == cancel-symbol-inside-a-circle {
     $char: "\E003";
   }
-  @if $filename == chevron-thin-down {
+  @if $filename == check {
     $char: "\E004";
   }
-  @if $filename == chevron-thin-left {
+  @if $filename == chevron-thin-down {
     $char: "\E005";
   }
-  @if $filename == chevron-thin-right {
+  @if $filename == chevron-thin-left {
     $char: "\E006";
   }
-  @if $filename == chevron-thin-up {
+  @if $filename == chevron-thin-right {
     $char: "\E007";
   }
-  @if $filename == clock {
+  @if $filename == chevron-thin-up {
     $char: "\E008";
   }
-  @if $filename == codeschool {
+  @if $filename == clock {
     $char: "\E009";
   }
-  @if $filename == cross {
+  @if $filename == codeschool {
     $char: "\E00A";
   }
-  @if $filename == duolingo {
+  @if $filename == cross {
     $char: "\E00B";
   }
-  @if $filename == ellipsis {
+  @if $filename == duolingo {
     $char: "\E00C";
   }
-  @if $filename == github-with-circle {
+  @if $filename == ellipsis {
     $char: "\E00D";
   }
-  @if $filename == linkedin-with-circle {
+  @if $filename == github-with-circle {
     $char: "\E00E";
   }
-  @if $filename == location-pin {
+  @if $filename == linkedin-with-circle {
     $char: "\E00F";
   }
-  @if $filename == menu {
+  @if $filename == location-pin {
     $char: "\E010";
   }
-  @if $filename == minus {
+  @if $filename == menu {
     $char: "\E011";
   }
-  @if $filename == pencil {
+  @if $filename == minus {
     $char: "\E012";
   }
-  @if $filename == plus {
+  @if $filename == pencil {
     $char: "\E013";
   }
-  @if $filename == price-tag {
+  @if $filename == plus {
     $char: "\E014";
   }
-  @if $filename == search {
+  @if $filename == price-tag {
     $char: "\E015";
   }
-  @if $filename == skype-with-circle {
+  @if $filename == search {
     $char: "\E016";
   }
-  @if $filename == spinner2 {
+  @if $filename == skype-with-circle {
     $char: "\E017";
   }
-  @if $filename == trash {
+  @if $filename == spinner {
     $char: "\E018";
   }
-  @if $filename == twitter-with-circle {
+  @if $filename == spinner2 {
     $char: "\E019";
   }
-  @if $filename == twitter {
+  @if $filename == trash {
     $char: "\E01A";
+  }
+  @if $filename == twitter-with-circle {
+    $char: "\E01B";
+  }
+  @if $filename == twitter {
+    $char: "\E01C";
   }
 
   @return $char;
@@ -125,6 +131,9 @@
 }
 .icon-book {
   @include icon(book);
+}
+.icon-cancel-symbol-inside-a-circle {
+  @include icon(cancel-symbol-inside-a-circle);
 }
 .icon-check {
   @include icon(check);
@@ -185,6 +194,9 @@
 }
 .icon-skype-with-circle {
   @include icon(skype-with-circle);
+}
+.icon-spinner {
+  @include icon(spinner);
 }
 .icon-spinner2 {
   @include icon(spinner2);

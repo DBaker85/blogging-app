@@ -161,7 +161,8 @@ gulp.task('pug',function(){
   return gulp.src('./app/views/_templates/*.pug')
     .pipe(plumber())
     .pipe(pug({
-      'pretty' : true
+      'pretty' : true,
+      'locals' : {'widgetID' :config.Twitter.widgetID}
     }))
     .pipe(gulp.dest('./public/templates'))
     .pipe(browserSync.stream());

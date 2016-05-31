@@ -1,5 +1,6 @@
 var crypto = require('crypto');
 var request = require('request');
+var fs = require('fs-extra');
 var isoCountries = require('../content/countries');
 
 function content(db){
@@ -357,6 +358,11 @@ this.createPost = function(req, res){
         targetDate.setDate(targetDate.getDate() + 600);
         res.cookie('visit', true, { expires: targetDate});
       }
+    }
+
+    this.sendAboutmeData  = function(req,res){
+      var aboutme = fs.readJSONSync('./app/content/content.json')
+      res.send({"about":aboutme.aboutMe,"twitter":aboutme.Twitter});
     }
 
   }

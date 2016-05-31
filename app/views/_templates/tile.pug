@@ -1,6 +1,6 @@
 include ../_base/components.pug
 
-.tile(data-expand="{{expand}}" data-theme="{{theme}}" ng-click="expander()" class="expanded? 'expanded':''")
+.tile(data-expand="{{expand}}" data-theme="{{theme}}" ng-click="expander()" class="{{ (state == 'loaded') ? '' : 'loading' }} {{ error ? 'error' : '' }}")
   .tile__content
     .tile__picture(ng-switch="type")
       .tile__image(ng-switch-when="image")
@@ -11,7 +11,12 @@ include ../_base/components.pug
           })
       .tile__description
         | {{title}}
-  .tile__expander
-    .expanded__content
-     | {{content}}
+  .tile__expander(ng-switch="theme")
+    .expanded__content(ng-switch-default ng-bind-html="content")
+
+    .expanded__content(ng-switch-when="twitter")
+      twitter-timeline(twitter-timeline-id='"'+widgetID+'"' twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
+
+
+
 
