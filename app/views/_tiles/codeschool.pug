@@ -1,0 +1,21 @@
+.codeschool-holder
+  .codeschool-holder__user
+    .codeschool-holder__user--left
+      img(src="{{tile.content.user.avatar}}")
+    .codeschool-holder__user--right
+      .username {{tile.content.user.username}}
+      .score {{tile.content.user.total_score}}
+  .codeschool-holder__badges
+    p.codeschool-header
+      | In progress
+    .badge.inprogress(ng-repeat="badge in tile.content.courses.in_progress")
+      a(href="{{badge.url}}" target="_blank")
+        img(src="{{badge.badge}}")
+        p {{badge.title}}
+  .codeschool-holder__badges
+    p.codeschool-header
+      | completed
+    .badge(ng-repeat="badge in tile.content.courses.completed")
+      a(href="{{badge.url}}" target="_blank")
+        img(src="{{badge.badge}}")
+        p {{badge.title}}

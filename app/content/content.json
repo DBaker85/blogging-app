@@ -31,7 +31,77 @@
       "skypeLink":"skype link",
       "githubLink":"github link",
       "linkedIn":"linkedin",
-      "twitter":"twitter"
+      "twitter":"twitter",
+      "techStack" : [
+        {
+        "name": "MongoDB",
+        "logo": "mongodb.svg",
+        "link": "https://www.mongodb.com/"
+        },
+        {
+        "name": "NodeJS",
+        "logo": "nodejs.svg",
+        "link" : "https://nodejs.org/en/"
+        },
+        {
+        "name": "ExpressJS",
+        "logo": "express.svg",
+        "link": "http://expressjs.com/"
+        },
+        {
+        "name": "Pug",
+        "logo": "pug.svg",
+        "link":"https://github.com/pugjs/pug"
+        },
+        {
+        "name": "Grunt",
+        "logo": "grunt.svg",
+        "link":"http://gruntjs.com/"
+        },
+        {
+        "name": "Gulp",
+        "logo": "gulp.svg",
+        "link": "http://gulpjs.com/"
+        },
+         {
+        "name": "Browserify",
+        "logo": "browserify.svg",
+        "link":"http://browserify.org/"
+        },
+         {
+        "name": "webpack",
+        "logo": "webpack.svg",
+        "link": "https://webpack.github.io/"
+        },
+         {
+        "name": "Sass",
+        "logo": "sass.png",
+        "link": "http://sass-lang.com/"
+        },
+         {
+        "name": "AngularJS",
+        "logo": "AngularJS.svg",
+        "link" : "https://angularjs.org/"
+        },
+         {
+        "name": "Jasmine",
+        "logo": "jasmine.svg",
+        "link": "http://jasmine.github.io/"
+        },
+         {
+        "name": "HTML5",
+        "logo": "html-5.svg"
+        },
+         {
+        "name": "CSS3",
+        "logo": "css-3.svg"
+        },
+         {
+        "name": "jQuery",
+        "logo": "jquery.svg",
+        "link":"https://jquery.com/"
+        }
+      ]
       },
     "Twitter":{
       "twitterName":"twittername",

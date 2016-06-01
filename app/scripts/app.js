@@ -110,7 +110,7 @@ angular
             var aboutMeTile = vm.tiles[0];
             console.log(response.data);
             aboutMeTile.state = 'loaded';
-            aboutMeTile.content = response.data;
+            aboutMeTile.content = response.data.about;
         }, function(error){
             var aboutMeTile = vm.tiles[0]
             aboutMeTile.state = 'loaded';

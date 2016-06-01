@@ -1,0 +1,14 @@
+.duolingo-holder
+  .languages(ng-repeat="language in tile.content.language_data")
+    .monument(class="{{language.language}}")
+      img(src="/images/icons/languages/{{language.language}}/1.svg")
+      img(src="/images/icons/languages/{{language.language}}/2.svg")
+      img(src="/images/icons/languages/{{language.language}}/3.svg")
+    .title
+      | {{language.language_string}}
+    .stats
+      p Strength : {{language.language_strength}}
+      p Fluency : {{language.fluency_score}}
+      p level : {{language.level}}
+      p Points : {{language.points}}
+      p User : {{tile.content.username}}
