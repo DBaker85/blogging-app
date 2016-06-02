@@ -122,7 +122,7 @@ $mobile-tile-height: 60px;
 
 .tile__expander {
   display: none;
-  overflow-y:scroll;
+  // overflow-y:scroll;
   &::before {
     content: '';
     display: block;
@@ -222,7 +222,7 @@ $mobile-tile-height: 60px;
 
 .codeschool-holder{
   padding: 10px;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   position: relative;
   &__user,
   &__badges {
