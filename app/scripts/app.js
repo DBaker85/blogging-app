@@ -22,14 +22,20 @@ angular
         }
       };
   }])
-  .controller('ContentController', ['$scope','TileContent','$element', function ($scope, TileContent,$element) {
+  .factory('Posts',['$http', function($http) {
+    return {
+      getPosts : function(){
+        return $http.get('/posts',{cache:false});
+      }
+    }
+  }])
+  .controller('ContentController', ['$scope','TileContent','$interval', function ($scope, TileContent,$interval) {
       var vm = this;
-
+      var minutes = 1000*60;
 
 
       vm.expander = function(index){
-          console.log(index);
-          if (vm.tiles[index].expand == true){
+          if (vm.tiles[index].expand == true && !vm.tiles[index].error){
           if (vm.tiles[index].expanded){
             vm.tiles[index].expanded = false
           } else {
@@ -77,11 +83,10 @@ angular
       ];
 
 
-
-    TileContent.duolingo()
+      vm.populateTiles = function(){
+        TileContent.duolingo()
         .then(function(response){
             var duolingoTile = vm.tiles[2]
-            console.log(response.data);
             duolingoTile.content = response.data;
             duolingoTile.state = 'loaded';
         }, function(error){
@@ -95,7 +100,6 @@ angular
     TileContent.codeschool()
         .then(function(response){
             var codeschoolTile = vm.tiles[3];
-            console.log(response.data);
             codeschoolTile.state = 'loaded';
             codeschoolTile.content = response.data;
         }, function(error){
@@ -108,7 +112,6 @@ angular
     TileContent.aboutMe()
         .then(function(response){
             var aboutMeTile = vm.tiles[0];
-            console.log(response.data);
             aboutMeTile.state = 'loaded';
             aboutMeTile.content = response.data.about;
         }, function(error){
@@ -119,6 +122,10 @@ angular
         });
 
 
+      };
+
+    vm.populateTiles();
+    // $interval(vm.populateTiles, minutes*10);
 
 }])
   .directive('postBloc',[function(){
@@ -126,6 +133,19 @@ angular
       restrict: 'E',
       replace: true,
       templateUrl: 'templates/post.html',
+      controller: ['Posts','$interval', function(Posts, $interval){
+        var vm = this
+        var minutes = 1000*60;
+        vm.fetchposts = function(){
+          Posts.getPosts().then(function(response){
+              vm.posts = response.data
+           })
+        }
+        vm.fetchposts();
+        // $interval(vm.fetchposts, minutes*10);
+      }],
+      controllerAs: 'postCtrl',
+      bindToController: true
     }
   }])
 

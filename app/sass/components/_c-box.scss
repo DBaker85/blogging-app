@@ -1,63 +1,28 @@
-$tile-size : 160px;
-$tile-padding : 10px;
-$expander-height : 500px;
-$arrow-size : 14px;
+$mobile-tile-height: 60px;
 
 .row {
   @extend %clearfix;
   .row__sidebar{
-    width: 32%;
+    width: 70%;
     float:right;
     position: relative;
-
+    @include media(desktop){
+      width: 35%;
+    }
   }
   .row__main{
-     width: 65%;
+     width: 30%;
     float: left;
+    opacity: 0;
+    @include media(desktop) {
+      width: 65%;
+    }
   }
 }
 
-/*
-  Boxes
-*/
-
 .box {
-  float: left;
-  display: block;
-  padding: 10px;
   overflow: hidden;
-  .expand-content {
-    position: absolute;
-    display:none;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .content {
-    height: 100%;
-    position: relative;
-    background-color: #ccc;
-  }
-}
-
-/* Themes */
-.box {
-    &[data-theme="1"] {
-    .content {
-      background-color: rgba(0,0,0,.2)
-    }
-    &::after{
-      border-bottom: 7px solid rgba(0,0,0,.2);
-    }
-  }
-  &[data-theme="duolingo"] {
-    .content {
-      background-color: #7bc142
-    }
-    &::after{
-      border-bottom: 7px solid #7bc142
-    }
-  }
+  padding: 10px;
 }
 
 /*
@@ -65,276 +30,191 @@ $arrow-size : 14px;
   Box sizes
 
  */
-.box1 {
-  width: 75px;
-  height: 75px;
-}
+// .box1 {
+//   width: 75px;
+//   height: 75px;
+// }
 
 
-.box4 {
-  width: 326px;
-  height: 326px;
-}
+// .box4 {
+//   width: 326px;
+//   height: 326px;
+// }
 
 .box8 {
-  width: 670px;
+  width: 100%;
   height: 326px;
 }
 
+/*
 
-/*=======================================================
-                    Tiles
-=======================================================*/
-/* Base */
+  Tiles
+
+*/
 .tile {
-  padding: $tile-padding;
-  display: inline-block;
-  width: $tile-size;
-  height: $tile-size;
-  transition: height .4s ease-in-out;
-  // data expand cursor pointer
-  &::before {
-    font-size: ($tile-size - $tile-padding)/2;
-    line-height: $tile-size - ($tile-padding*2);
-    position: absolute;
-    color: rgba(0,0,0,.3);
-    margin-left: ($tile-size - (($tile-size - $tile-padding)/2))/3;
+  width: 100%;
+
+
+  .tile__content {
+    overflow: hidden;
+    height: $mobile-tile-height;
+
 
   }
-  &.expanded {
-    height: $expander-height;
 
-   }
-   &[data-expand="true"]{
-    cursor: pointer
-   }
-   &.loading,
-   &.error {
-     .tile__content {
-        img,
-        [class^="icon"] {
-          display: none;
-        }
+
+  .tile__picture {
+    display: inline-flex;
+
+    .tile__icon,
+    .tile__image {
+      width: $mobile-tile-height;
+      font-size: $mobile-tile-height;
+      line-height: $mobile-tile-height;
+      height: $mobile-tile-height;
+    }
+
+    .tile__description {
+      align-self: center;
+      padding-left: 10px;
+      color: white;
+    }
+
+  }
+
+}
+
+.tile.error{
+  i{
+    @include icon(cancel-symbol-inside-a-circle)
+     &::before{
+        font-size: 40px;
+        line-height: 40px;
+        margin: 10px;
+        color: white;
+       display: block;
      }
-   }
-   &.loading{
-      @include icon(spinner)
+  }
+}
+
+.tile.loading{
+  i {
+    @include icon(spinner)
       &::before{
+        font-size: 40px;
+        line-height: 40px;
+        margin: 10px;
+        color: white;
        display: block;
        animation: spin .8s infinite steps(20);
       }
   }
-  &.error{
-    @include icon(cancel-symbol-inside-a-circle)
-  }
-  }
-
-  .tile__content {
-    width: 100%;
-    height: $tile-size - ($tile-padding*2);
-    overflow: hidden;
-
-
-
-    [class^="icon"] {
-      font-size: $tile-size - ($tile-padding*2);
-      line-height: $tile-size - ($tile-padding*2);
-    }
-
-    img {
-      height: $tile-size - ($tile-padding*2);
-      width: $tile-size - ($tile-padding*2);
-      display: block;
-    }
-
-    .tile__icon,
-    .tile__image {
-      transition: all .15s linear;
-
-    }
-    .tile__picture {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-       &::after {
-        content:'';
-        opacity: 0;
-        width: 10px;
-        display: block;
-        height: 10px;
-        border-left: $arrow-size solid transparent;
-        border-right: $arrow-size solid transparent;
-        position: absolute;
-        bottom: 0;
-        z-index: 200000;
-        left: ($tile-size - ($tile-padding*4))/2;
-      }
-
-
-
-
-    &:hover > .tile__description {
-      bottom: 0;
-    }
-
-    &:hover > .tile__icon,
-    &:hover > .tile__image {
-      transform:scale(1.3);
-    }
-  }
-
-  }
-
-
-  .tile__description {
-    position: absolute;
-    width: 100%;
-    height: 70%;
-    bottom: -$tile-size;
-    left: 0;
-    padding: 10px;
-    color: white;
-    background-color: rgba(0,0,0,.5);
-    transition: bottom .4s ease-out;
-    overflow: hidden;
 }
 
-.expanded .tile__picture {
-    &::after {
-       animation-name: popin;
-    animation-duration: .4s;
-    animation-fill-mode: forwards;
-    }
+.tile__image {
+  img {
+    margin: 5px 0 0 5px;
+    height: $mobile-tile-height - 10px;
+    width: auto;
+    border-radius: 100%;
   }
-
-
-/*themes*/
-  .tile__content {
-    [data-theme="about"] & {
-      background-color: rgba(0,0,0,.2);
-      [class^="icon"] {
-        color: white;
-      }
-    }
-    [data-theme="duolingo"] & {
-      background-color: #7bc142;
-      [class^="icon"] {
-        color: white;
-      }
-    }
-    [data-theme="codeschool"] & {
-      background-color: #4cadc0;
-      [class^="icon"] {
-        color: white;
-      }
-    }
-    [data-theme="twitter"] & {
-      background-color: #292f33;
-      [class^="icon"] {
-        color: #55acee;
-      }
-    }
-  }
-
-  .tile[data-theme="twitter"] {
-       .tile__picture {
-
-       &::after {
-
-        border-bottom: $arrow-size solid darken(#292f33,8);
-      }
-    }
-
-  }
-
-  .tile[data-theme="duolingo"] {
-      .tile__picture {
-
-       &::after {
-
-        border-bottom: $arrow-size solid darken(#7bc142,8);
-      }
-    }
-
-  }
-
-  .tile[data-theme="codeschool"] {
-       .tile__picture {
-
-       &::after {
-
-        border-bottom: $arrow-size solid darken(#4cadc0,8);
-      }
-    }
-
-  }
-
-  .tile[data-theme="about"] {
-    .tile__picture {
-
-       &::after {
-
-        border-bottom: $arrow-size solid rgba(0,0,0,.5);
-      }
-    }
-
-
-
-
-  }
-
-/*******************************************************
-                      expanded area
-********************************************************/
-
-.expanded > .tile__expander {
-  display: block;
-  animation-name: popin;
-    animation-duration: .4s;
-    animation-fill-mode: forwards;
 }
 
-.tile__expander{
+.tile__expander {
   display: none;
-  width: 100%;
-
-  position: absolute;
-  left: 0;
-  padding: 0px 10px 10px 10px;
-
-  .expanded__content{
-    width: 100%;
+  overflow-y:scroll;
+  &::before {
+    content: '';
     display: block;
-    height: $expander-height - $tile-size;
-
-  [data-theme="duolingo"] & {
-      background-color: darken(#7bc142,8);
-    }
-
-  [data-theme="codeschool"] & {
-      background-color: darken(#4cadc0,8);
-    }
-
-  [data-theme="twitter"] & {
-      background-color: darken(#292f33,8);
-    }
-  [data-theme="about"] & {
-      background-color: rgba(0,0,0,.5);
-  }
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: 10%;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    z-index: 200;
   }
 }
-
 @keyframes spin {
   to { transform: rotate(1turn); }
 }
-
-@keyframes popin {
-    0%   {opacity: 0}
-    95%  {opacity: 0}
-    100% {opacity: 1}
+/*******************************************************
+                Tile expanded
+********************************************************/
+.expanded {
+  .tile__expander{
+    display: block;
+  }
 }
 
+/*******************************************************
+                Tile themes
+********************************************************/
+
+    [data-theme="about"] {
+      .tile__expander::before{
+        border-top: 15px solid $color-pink;
+       }
+      .tile__content {
+        background-color: $color-pink;
+        [class^="icon"] {
+          color: white;
+        }
+      }
+      .tile__expander{
+        background-color: darken($color-pink,10)
+      }
+    }
+
+    [data-theme="duolingo"] {
+      .tile__expander::before{
+        border-top:15px solid #7bc142;
+      }
+      .tile__content {
+        background-color: #7bc142;
+        [class^="icon"] {
+          color: white;
+        }
+      }
+      .tile__expander{
+        background-color: darken(#7bc142,10)
+      }
+    }
+    [data-theme="codeschool"] {
+      .tile__expander::before{
+        border-top:15px solid #4cadc0;
+      }
+      .tile__content {
+        background-color: #4cadc0;
+        [class^="icon"] {
+          color: white;
+        }
+      }
+      .tile__expander{
+        background-color: darken(#4cadc0,10)
+      }
+    }
+    [data-theme="twitter"] {
+      .tile__expander::before{
+        border-top:15px solid #292f33;
+      }
+      .tile__content {
+        background-color: #292f33;
+        [class^="icon"] {
+          color: #55acee;
+        }
+      }
+      .tile__expander{
+        background-color: darken(#292f33,10)
+      }
+    }
+
+/*******************************************************
+                  twitter tile layouts
+********************************************************/
+.twitter-holder {
+  min-height: 320px;
+}
 
 /*******************************************************
                   codeschool tile layouts
@@ -342,7 +222,6 @@ $arrow-size : 14px;
 
 .codeschool-holder{
   padding: 10px;
-  height: $expander-height - $tile-size;
   overflow-y: scroll;
   position: relative;
   &__user,
@@ -386,7 +265,7 @@ $arrow-size : 14px;
 
       img {
         width: 100%; height: auto;
-        filter: grayscale(60%);
+        // filter: grayscale(60%);
         transition: transform .2s ease-in-out;
 
       }
@@ -478,4 +357,11 @@ $arrow-size : 14px;
     }
   }
 
+}
+
+/*******************************************************
+                  aboutme tile layouts
+********************************************************/
+.aboutme-holder {
+  padding: 10px;
 }

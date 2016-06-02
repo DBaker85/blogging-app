@@ -88,18 +88,19 @@ function content(db){
   };
 
 
-this.getPosts = function(callback){
+this.getPosts = function(req,res){
   posts.find().sort({date: -1}).toArray(function (err, result) {
     if (err) {
       console.log(err);
-      callback(err, null);
+      res.status(500).send(err)
     } else if (result.length) {
       console.log('Found:', result.length);
-      callback(err, result);
-    } else {
-      console.log('No document(s) found with defined "find" criteria!');
-      callback(err, false);
+      res.send(result)
     }
+    // else {
+    //   console.log('No document(s) found with defined "find" criteria!');
+    //   callback(err, false);
+    // }
   });
 };
 
@@ -122,23 +123,6 @@ this.getPostsByCategory = function(category,callback){
 
 
 
-this.displayMainPage = function(req, res) {
-  "use strict";
-
-  getPosts(function(err, results) {
-    "use strict";
-
-    if (err) return next(err);
-
-    getCategories(function(err, categories) {
-      return res.render('_landing/index', {
-        posts: results,
-        categories: categories,
-        pagetitle: blogName+' | '+blogTagLine
-      });
-    });
-  });
-}
 
 this.displayAboutPage = function(req, res) {
   "use strict";

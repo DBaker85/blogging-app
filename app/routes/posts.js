@@ -9,8 +9,14 @@ module.exports = function(app,db) {
 	var categories = db.collection('categories');
 
 	app.get('/', function (req, res) {
-		displayMainPage(req, res);
+      res.render('_landing/index', {
+        pagetitle: blogName+' | '+blogTagLine
+      });
 	});
+
+  app.get('/posts', function(req,res){
+    getPosts(req,res)
+  })
 
 	app.get('/post/:url', function(req, res){
 		url = req.params.url;

@@ -28,7 +28,8 @@ block content
                 | {{tile.title}}
           .tile__expander(ng-switch="tile.theme")
             .expanded__content(ng-switch-when="twitter")
-              twitter-timeline(twitter-timeline-id='"'+widgetID+'"' twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
+              .twitter-holder
+                twitter-timeline(twitter-timeline-id="'"+content.Twitter.widgetID+"'" twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
             .expanded__content(ng-switch-when="about")
               include ../_tiles/aboutme.pug
             .expanded__content(ng-switch-when="codeschool")

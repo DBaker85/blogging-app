@@ -1,42 +1,44 @@
-.aside__legend
-  | #{content.aboutMe.name}
-  .small
-    | #{content.aboutMe.description}
-.aside__social-links
-  if content.aboutMe.skypeLink
-    +button({
-      type:'icon',
-      icon:'skype-with-circle',
-      classes: buttonClass,
-      href: content.aboutMe.skypeLink,
-      target: '_self'
-    })
-  if content.aboutMe.githubLink
-    +button({
-      type:'icon',
-      icon:'github-with-circle',
-      classes: buttonClass,
-      href: content.aboutMe.githubLink
-    })
-  if content.aboutMe.linkedIn
-    +button({
-      type:'icon',
-      icon:'linkedin-with-circle',
-      classes: buttonClass,
-      href: content.aboutMe.linkedIn
-    })
-  if content.aboutMe.twitter
-    +button({
-      type:'icon',
-      icon:'twitter-with-circle',
-      classes: buttonClass,
-      href: content.aboutMe.twitter
-    })
-.aside__legend
-  | #{content.blogSetup.blogDescription}
-.aside__legend
-  p My tech stack
-    div(ng-repeat="tech in tile.content.techStack" style="display: inline-block; margin: 5px;")
-      img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto" ng-if="!tech.link")
-      a(target="_blank" href="{{tech.link}}" ng-if="tech.link")
-        img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto" ng-if="tech.link")
+
+.aboutme-holder
+  .aside__legend
+    | #{content.aboutMe.name}
+    .small
+      | #{content.aboutMe.description}
+  .aside__social-links
+    if content.aboutMe.skypeLink
+      +button({
+        type:'icon',
+        icon:'skype-with-circle',
+        classes: buttonClass,
+        href: content.aboutMe.skypeLink,
+        target: '_self'
+      })
+    if content.aboutMe.githubLink
+      +button({
+        type:'icon',
+        icon:'github-with-circle',
+        classes: buttonClass,
+        href: content.aboutMe.githubLink
+      })
+    if content.aboutMe.linkedIn
+      +button({
+        type:'icon',
+        icon:'linkedin-with-circle',
+        classes: buttonClass,
+        href: content.aboutMe.linkedIn
+      })
+    if content.aboutMe.twitter
+      +button({
+        type:'icon',
+        icon:'twitter-with-circle',
+        classes: buttonClass,
+        href: content.aboutMe.twitter
+      })
+  .aside__legend
+    | #{content.blogSetup.blogDescription}
+  .aside__legend
+    p My tech stack
+      div(ng-repeat="tech in tile.content.techStack" style="display: inline-block; margin: 5px;")
+        img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto" ng-if="!tech.link")
+        a(target="_blank" href="{{tech.link}}" ng-if="tech.link")
+          img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto")
