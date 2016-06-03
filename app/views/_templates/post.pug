@@ -1,20 +1,22 @@
 include ../_base/components.pug
-.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts")
-  .content
-    article
-      h1 {{post.title}}
-      .small
-        +icon({
-          icon:'clock'
-        })
-        | {{post.date}}&nbsp;
-        //- if category associated, display category with link to category page
-        span
-          | || posted in&nbsp;
-          a(href="/category/")
-            | {{post.category}}
-        //- if article was edited, show edit date
-        span
-          | &nbsp;|| last edited on {{post.editdate}}
-      .main-content__posts
-        .post__content(ng-bind-html="post.body")
+
+.post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts")
+  article
+    h2 {{post.title}}
+    .small
+      +icon({
+        icon:'clock'
+      })
+      | {{post.date}}&nbsp;
+      //- if category associated, display category with link to category page
+
+      //- if article was edited, show edit date
+      span
+        | &nbsp;|| last edited on {{post.editdate}}
+    div(ng-bind-html="post.body | limit")
+    span
+        | || posted in&nbsp;
+        a(href="/category/")
+          | {{post.category}}
+  .readmore
+    i.icon-chevron-thin-right

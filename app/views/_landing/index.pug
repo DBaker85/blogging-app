@@ -13,8 +13,10 @@ block content
         | menu
     .row
       .row__main
-        post-bloc
-      .row__sidebar
+        .main-content__posts
+          post-bloc
+      .row__sidebar(class="{{vm.openSide? 'open':''}}")
+        .expand-tab(ng-click="vm.openSide = !vm.openSide")
         .tile(ng-repeat="tile in vm.tiles" data-expand="{{tile.expand}}" data-theme="{{tile.theme}}" ng-click="vm.expander($index)" class="{{ (tile.state == 'loaded') ? '' : 'loading' }} {{ tile.error ? 'error' : '' }}{{ tile.expanded == true ? 'expanded' : '' }}")
           .tile__content
             .tile__picture(ng-switch="tile.type")

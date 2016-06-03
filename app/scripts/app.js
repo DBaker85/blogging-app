@@ -29,10 +29,17 @@ angular
       }
     }
   }])
+  .filter("limit", ['$filter',function($filter) {
+    return function(data) {
+      if (!data) return data;
+      return data.slice(0,300)+' ...';
+    };
+  }])
   .controller('ContentController', ['$scope','TileContent','$interval', function ($scope, TileContent,$interval) {
       var vm = this;
       var minutes = 1000*60;
 
+      vm.openSide = false;
 
       vm.expander = function(index){
           if (vm.tiles[index].expand == true && !vm.tiles[index].error){
