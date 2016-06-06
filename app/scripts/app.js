@@ -29,10 +29,14 @@ angular
       }
     }
   }])
-  .filter("limit", ['$filter',function($filter) {
-    return function(data) {
-      if (!data) return data;
-      return data.slice(0,300)+' ...';
+  .filter("limit", [function() {
+    return function(data,open) {
+      if (open == true){
+        return data
+      } else {
+        return data.slice(0,300)+' ...';
+      }
+
     };
   }])
   .controller('ContentController', ['$scope','TileContent','$interval', function ($scope, TileContent,$interval) {
@@ -143,9 +147,22 @@ angular
       controller: ['Posts','$interval', function(Posts, $interval){
         var vm = this
         var minutes = 1000*60;
+
+        vm.postExpander = function(index){
+          console.log(index);
+          if( vm.posts[index].open == true){
+            vm.posts[index].open = false;
+          } else{
+            for (var i = vm.posts.length - 1; i >= 0; i--) {
+                vm.posts[i].open = false;
+              }
+              vm.posts[index].open = true;
+          }
+        };
         vm.fetchposts = function(){
           Posts.getPosts().then(function(response){
               vm.posts = response.data
+              console.log(vm.posts)
            })
         }
         vm.fetchposts();

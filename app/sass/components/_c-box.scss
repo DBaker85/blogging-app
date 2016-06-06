@@ -42,11 +42,13 @@ $mobile-tile-height: 60px;
   }
 
   .row__main{
-     width: 90%;
+     width: 96%;
+     margin-left: 2%;
     float: left;
     // opacity: 0;
     @include media(desktop) {
       width: 65%;
+      margin-left:0;
     }
   }
 }
@@ -74,10 +76,13 @@ $mobile-tile-height: 60px;
 
 .box8 {
   width: 100%;
-  height: 326px;
   background-color: white;
   padding: 10px;
   margin-bottom: 10px;
+  max-height: 600px;
+  @include media(desktop) {
+    max-height: 326px;
+  }
 }
 
 /*
@@ -135,6 +140,7 @@ $mobile-tile-height: 60px;
         width: 100%;
         padding: 10px 10px 20px 10px;
         bottom: -60px;
+        left: 0;
 
       }
     }
@@ -535,31 +541,82 @@ $mobile-tile-height: 60px;
 
 .post__content {
   @extend %clearfix;
+  transition: max-height .5s ease-in-out;
   article {
-    width: 94%;
-    float: left;
+    width: 100%;
     padding-right: 10px;
+    @include media(desktop){
+      width: 94%;
+      float: left;
+    }
   }
   .readmore{
-    height: 100%;
-    width: 6%;
+    width: 100%;
     float: right;
+    text-align: right;
+    cursor: pointer;
+     @include media(desktop){
+      width: 6%;
+       height: 100%;
+
+     }
     i {
       color: $color-pink;
-      font-size: 40px;
-      display: flex;
-      height: 100%;
-      transition: transform .3s ease-in-out;
-      &::before{
-        align-self: center;
+      font-size: 16px;
+      @include media(desktop){
+        font-size: 40px;
+        display: flex;
+        height: 326px;
+        transition: transform .3s ease-in-out;
       }
+      &::before{
+        @include media(desktop){
+          align-self: center;
+        }
+      }
+    }
+    .readmore__text,
+    .readmore__close {
+      display: inline-block;
+      color: $color-pink;
+      @include media(desktop){
+        display: none
+      }
+    }
+    .readmore__close {
+      display: none;
     }
   }
   .readmore:hover{
-      background-color: rgba($color-pink,.05);
+      // background-color: rgba($color-pink,.05);
       i {
-        transform: scale(1.2);
+        @include media(desktop){
+          transform: scale(1.2);
+       }
       }
     }
+
+}
+.open-article{
+  &.post__content{
+    width: 100%;
+    // height: auto;
+    max-height: 60000px;
+    .readmore__text {
+    display: none;
+  }
+  .readmore__close {
+    display: inline-block;
+    @include media(desktop){
+      display: none;
+    }
+  }
+  .readmore i {
+    @include icon(chevron-thin-left);
+    @include media(desktop){
+      align-self: flex-end;
+    }
+  }
+  }
 
 }

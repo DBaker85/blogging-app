@@ -1,6 +1,6 @@
 include ../_base/components.pug
 
-.post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts")
+.post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
   article
     h2 {{post.title}}
     .small
@@ -13,10 +13,14 @@ include ../_base/components.pug
       //- if article was edited, show edit date
       span
         | &nbsp;|| last edited on {{post.editdate}}
-    div(ng-bind-html="post.body | limit")
+    div(ng-bind-html="post.body | limit: post.open")
     span
         | || posted in&nbsp;
         a(href="/category/")
           | {{post.category}}
-  .readmore
+  .readmore(ng-click="postCtrl.postExpander($index)")
+    .readmore__text
+      | Read more
+    .readmore__close
+      | Close
     i.icon-chevron-thin-right
