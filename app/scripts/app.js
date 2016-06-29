@@ -8,7 +8,8 @@ angular
   .module('BloggingApp', [
   'ngtweet',
   'ngSanitize',
-  'angularLazyImg'
+  'angularLazyImg',
+  'ngCookies'
   ])
   .factory('TileContent', ['$http', function ($http) {
       return {
@@ -50,11 +51,33 @@ angular
 
     };
   }])
-  .controller('ContentController', ['$scope','TileContent','$interval', function ($scope, TileContent,$interval) {
+  .controller('CookieBannerController', ['$cookies', function($cookies){
+    var vm = this;
+    vm.showBanner = false;
+    vm.checkCookieStatus = function() {
+      let cookieAccepted = $cookies.getObject('acceptCookiePolicy');
+      console.log(cookieAccepted);
+      if (cookieAccepted != true){
+        vm.showBanner = true;
+      }
+    };
+    vm.acceptCookies = function() {
+      vm.showBanner = false;
+      $cookies.put('acceptCookiePolicy', true)
+    };
+
+    vm.checkCookieStatus();
+
+  }])
+  .controller('ContentController', ['$scope','TileContent','$interval', function($scope, TileContent, $interval){
       var vm = this;
       var minutes = 1000*60;
 
       vm.openSide = false;
+
+      
+
+
 
       vm.expander = function(index){
           if (vm.tiles[index].expand == true && !vm.tiles[index].error){

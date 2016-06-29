@@ -12,7 +12,18 @@ body.light(ng-app="BloggingApp")
 	footer.small
 		each line in content.footer
 			p !{marked(line)}
-
+	.cookie-banner(ng-controller="CookieBannerController as cookieCtrl" class="{{cookieCtrl.showBanner?'open':''}}")
+		p.text
+			| This site uses cookies to improve the overall user experience. You can read 
+			a(href="#")
+				| my cookie policy here 
+		+button({
+            type:'primary',
+            text:'Accept and close',
+            attributes:{
+              'ng-click':'cookieCtrl.acceptCookies()'
+            }
+        })
 
 	include footer-scripts
 

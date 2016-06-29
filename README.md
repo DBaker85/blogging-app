@@ -4,7 +4,7 @@ A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
 Comes packed with a test suite that does Js and Css linting as well as Css stats.
 
 ### Changelog
-v2.0 - Shifted whole workflow to use gulp, webpack and pug
+v2.0 - Shifted whole workflow to use Gulp, Pug and Angular
 
 v1.2.1 - optimised themer storage and added theme logging.
 
