@@ -7,7 +7,8 @@
 angular
   .module('BloggingApp', [
   'ngtweet',
-  'ngSanitize'
+  'ngSanitize',
+  'angularLazyImg'
   ])
   .factory('TileContent', ['$http', function ($http) {
       return {
@@ -17,15 +18,25 @@ angular
         duolingo: function() {
           return $http.get('https://www.duolingo.com/api/1/users/show?username=David658748',{cache:false});
         },
-        aboutMe: function(){
+        aboutMe: function() {
           return $http.get('/aboutmeContent',{cache:false});
         }
       };
   }])
-  .factory('Posts',['$http', function($http) {
+  .factory('Posts', ['$http', function($http) {
     return {
-      getPosts : function(){
-        return $http.get('/posts',{cache:false});
+      getPosts : function() {
+        return $http.get('/posts', {cache:false});
+      },
+      filterPosts : function(filter) {
+        return $http.get('/category/'+filter, {cache:false});
+      }
+    }
+  }])
+  .factory('Categories', ['$http', function($http) {
+    return {
+      getCategories : function() {
+        return $http.get('/categories', {cache:false});
       }
     }
   }])
@@ -144,7 +155,7 @@ angular
       restrict: 'E',
       replace: true,
       templateUrl: 'templates/post.html',
-      controller: ['Posts','$interval', function(Posts, $interval){
+      controller: ['Posts','Categories','$interval', function(Posts,Categories,$interval){
         var vm = this
         var minutes = 1000*60;
 
@@ -161,16 +172,31 @@ angular
         };
         vm.fetchposts = function(){
           Posts.getPosts().then(function(response){
-              vm.posts = response.data
-              console.log(vm.posts)
+            vm.posts = response.data;
+            vm.selectedCategory = "";
+            console.log(vm.posts)
            })
-        }
+        };
+        vm.filterposts = function(filter){
+          Posts.filterPosts(filter).then(function(response){
+              vm.posts = response.data;
+              console.log(vm.posts);
+              vm.selectedCategory = filter;
+           })
+        };
+        vm.fetchcategories = function(){
+          Categories.getCategories().then(function(response){
+              vm.categories = response.data;
+              console.log(vm.categories)
+           })
+        };
         vm.fetchposts();
+        vm.fetchcategories();
         // $interval(vm.fetchposts, minutes*10);
       }],
       controllerAs: 'postCtrl',
       bindToController: true
     }
-  }])
+  }]);
 
 

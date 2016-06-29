@@ -18,25 +18,36 @@ module.exports = function(app,db) {
     getPosts(req,res)
   })
 
-	app.get('/post/:url', function(req, res){
-		url = req.params.url;
-		displaySinglePost(req,res,url);
-	});
+  app.get('/category/:url', function(req,res){
+    console.log('filtering by'+req.params.url)
+    getPostsByCategory(req,res,req.params.url);
+  })
 
-	app.get('/category/:url', function (req, res) {
-		displayCategoryPage(req, res, req.params.url);
-	});
+  app.get('/categories', function(req,res){
+    getCategories(req,res);
+  })
 
-	app.get('/about', function (req, res) {
-    	displayAboutPage(req, res);
-  	});
 
-  app.get('/cookies', function (req, res) {
-    	displayCookiePage(req, res);
-  });
 
-  app.get('/aboutmeContent', function (req, res) {
-      sendAboutmeData(req, res);
-  });
+	// app.get('/post/:url', function(req, res){
+	// 	url = req.params.url;
+	// 	displaySinglePost(req,res,url);
+	// });
+
+	// app.get('/category/:url', function (req, res) {
+	// 	displayCategoryPage(req, res, req.params.url);
+	// });
+
+	// app.get('/about', function (req, res) {
+ //    	displayAboutPage(req, res);
+ //  	});
+
+ //  app.get('/cookies', function (req, res) {
+ //    	displayCookiePage(req, res);
+ //  });
+
+ //  app.get('/aboutmeContent', function (req, res) {
+ //      sendAboutmeData(req, res);
+ //  });
 
 }

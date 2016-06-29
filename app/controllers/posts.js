@@ -10,82 +10,82 @@ function content(db){
   var passwords = db.collection('password');
   var visitStats = db.collection('visitStats');
 
-  this.displayAdminPage = function(req, res) {
-    "use strict";
+  // this.displayAdminPage = function(req, res) {
+  //   "use strict";
 
-    if (req.session.user){
-      getPosts(function(err, results) {
-        "use strict";
+  //   if (req.session.user){
+  //     getPosts(function(err, results) {
+  //       "use strict";
 
-        if (err) return next(err);
+  //       if (err) return next(err);
 
-        getCategories(function(err, categories) {
-          getStats(function(err, source,country) {
-            return res.render('_admin/admin', {
-              posts: results,
-              categories : categories,
-              sources: source,
-              countries: country,
-              pagetitle : 'Admin panel | '+blogName
-            });
-          });
-        });
-      });
-    } else {
-      return res.redirect('/login');
-    }
-  }
+  //       getCategories(function(err, categories) {
+  //         getStats(function(err, source,country) {
+  //           return res.render('_admin/admin', {
+  //             posts: results,
+  //             categories : categories,
+  //             sources: source,
+  //             countries: country,
+  //             pagetitle : 'Admin panel | '+blogName
+  //           });
+  //         });
+  //       });
+  //     });
+  //   } else {
+  //     return res.redirect('/login');
+  //   }
+  // }
 
-  this.getCountryName = function(countryCode) {
-    if (isoCountries.hasOwnProperty(countryCode)) {
-        return isoCountries[countryCode];
-    } else {
-        return countryCode;
-    }
-  }
+  // this.getCountryName = function(countryCode) {
+  //   if (isoCountries.hasOwnProperty(countryCode)) {
+  //       return isoCountries[countryCode];
+  //   } else {
+  //       return countryCode;
+  //   }
+  // }
 
-  this.getStats = function(callback){
-    visitStats.aggregate([
-      {
-        $group : {
-        _id : {source: "$userAgent.source"},
-        count: { $sum: 1 }
-      }}
-      ]).sort({_id: 1}).toArray(function (err, source) {
-        if (err) {
-          console.log(err);
-          callback(err, null);
-        }
-        visitStats.aggregate([
-          {
-            $match: { "userAgent.source" :{ $not: /bot|spider/i }}
-          },
-          { $group : {
-            _id : {country: "$country"},
-            count: { $sum: 1 }
-          }}
-          ]).sort({_id: 1}).toArray(function (err, countries) {
-            if (err) {
-              console.log(err);
-              callback(err, null);
-            } else if (countries.length) {
-              console.log(countries);
-              var country = [];
-              countries.forEach(function(item){
-                country.push({
-                  country: getCountryName(item._id.country),
-                  count: item.count
-                })
-              })
-              callback(err,source,country);
-            } else {
-              console.log('No document(s) found with defined "find" criteria!');
-              callback(err, false, false);
-            }
-          });
+  // this.getStats = function(callback){
+  //   visitStats.aggregate([
+  //     {
+  //       $group : {
+  //       _id : {source: "$userAgent.source"},
+  //       count: { $sum: 1 }
+  //     }}
+  //     ]).sort({_id: 1}).toArray(function (err, source) {
+  //       if (err) {
+  //         console.log(err);
+  //         callback(err, null);
+  //       }
+  //       visitStats.aggregate([
+  //         {
+  //           $match: { "userAgent.source" :{ $not: /bot|spider/i }}
+  //         },
+  //         { $group : {
+  //           _id : {country: "$country"},
+  //           count: { $sum: 1 }
+  //         }}
+  //         ]).sort({_id: 1}).toArray(function (err, countries) {
+  //           if (err) {
+  //             console.log(err);
+  //             callback(err, null);
+  //           } else if (countries.length) {
+  //             console.log(countries);
+  //             var country = [];
+  //             countries.forEach(function(item){
+  //               country.push({
+  //                 country: getCountryName(item._id.country),
+  //                 count: item.count
+  //               })
+  //             })
+  //             callback(err,source,country);
+  //           } else {
+  //             console.log('No document(s) found with defined "find" criteria!');
+  //             callback(err, false, false);
+  //           }
+  //         });
 
-        });
-  };
+  //       });
+  // };
 
 
 this.getPosts = function(req,res){
@@ -105,77 +105,90 @@ this.getPosts = function(req,res){
 };
 
 
-this.getPostsByCategory = function(category,callback){
+this.getPostsByCategory = function(req,res,category){
 
   posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
     if (err) {
       console.log(err);
-      callback(err, null);
+      res.status(500).send(err)
     } else if (result.length) {
-      console.log('Found:', result.length);
-      callback(err, result);
-    } else {
-      console.log('No document(s) found with defined "find" criteria!');
-      callback(err, false);
-    }
+       console.log('Found:', result.length);
+      res.send(result)
+    } 
+    // else {
+    //   console.log('No document(s) found with defined "find" criteria!');
+    //   callback(err, false);
+    // }
   });
 };
 
-
-
-
-this.displayAboutPage = function(req, res) {
-  "use strict";
-  getCategories(function(err, categories) {
-    if (err) {
-      displayErrorPage(req,res,500);
-    } else {
-      return res.render('_landing/about', {
-        categories: categories,
-        pagetitle: 'About this website | '+blogName
-      });
-    }
-  });
-
-}
-
-this.displayCookiePage = function(req, res) {
-  "use strict";
-  getCategories(function(err, categories) {
-    if (err) {
-      displayErrorPage(req,res,500);
-    } else {
-      return res.render('_landing/cookie', {
-        categories: categories,
-        pagetitle: 'Cookie policy | '+blogName
-      });
-    }
-  });
-
-}
-
-
-
-this.displaySinglePost = function(req, res, url) {
-  "use strict";
-  getCategories(function(err, categories) {
-
-    posts.findOne({urlSlug:req.params.url}, function(err, result){
+this.getCategories = function(req,res){
+    categories.find().toArray(function (err, result) {
       if (err) {
-        displayErrorPage(req,res,500);
-      } else if (result != undefined) {
-        return res.render('_landing/post', {
-          post: result,
-          categories: categories,
-          pagetitle: result.title+' | '+blogName
-        });
-      } else {
-        displayErrorPage(req, res, 404);
-      }
+      console.log(err);
+      res.status(500).send(err)
+    } else if (result.length) {
+       console.log('Found:', result.length, 'categories');
+      res.send(result)
+    } 
     });
-  });
+  };
 
-}
+
+
+
+// this.displayAboutPage = function(req, res) {
+//   "use strict";
+//   getCategories(function(err, categories) {
+//     if (err) {
+//       displayErrorPage(req,res,500);
+//     } else {
+//       return res.render('_landing/about', {
+//         categories: categories,
+//         pagetitle: 'About this website | '+blogName
+//       });
+//     }
+//   });
+
+// }
+
+// this.displayCookiePage = function(req, res) {
+//   "use strict";
+//   getCategories(function(err, categories) {
+//     if (err) {
+//       displayErrorPage(req,res,500);
+//     } else {
+//       return res.render('_landing/cookie', {
+//         categories: categories,
+//         pagetitle: 'Cookie policy | '+blogName
+//       });
+//     }
+//   });
+
+// }
+
+
+
+// this.displaySinglePost = function(req, res, url) {
+//   "use strict";
+//   getCategories(function(err, categories) {
+
+//     posts.findOne({urlSlug:req.params.url}, function(err, result){
+//       if (err) {
+//         displayErrorPage(req,res,500);
+//       } else if (result != undefined) {
+//         return res.render('_landing/post', {
+//           post: result,
+//           categories: categories,
+//           pagetitle: result.title+' | '+blogName
+//         });
+//       } else {
+//         displayErrorPage(req, res, 404);
+//       }
+//     });
+//   });
+
+// }
 
 
 

@@ -19,18 +19,18 @@ function categoryHandler(db){
         })
   }
 
-  this.getCategories = function(callback){
-    categories.find().toArray(function (err, result) {
-      if (err) {
-        console.log(err);
-        callback(err, null);
-      } else if (result.length) {
-        callback(err, result);
-      } else {
-        callback(err, false);
-      }
-    });
-  };
+  // this.getCategories = function(callback){
+  //   categories.find().toArray(function (err, result) {
+  //     if (err) {
+  //       console.log(err);
+  //       callback(err, null);
+  //     } else if (result.length) {
+  //       callback(err, result);
+  //     } else {
+  //       callback(err, false);
+  //     }
+  //   });
+  // };
 
   this.displayCategoryPage = function(req, res, category) {
     "use strict";

@@ -85,6 +85,7 @@ $mobile-tile-height: 60px;
   }
 }
 
+
 /*
 
   Tiles
@@ -619,4 +620,16 @@ $mobile-tile-height: 60px;
   }
   }
 
+}
+
+.post__filter{
+  @extend %clearfix;
+  select {
+    float: left;
+    width: 90%;
+  }
+  button {
+    float: right;
+    // width: 9%;
+  }
 }
