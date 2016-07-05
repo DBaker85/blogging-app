@@ -27,6 +27,10 @@ module.exports = function(app,db) {
     getCategories(req,res);
   })
 
+	app.get('/post-count/:category', function(req,res){
+    getPostCount(req,res, req.params.category);
+  })
+
 
 
 	// app.get('/post/:url', function(req, res){

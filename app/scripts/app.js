@@ -31,6 +31,9 @@ angular
       },
       filterPosts : function(filter) {
         return $http.get('/category/'+filter, {cache:false});
+      },
+      countPosts : function(category) {
+        return $http.get('/post-count/'+category, {cache:false});
       }
     }
   }])
@@ -75,7 +78,7 @@ angular
 
       vm.openSide = false;
 
-      
+
 
 
 
@@ -206,6 +209,7 @@ angular
               console.log(vm.posts);
               vm.selectedCategory = filter;
            })
+           vm.createPagination(filter);
         };
         vm.fetchcategories = function(){
           Categories.getCategories().then(function(response){
@@ -213,13 +217,18 @@ angular
               console.log(vm.categories)
            })
         };
+        vm.createPagination = function(category){
+          Posts.countPosts(category).then(function(response){
+              vm.postCount = response.data;
+              console.log(vm.postCount);
+           })
+        };
         vm.fetchposts();
         vm.fetchcategories();
+        vm.createPagination('all');
         // $interval(vm.fetchposts, minutes*10);
       }],
       controllerAs: 'postCtrl',
       bindToController: true
     }
   }]);
-
-
