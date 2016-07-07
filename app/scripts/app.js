@@ -59,7 +59,7 @@ angular
     vm.showBanner = false;
     vm.checkCookieStatus = function() {
       let cookieAccepted = $cookies.getObject('acceptCookiePolicy');
-      console.log(cookieAccepted);
+
       if (cookieAccepted != true){
         vm.showBanner = true;
       }
@@ -186,7 +186,7 @@ angular
         var minutes = 1000*60;
 
         vm.postExpander = function(index){
-          console.log(index);
+
           if( vm.posts[index].open == true){
             vm.posts[index].open = false;
           } else{
@@ -200,32 +200,35 @@ angular
           Posts.getPosts().then(function(response){
             vm.posts = response.data;
             vm.selectedCategory = "";
-            console.log(vm.posts)
+
+            vm.createPagination('all');
            })
         };
         vm.filterposts = function(filter){
           Posts.filterPosts(filter).then(function(response){
               vm.posts = response.data;
-              console.log(vm.posts);
+
               vm.selectedCategory = filter;
+              vm.createPagination(filter);
            })
-           vm.createPagination(filter);
+
         };
         vm.fetchcategories = function(){
           Categories.getCategories().then(function(response){
               vm.categories = response.data;
-              console.log(vm.categories)
+
            })
         };
         vm.createPagination = function(category){
           Posts.countPosts(category).then(function(response){
-              vm.postCount = response.data;
-              console.log(vm.postCount);
+              vm.postCount = response.data.documents;
+              vm.range = 2;
+              vm.amountOfPages = vm.postCount/vm.range;
            })
         };
         vm.fetchposts();
         vm.fetchcategories();
-        vm.createPagination('all');
+
         // $interval(vm.fetchposts, minutes*10);
       }],
       controllerAs: 'postCtrl',

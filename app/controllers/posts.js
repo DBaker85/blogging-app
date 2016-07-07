@@ -104,38 +104,35 @@ this.getPosts = function(req,res){
   });
 };
 
-this.getAllPostCount = function(){
+this.getAllPostCount = function(res){
   posts.count({}, function (err, result) {
     if (err) {
       console.log(err);
-      return err
+      res.send(404);
     } else {
-      return {'documents' : result};
+      res.send({'documents' : result});
     }
   });
 }
-this.getCategoryPostCount = function(category){
+this.getCategoryPostCount = function(res,category){
   posts.count({category: category}, function (err, result) {
     if (err) {
       console.log(err);
-      return err
+      res.send(404);
     } else {
-      return {'documents' : result};
+      console.log('found '+result+' results for category '+category)
+      res.send({'documents' : result});
     }
   });
 }
 
 this.getPostCount = function(req,res,category){
   if (category == 'all'){
-    this.getCategoryPostCount()
+    this.getAllPostCount(res)
   } else {
-    this.getAllPostCount(category)
+    this.getCategoryPostCount(res,category)
+
   }
-  //   // else {
-  //   //   console.log('No document(s) found with defined "find" criteria!');
-  //   //   callback(err, false);
-  //   // }
-  });
 };
 
 
