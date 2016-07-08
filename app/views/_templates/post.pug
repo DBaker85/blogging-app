@@ -38,9 +38,15 @@ include ../_base/components.pug
       .readmore__close
         | Close
       i.icon-chevron-thin-right
-  .post__pagination
+  p {{postCtrl.pages.length}}
+  .post__pagination(ng-if="postCtrl.pages.length > 1")
     ul
-      li <<
-      li(ng-repeat="page in postCtrl.pages")
-        | {{$index+1}}
-      li >>
+      li
+        a
+          | <<
+      li(ng-repeat="page in postCtrl.pages" class="{{ postCtrl.activePage = $index? '': 'active' }}")
+        a
+          | {{$index+1}}
+      li
+        a
+          | >>

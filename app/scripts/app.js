@@ -212,6 +212,7 @@ angular
               vm.pages = [];
               vm.postCount = response.data.documents;
               vm.range = 1;
+              vm.activePage = 0;
               vm.amountOfPages = vm.postCount/vm.range;
               for (var i = 0; i < vm.amountOfPages; i++) {
                 vm.pages.push(i);
