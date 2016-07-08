@@ -1,7 +1,7 @@
 include ../_base/components.pug
 .post
   .post__filter
-    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.filterposts(postCtrl.selectedCategory)")
+    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(postCtrl.selectedCategory)")
       optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
         option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
           | {{subcategory.subcategory}}
@@ -11,7 +11,7 @@ include ../_base/components.pug
             type:'icon',
             icon:'cross',
             attributes:{
-              'ng-click':'postCtrl.fetchposts()'
+              'ng-click':"postCtrl.fetchposts('all')"
             }
           })
   .post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
@@ -39,4 +39,8 @@ include ../_base/components.pug
         | Close
       i.icon-chevron-thin-right
   .post__pagination
-    p {{postCtrl.postCount}}
+    ul
+      li <<
+      li(ng-repeat="page in postCtrl.pages")
+        | {{$index+1}}
+      li >>

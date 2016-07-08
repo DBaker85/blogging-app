@@ -20,17 +20,14 @@ angular
           return $http.get('https://www.duolingo.com/api/1/users/show?username=David658748',{cache:false});
         },
         aboutMe: function() {
-          return $http.get('/aboutmeContent',{cache:false});
+          return $http.get('/aboutmeContent',{cache:true});
         }
       };
   }])
   .factory('Posts', ['$http', function($http) {
     return {
-      getPosts : function() {
-        return $http.get('/posts', {cache:false});
-      },
-      filterPosts : function(filter) {
-        return $http.get('/category/'+filter, {cache:false});
+      getPosts : function(filter,start,end) {
+        return $http.get('/posts?category='+filter+'&start='+start+'&end='+end ,{cache:false});
       },
       countPosts : function(category) {
         return $http.get('/post-count/'+category, {cache:false});
@@ -40,7 +37,7 @@ angular
   .factory('Categories', ['$http', function($http) {
     return {
       getCategories : function() {
-        return $http.get('/categories', {cache:false});
+        return $http.get('/categories', {cache:true});
       }
     }
   }])
@@ -196,23 +193,14 @@ angular
               vm.posts[index].open = true;
           }
         };
-        vm.fetchposts = function(){
-          Posts.getPosts().then(function(response){
+        vm.fetchposts = function(filter,start,end){
+          Posts.getPosts(filter,start,end).then(function(response){
             vm.posts = response.data;
             vm.selectedCategory = "";
-
-            vm.createPagination('all');
+            vm.createPagination(filter);
            })
         };
-        vm.filterposts = function(filter){
-          Posts.filterPosts(filter).then(function(response){
-              vm.posts = response.data;
 
-              vm.selectedCategory = filter;
-              vm.createPagination(filter);
-           })
-
-        };
         vm.fetchcategories = function(){
           Categories.getCategories().then(function(response){
               vm.categories = response.data;
@@ -221,12 +209,17 @@ angular
         };
         vm.createPagination = function(category){
           Posts.countPosts(category).then(function(response){
+              vm.pages = [];
               vm.postCount = response.data.documents;
-              vm.range = 2;
+              vm.range = 1;
               vm.amountOfPages = vm.postCount/vm.range;
+              for (var i = 0; i < vm.amountOfPages; i++) {
+                vm.pages.push(i);
+              }
            })
         };
-        vm.fetchposts();
+
+        vm.fetchposts('all');
         vm.fetchcategories();
 
         // $interval(vm.fetchposts, minutes*10);

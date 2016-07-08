@@ -15,13 +15,14 @@ module.exports = function(app,db) {
 	});
 
   app.get('/posts', function(req,res){
-    getPosts(req,res)
+		console.log(req.query)
+    getPosts(req,res,req.query.category);
   })
 
-  app.get('/category/:url', function(req,res){
-    console.log('filtering by'+req.params.url)
-    getPostsByCategory(req,res,req.params.url);
-  })
+  // app.get('/category/:url', function(req,res){
+  //   console.log('filtering by'+req.params.url)
+  //   getPostsByCategory(req,res,req.params.url);
+  // })
 
   app.get('/categories', function(req,res){
     getCategories(req,res);

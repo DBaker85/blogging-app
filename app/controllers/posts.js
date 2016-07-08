@@ -88,20 +88,38 @@ function content(db){
   // };
 
 
-this.getPosts = function(req,res){
-  posts.find().sort({date: -1}).limit(10).toArray(function (err, result) {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err)
-    } else if (result.length) {
-      console.log('Found:', result.length);
-      res.send(result)
-    }
-    // else {
-    //   console.log('No document(s) found with defined "find" criteria!');
-    //   callback(err, false);
-    // }
-  });
+this.getPosts = function(req,res,category){
+  if (category == 'all') {
+
+
+    posts.find().sort({date: -1}).limit(10).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err)
+      } else if (result.length) {
+        console.log('Found:', result.length);
+        res.send(result)
+      }
+    });
+
+
+  } else {
+
+
+    posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err)
+      } else if (result.length) {
+         console.log('Found:', result.length);
+        res.send(result)
+      }
+    });
+
+
+  }
+
+
 };
 
 this.getAllPostCount = function(res){
@@ -135,23 +153,6 @@ this.getPostCount = function(req,res,category){
   }
 };
 
-
-this.getPostsByCategory = function(req,res,category){
-
-  posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err)
-    } else if (result.length) {
-       console.log('Found:', result.length);
-      res.send(result)
-    }
-    // else {
-    //   console.log('No document(s) found with defined "find" criteria!');
-    //   callback(err, false);
-    // }
-  });
-};
 
 this.getCategories = function(req,res){
     categories.find().toArray(function (err, result) {
