@@ -26,8 +26,8 @@ angular
   }])
   .factory('Posts', ['$http', function($http) {
     return {
-      getPosts : function(filter,start,end) {
-        return $http.get('/posts?category='+filter+'&start='+start+'&end='+end ,{cache:false});
+      getPosts : function(filter,start,limit) {
+        return $http.get('/posts?category='+filter+'&start='+start+'&limit='+limit ,{cache:false});
       },
       countPosts : function(category) {
         return $http.get('/post-count/'+category, {cache:false});
@@ -181,9 +181,10 @@ angular
       controller: ['Posts','Categories','$interval', function(Posts,Categories,$interval){
         var vm = this
         var minutes = 1000*60;
+        vm.selectedCategory = 'all';
+        vm.range = 5;
 
         vm.postExpander = function(index){
-
           if( vm.posts[index].open == true){
             vm.posts[index].open = false;
           } else{
@@ -193,11 +194,10 @@ angular
               vm.posts[index].open = true;
           }
         };
-        vm.fetchposts = function(filter,start,end){
-          Posts.getPosts(filter,start,end).then(function(response){
+        vm.fetchposts = function(start){
+          Posts.getPosts(vm.selectedCategory,start,vm.range).then(function(response){
             vm.posts = response.data;
-            vm.selectedCategory = "";
-            vm.createPagination(filter);
+            vm.createPagination();
            })
         };
 
@@ -207,11 +207,10 @@ angular
 
            })
         };
-        vm.createPagination = function(category){
-          Posts.countPosts(category).then(function(response){
+        vm.createPagination = function(){
+          Posts.countPosts(vm.selectedCategory).then(function(response){
               vm.pages = [];
               vm.postCount = response.data.documents;
-              vm.range = 1;
               vm.activePage = 0;
               vm.amountOfPages = vm.postCount/vm.range;
               for (var i = 0; i < vm.amountOfPages; i++) {
@@ -219,8 +218,22 @@ angular
               }
            })
         };
+        vm.clearCategory = function(){
+          vm.selectedCategory = 'all';
+          vm.fetchposts(0,vm.range);
+        };
+        vm.navigate = function(index){
+          vm.activePage = index;
+          if(index == 0){
+            vm.fetchposts(0);
+          } else {
+            vm.fetchposts((vm.range*index)+1);
+          }
 
-        vm.fetchposts('all');
+
+        };
+
+        vm.fetchposts(0);
         vm.fetchcategories();
 
         // $interval(vm.fetchposts, minutes*10);

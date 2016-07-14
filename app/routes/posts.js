@@ -16,7 +16,7 @@ module.exports = function(app,db) {
 
   app.get('/posts', function(req,res){
 		console.log(req.query)
-    getPosts(req,res,req.query.category);
+    getPosts(req,res,req.query.category,req.query.start,req.query.limit);
   })
 
   // app.get('/category/:url', function(req,res){

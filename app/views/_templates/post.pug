@@ -1,7 +1,7 @@
 include ../_base/components.pug
 .post
   .post__filter
-    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(postCtrl.selectedCategory)")
+    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
       optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
         option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
           | {{subcategory.subcategory}}
@@ -11,7 +11,7 @@ include ../_base/components.pug
             type:'icon',
             icon:'cross',
             attributes:{
-              'ng-click':"postCtrl.fetchposts('all')"
+              'ng-click':'postCtrl.clearCategory()'
             }
           })
   .post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
@@ -38,14 +38,18 @@ include ../_base/components.pug
       .readmore__close
         | Close
       i.icon-chevron-thin-right
-  p {{postCtrl.pages.length}}
+  select(name="pagesize" id="pagesize" ng-model="postCtrl.range" ng-change="postCtrl.fetchposts(0)")
+    option(value="2") 2
+    option(value="5") 5
+    option(value="10") 10
+    option(value="15") 15
   .post__pagination(ng-if="postCtrl.pages.length > 1")
     ul
       li
         a
           | <<
-      li(ng-repeat="page in postCtrl.pages" class="{{ postCtrl.activePage = $index? '': 'active' }}")
-        a
+      li(ng-repeat="page in postCtrl.pages" class="{{ postCtrl.activePage == $index? 'active': '' }}")
+        a(ng-click="postCtrl.navigate($index)")
           | {{$index+1}}
       li
         a

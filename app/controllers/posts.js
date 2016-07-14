@@ -88,11 +88,13 @@ function content(db){
   // };
 
 
-this.getPosts = function(req,res,category){
+this.getPosts = function(req,res,category,startValue,limitValue){
+  var start = parseInt(startValue);
+  var limit = parseInt(limitValue);
   if (category == 'all') {
 
 
-    posts.find().sort({date: -1}).limit(10).toArray(function (err, result) {
+    posts.find().sort({date: -1}).skip(start).limit(limit).toArray(function (err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err)
@@ -106,7 +108,7 @@ this.getPosts = function(req,res,category){
   } else {
 
 
-    posts.find({category: category}).sort({date: -1}).toArray(function (err, result) {
+    posts.find({category: category}).sort({date: -1}).skip(start).limit(limit).toArray(function (err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err)
