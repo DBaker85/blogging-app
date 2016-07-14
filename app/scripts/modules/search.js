@@ -1,3 +1,4 @@
+/** This is a description of the foo function. */
 var search = function () {
 
   this.openSearchBar = function(){

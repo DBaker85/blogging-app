@@ -4,4 +4,5 @@ app/logs/*.*
 bower_components
 node_modules
 public
-
+docs
+out

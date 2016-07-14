@@ -1,29 +1,30 @@
-var iconfont       = require('gulp-iconfont');
-var iconfontCss    = require('gulp-iconfont-css');
-var gulp           = require('gulp');
-var runSequence    = require('run-sequence');
-var clean          = require('gulp-clean');
-var replace        = require('gulp-replace');
-var gutil          = require('gulp-util');
-var browserSync    = require('browser-sync').create();
+const iconfont       = require('gulp-iconfont');
+const iconfontCss    = require('gulp-iconfont-css');
+const gulp           = require('gulp');
+const runSequence    = require('run-sequence');
+const clean          = require('gulp-clean');
+const replace        = require('gulp-replace');
+const gutil          = require('gulp-util');
+const browserSync    = require('browser-sync').create();
 
-var sass           = require('gulp-sass');
-var nodemon        = require('nodemon');
-var uglify         = require('gulp-uglify');
-var header         = require('gulp-header');
-var concat         = require('gulp-concat');
-var postcss        = require('gulp-postcss');
+const sass           = require('gulp-sass');
+const nodemon        = require('nodemon');
+const uglify         = require('gulp-uglify');
+const header         = require('gulp-header');
+const concat         = require('gulp-concat');
+const postcss        = require('gulp-postcss');
 
-var autoprefixer   = require('autoprefixer');
-var plumber        = require('gulp-plumber');
-var sourcemaps     = require('gulp-sourcemaps');
-var mainBowerFiles = require('main-bower-files');
-var config         = require('./app/content/content');
+const autoprefixer   = require('autoprefixer');
+const plumber        = require('gulp-plumber');
+const sourcemaps     = require('gulp-sourcemaps');
+const mainBowerFiles = require('main-bower-files');
+const config         = require('./app/content/content');
+const sassdoc        = require('sassdoc');
 
-const babel        = require('gulp-babel');
-var pug            = require('gulp-pug');
-
-var banner         = [
+const babel          = require('gulp-babel');
+const pug            = require('gulp-pug');
+const jsdoc          = require('gulp-jsdoc3');
+const banner         = [
   '/*',
   ' * @version v<%= pkg.version %>',
   ' * @author <%= pkg.author %>',
@@ -31,7 +32,7 @@ var banner         = [
   ' */',
   ''
 ].join('\n');
-var pkg         = require('./package.json');
+const pkg         = require('./package.json');
 
 gulp.task('icon-build', function(){
   return icon = gulp.src(['./app/icons/*.svg'])
@@ -174,6 +175,57 @@ gulp.task('pug',function(){
 
 });
 
+gulp.task('sassdoc', function () {
+  var options = {
+    dest: 'docs',
+    verbose: true,
+  };
+  return gulp.src('./app/sass/**/*.scss')
+    .pipe(sassdoc(options));
+});
+
+
+gulp.task('doc', function (cb) {
+  var config = {
+    destination : './jsdoc',
+    template : "node_modules/ink-docstrap/template",
+    configure : {
+
+
+        "tags": {
+          "allowUnknownTags": true
+        },
+        "plugins": ["plugins/markdown"],
+        "templates": {
+          "logoFile": "",
+          "cleverLinks": false,
+          "monospaceLinks": false,
+          "dateFormat": "ddd MMM Do YYYY",
+          "outputSourceFiles": true,
+          "outputSourcePath": true,
+          "systemName": "DocStrap",
+          "footer": "",
+          "copyright": "DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.",
+          "navType": "vertical",
+          "theme": "Superhero",
+          "linenums": true,
+          "collapseSymbols": false,
+          "inverseNav": true,
+          "protocol": "html://",
+          "methodHeadingReturns": false
+        },
+        "markdown": {
+          "parser": "gfm",
+          "hardwrap": true
+        }
+      }
+
+    }
+
+    gulp.src(['readme.md', './app/scripts/*.js' ,'./app/scripts/**/*.js'], {read: true})
+        .pipe(jsdoc(config, cb));
+});
+
 gulp.task('js-watch', ['js'], browserSync.reload);
 gulp.task('bower-watch', ['bower'], browserSync.reload);
 gulp.task('icon-watch', ['icon'], browserSync.reload);
@@ -194,6 +246,3 @@ gulp.task('default', ['icon', 'pug' ,'sass', 'bower', 'js','nodemon'], function 
   gulp.watch('bower.json', ['bower-watch']);
   gulp.watch('./app/views/**/*.pug', ['pug-watch']);
 });
-
-
-
