@@ -1,10 +1,15 @@
 include ../_base/components.pug
 .post
   .post__filter
-    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
-      optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
-        option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
-          | {{subcategory.subcategory}}
+    .select-container
+      select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
+        option(value="all" disabled)
+          | Filter by category
+        optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
+          option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
+            | {{subcategory.subcategory}}
+      label.sr-only.label--select(for="category")
+        | Filter by category
     //- button.btn.btn-primary(ng-click="postCtrl.fetchposts()")
       | X
     +button({

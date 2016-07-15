@@ -65,6 +65,26 @@ input[type="search"] {
 input[type="search"] {
   box-sizing: border-box;
 }
+.select-container{
+  position: relative;
+  select {
+    height: 40px;
+
+  }
+  
+  // label{
+  //   position: absolute;
+  //   top: 15px;
+  //   left: 10px;
+  //   transition: top .5s ease-in-out;
+  // }
+  // select:hover + label {
+  //   top: -30px;
+  //   left: 10px;
+  // }
+}
+
+
 
 .search-input{
   width: 0px;
@@ -75,7 +95,3 @@ input[type="search"] {
     padding: 3px;
   }
 }
-
-
-
-

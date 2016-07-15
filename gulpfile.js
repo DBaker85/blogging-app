@@ -113,13 +113,14 @@ gulp.task('icon',function (callback) {
 });
 
 gulp.task('js', function() {
-  return gulp.src('app/scripts/app.js')
+  return gulp.src(['./app/scripts/app.js','./app/scripts/filters/*.js','./app/scripts/factories/*.js','./app/scripts/directives/*.js','./app/scripts/controllers/*.js'])
     .pipe(plumber({
         errorHandler: function(err){
           gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
           this.emit('end');
         }
       }))
+    .pipe(concat('app.js'))
     .pipe(babel({
       presets: ['es2015']
     }))
@@ -190,8 +191,6 @@ gulp.task('doc', function (cb) {
     destination : './jsdoc',
     template : "node_modules/ink-docstrap/template",
     configure : {
-
-
         "tags": {
           "allowUnknownTags": true
         },
@@ -222,7 +221,7 @@ gulp.task('doc', function (cb) {
 
     }
 
-    gulp.src(['readme.md', './app/scripts/*.js' ,'./app/scripts/**/*.js'], {read: true})
+    gulp.src(['readme.md', './app/scripts/app.js' ,'./app/scripts/**/*.js'], {read: true})
         .pipe(jsdoc(config, cb));
 });
 
