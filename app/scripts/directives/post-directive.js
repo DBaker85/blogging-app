@@ -5,7 +5,7 @@ angular
       restrict: 'E',
       replace: true,
       templateUrl: 'templates/post.html',
-      controller: ['Posts','Categories','$interval', function(Posts,Categories,$interval){
+      controller: ['Posts','Categories','$interval','$rootScope',function(Posts,Categories,$interval,$rootScope){
         var vm = this
         var minutes = 1000*60;
         vm.selectedCategory = 'all';
@@ -14,12 +14,15 @@ angular
         vm.postExpander = function(index){
           if( vm.posts[index].open == true){
             vm.posts[index].open = false;
+            $rootScope.expandedArticle = false;
           } else{
             for (var i = vm.posts.length - 1; i >= 0; i--) {
                 vm.posts[i].open = false;
               }
               vm.posts[index].open = true;
+              $rootScope.expandedArticle = true;
           }
+          console.log($rootScope);
         };
         vm.fetchposts = function(start){
           Posts.getPosts(vm.selectedCategory,start,vm.range).then(function(response){

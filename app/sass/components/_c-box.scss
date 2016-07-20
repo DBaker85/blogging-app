@@ -53,6 +53,21 @@ $mobile-tile-height: 60px;
   }
 }
 
+.row.large {
+  .row__main {
+    @include media(desktop) {
+      width: 100%;
+    }
+  }
+  .row__sidebar {
+    @include media(desktop) {
+      position: absolute;
+      width: 350px;
+      right: 30px;
+    }
+  }
+}
+
 .box {
   overflow: hidden;
   padding: 10px;

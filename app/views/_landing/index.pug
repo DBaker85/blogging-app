@@ -11,7 +11,7 @@ block content
         "size":"small"
       })
         | menu
-    .row
+    .row(class="{{expandedArticle?'large':''}}")
       .row__main
         .main-content__posts
           post-bloc
@@ -41,4 +41,3 @@ block content
               include ../_tiles/duolingo.pug
 
             .expanded__content(ng-switch-default ng-bind-html="content")
-
