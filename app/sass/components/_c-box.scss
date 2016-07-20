@@ -62,8 +62,13 @@ $mobile-tile-height: 60px;
   .row__sidebar {
     @include media(desktop) {
       position: absolute;
-      width: 350px;
-      right: 30px;
+      width: 170px;
+      right: 20px;
+    }
+    .tile {
+        @include media(desktop) {
+          width: 100%;
+        }
     }
   }
 }

@@ -113,7 +113,7 @@ gulp.task('icon',function (callback) {
 });
 
 gulp.task('js', function() {
-  return gulp.src(['./app/scripts/app.js','./app/scripts/filters/*.js','./app/scripts/factories/*.js','./app/scripts/directives/*.js','./app/scripts/controllers/*.js'])
+  return gulp.src(['./app/scripts/app.js','./app/scripts/values/*.js','./app/scripts/filters/*.js','./app/scripts/factories/*.js','./app/scripts/directives/*.js','./app/scripts/controllers/*.js'])
     .pipe(plumber({
         errorHandler: function(err){
           gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
