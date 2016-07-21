@@ -25,6 +25,7 @@ angular
           console.log($rootScope);
         };
         vm.fetchposts = function(start){
+          $rootScope.expandedArticle = false;
           Posts.getPosts(vm.selectedCategory,start,vm.range).then(function(response){
             vm.posts = response.data;
             vm.createPagination();
