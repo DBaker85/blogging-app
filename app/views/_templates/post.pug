@@ -32,7 +32,7 @@ include ../_base/components.pug
         //- if article was edited, show edit date
         span
           | &nbsp;|| last edited on {{post.editdate}}
-      div(ng-bind-html="post.body | limit: post.open")
+      div(ng-bind-html="post.body | limitHtml: post.open")
       span
           | || posted in&nbsp;
           a(href='' ng-click="postCtrl.filterposts(post.category)")

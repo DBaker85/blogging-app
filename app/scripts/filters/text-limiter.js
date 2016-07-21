@@ -1,12 +1,11 @@
 angular
   .module('BloggingApp')
-  .filter("limit", [function() {
+  .filter("limitHtml", ['$sce',function($sce) {
     return function(data,open) {
       if (open == true){
-        return data
+        return $sce.trustAsHtml(data);
       } else {
-        return data.slice(0,300)+' ...';
+        return $sce.trustAsHtml(data.slice(0,300)+' ...');
       }
-
     };
   }])
