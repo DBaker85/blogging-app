@@ -12,7 +12,9 @@ angular
   };
   vm.acceptCookies = function() {
     vm.showBanner = false;
-    $cookies.put('acceptCookiePolicy', true)
+    var expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 180);
+    $cookies.put('acceptCookiePolicy', true, {expires: expiryDate})
   };
 
   vm.checkCookieStatus();
