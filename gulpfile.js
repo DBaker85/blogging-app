@@ -21,6 +21,7 @@ const mainBowerFiles = require('main-bower-files');
 const config         = require('./app/content/content');
 const sassdoc        = require('sassdoc');
 
+const rename         = require("gulp-rename");
 const babel          = require('gulp-babel');
 const pug            = require('gulp-pug');
 const jsdoc          = require('gulp-jsdoc3');
@@ -130,6 +131,21 @@ gulp.task('js', function() {
     .pipe(header(banner, { pkg : pkg } ))
     .pipe(gulp.dest('public/scripts/'))
     .pipe(browserSync.stream());
+});
+
+gulp.task('admin-build', function() {
+  return gulp.src(['./bower_components/AdminLTE/dist/js/app.min.js'])
+    .pipe(plumber({
+        errorHandler: function(err){
+          gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
+          this.emit('end');
+        }
+      }))
+    .pipe(rename('admin.js'))
+    .pipe( sourcemaps.init() )
+    .pipe(uglify())
+    .pipe( sourcemaps.write('.') )
+    .pipe(gulp.dest('public/scripts/'))
 });
 
 gulp.task('bower', function() {
