@@ -87,10 +87,10 @@
   @if $filename == plus {
     $char: "\E014";
   }
-  @if $filename == price-tag {
+  @if $filename == search {
     $char: "\E015";
   }
-  @if $filename == search {
+  @if $filename == shopping {
     $char: "\E016";
   }
   @if $filename == skype-with-circle {
@@ -186,11 +186,11 @@
 .icon-plus {
   @include icon(plus);
 }
-.icon-price-tag {
-  @include icon(price-tag);
-}
 .icon-search {
   @include icon(search);
+}
+.icon-shopping {
+  @include icon(shopping);
 }
 .icon-skype-with-circle {
   @include icon(skype-with-circle);
@@ -210,4 +210,3 @@
 .icon-twitter {
   @include icon(twitter);
 }
-

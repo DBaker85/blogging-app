@@ -9,10 +9,12 @@ $color-white: #FFFFFF;
 $color-background-dark: #292929;
 $color-text-dark: #FFFFFF;
 
-$color-background-light: #e5e0ca;
+$color-background-light: #FFFFFF;
 $color-text-light: #1a1a1a;
 
-$color-disabled : #cccccc;
+$color-grey: #cccccc;
+
+$color-disabled : $color-grey;
 
 $color-list: #d81e5b darken(#d81e5b,10) darken(#d81e5b,20);
 

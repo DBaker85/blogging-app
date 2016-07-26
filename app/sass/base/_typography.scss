@@ -20,7 +20,7 @@ p {
 	margin: 12px 0;
 }
 
-$headings: 42px 34px 28px 22px 18px 14px;
+$headings: 40px 30px 26px 22px 18px 14px;
 @each $heading in $headings{
     $i: index($headings, $heading);
     h#{$i} {
@@ -61,4 +61,3 @@ code {
   color: $color-monokai-blue;
   padding: 2px 5px;
 }
-
