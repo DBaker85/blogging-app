@@ -24,10 +24,13 @@ include ../_base/components.pug
       .post__title
         h2 {{post.title}}
         .date
-          +icon({
-            icon:'clock'
-          })
-          | {{post.date | date : 'EEE, dd/mm/yyyy'}}&nbsp;
+          .date__icon
+            +icon({
+              icon:'clock'
+            })
+          .date__text
+            .big {{post.date | date : 'EEE'}}
+            .small {{post.date | date : 'dd/mm/yy'}}
       .small(ng-if="post.editdate")
         | last edited on {{post.editdate | date : 'EEE, dd/mm/yyyy'}}
       div(ng-bind-html="post.body | limitHtml: post.open")
