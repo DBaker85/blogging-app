@@ -26,7 +26,9 @@
     "angular-sanitize": "^1.5.6",
     "angular-lazy-img": "~1.2.2",
     "angular-cookies": "~1.5.7",
-    "AdminLTE": "admin-lte#^2.3.5"
+    "AdminLTE": "admin-lte#^2.3.5",
+    "angular-animate": "^1.5.8",
+    "angular-google-chart": "^0.1.0"
   },
   "overrides": {
     "angular": {
@@ -34,7 +36,7 @@
         "jquery": "^2.2.4"
       }
     },
-    "AdminLTE":{
+    "AdminLTE": {
       "ignore": true
     }
   }

@@ -12,7 +12,9 @@
 angular
   .module('BloggingApp', [
   'ngtweet',
+  'ngAnimate',
   'ngSanitize',
   'angularLazyImg',
-  'ngCookies'
+  'ngCookies',
+  'googlechart'
   ]);

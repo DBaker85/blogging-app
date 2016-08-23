@@ -8,37 +8,9 @@ function admin(db){
   var passwords = db.collection('password');
   var visitStats = db.collection('visitStats');
 
-
-    this.displayAdminPage = function(req, res) {
-    "use strict";
-
-    if (req.session.user){
-      getPosts(function(err, results) {
-        "use strict";
-
-        if (err) return next(err);
-
-        getCategories(function(err, categories) {
-          getStats(function(err, stats) {
-          return res.render('_admin/admin', {
-            posts: results,
-            categories : categories,
-            stats: stats,
-            pagetitle : 'Admin panel | '+blogName
-          });
-          });
-        });
-      });
-    } else {
-      return res.redirect('/login');
-    }
-  }
-
-    this.getStats = function(callback){
-    console.log('visit Stats search');
+  this.getStats = function(req,res){
     visitStats.aggregate([{$group:{_id:{country:{$country:"$country"}}}}]).toArray(function (err, result){
       console.log(result);
-
     })
   };
 

@@ -9,8 +9,17 @@ module.exports = function(app,db) {
   var password = db.collection('password');
 
     app.get('/admin', function (req, res) {
-    	displayAdminPage(req, res);
+      if (req.session.user){
+          "use strict";
+            return res.render('_admin/admin', {
+              pagetitle : 'Admin panel | '+blogName
+            });
+      } else {
+        return res.redirect('/login');
+      }
   	});
+
+  
 
   	app.post('/submit-post', function(req, res){
     	createPost(req, res);

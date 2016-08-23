@@ -133,7 +133,7 @@ gulp.task('js', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('admin-build', function() {
+gulp.task('admin-build-js', function() {
   return gulp.src(['./bower_components/AdminLTE/dist/js/app.min.js'])
     .pipe(plumber({
         errorHandler: function(err){
@@ -148,6 +148,21 @@ gulp.task('admin-build', function() {
     .pipe(gulp.dest('public/scripts/'))
 });
 
+gulp.task('admin-build-css', function() {
+  return gulp.src(['./bower_components/AdminLTE/bootstrap/css/bootstrap.min.css','./bower_components/AdminLTE/dist/css/AdminLTE.min.css','./bower_components/AdminLTE/dist/css/skins/skin-red.min.css'])
+  .pipe(plumber({
+      errorHandler: function(err){
+        gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
+        this.emit('end');
+      }
+    }))
+    .pipe(concat('admin.css'))
+    .pipe( sourcemaps.write('.') )
+    .pipe(header(banner, { pkg : pkg } ))
+    .pipe(gulp.dest('public/css'))
+    .pipe(browserSync.stream({match: '**/*.css'}));
+});
+
 gulp.task('bower', function() {
     return gulp.src(mainBowerFiles())
       .pipe(plumber({
@@ -157,7 +172,7 @@ gulp.task('bower', function() {
         }
       }))
       .pipe(concat('vendors.js'))
-      .pipe(uglify())
+      //.pipe(uglify())
       .pipe(header(banner, { pkg : pkg } ))
       .pipe(gulp.dest('public/scripts'))
       .pipe(browserSync.stream());

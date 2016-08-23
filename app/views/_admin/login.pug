@@ -1,42 +1,50 @@
 extends ../_base/layout.pug
 
 block content
-	.container
+	.container(ng-controller="LoginController as vm")
 		//- if no password exists in base, create admin password
 		if login == 'nopass'
 			.login
 				h1 Create a password
 				.alert.alert-warning
 					| This is your main admin password and can only be created once please choose with care
-				form.js-signup-form(method="post" action="/signup" data-parsley-validate)
+				form(ng-submit="loginform.$valid && vm.createPassword()" novalidate name="loginform")
 					+input({
 						text:'username',
 						name:'username',
+						error: 'Username must be at least 4 characters',
 						attributes:{
 							'required':'required',
-							'minlength':'4'
+							'minlength':'4',
+							'ng-model': 'vm.user'
 						}
 					})
 					+input({
 						text:'password',
 						name:'password',
 						type:'password',
+						error: 'Password must contain at least one letter, at least one number, and be longer than six charaters',
 						attributes:{
 							'required':'required',
 							'minlength':'6',
 							'placeholder': 'At least 6 characters, a number and a letter',
-							'data-parsley-pattern':'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$',
-							'data-parsley-error-message':'Password must contain at least one letter, at least one number, and be longer than six charaters'
+							'ng-pattern':'/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/',
+							'ng-model': 'vm.password',
+							'id':	'password1'
 						}
 					})
 					+input({
 						text:'confirm password',
 						name:'passwordconfirm',
 						type:'password',
+						error: 'Your passwords do not match',
 						attributes:{
 							'required':'required',
 							'data-parsley-equalto':'#password',
-							'data-parsley-error-message':'passwords do not match'
+							'data-parsley-error-message':'passwords do not match',
+							'ng-model': 'vm.passwordConfirm',
+							'password': 'password1',
+							'ng-paste': '$event.preventDefault()'
 						}
 					})
 					+button({
@@ -47,12 +55,14 @@ block content
 		if login == 'notlogged'
 			.login
 				h1 Login
-				form.js-login-form(method="post" action="/login" data-parsley-validate)
+				form(ng-submit="vm.login()")
 					+input({
 						text:'username',
 						name:'username',
 						attributes:{
-							'required':'required'
+							'required':'required',
+							'ng-model': 'vm.user',
+							'ng-change' : 'vm.passwordIncorrect = false'
 						}
 					})
 					+input({
@@ -60,13 +70,18 @@ block content
 						name:'password',
 						type:'password',
 						attributes:{
-							'required':'required'
+							'required':'required',
+							'ng-model': 'vm.password',
+							'ng-change' : 'vm.passwordIncorrect = false'
 						}
 					})
 					+button({
 						type:'submit',
 						text:'submit'
 					})
+				.alert.alert-danger(ng-if="vm.passwordIncorrect")
+					| Your username and password do not match
+
 		//- turn login into logout page
 		if login == 'logged'
 			.login

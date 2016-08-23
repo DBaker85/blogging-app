@@ -14,10 +14,21 @@ module.exports = function(app,db) {
       });
 	});
 
+	app.get
+
   app.get('/posts', function(req,res){
 		console.log(req.query)
     getPosts(req,res,req.query.category,req.query.start,req.query.limit);
   })
+
+	app.get('/admin/visits', function (req, res){
+		getStats(function(err, source,country) {
+			res.send({
+				sources: source,
+				countries: country
+			})
+		})
+	});
 
   // app.get('/category/:url', function(req,res){
   //   console.log('filtering by'+req.params.url)

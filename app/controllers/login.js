@@ -68,14 +68,10 @@ this.createPassword = function(req,res){
 
     this.login = function(req, res) {
     "use strict";
-    getCategories(function(err, categories) {
-      if (err) {
-        displayErrorPage(req,res,500);
-      } else {
+
         // check session to see if logged in if so show logged version of page
         if (req.session.user){
           return res.render('_admin/login', {
-            categories: categories,
             login: 'logged',
             pagetitle : 'Logout | '+blogName
           });
@@ -85,22 +81,19 @@ this.createPassword = function(req,res){
               // if password exists then show login version of page
               if(result.length > 0){
                 return res.render('_admin/login', {
-                  categories: categories,
                   login: 'notlogged',
                   pagetitle : 'Log in | '+blogName
                 });
               }else{
                   // if password does not exist in database, show create admin password version of page
                   return res.render('_admin/login', {
-                    categories: categories,
                     login: 'nopass',
                     pagetitle : 'Create password | '+blogName
                   });
                 }
             })
         }
-      }
-    })
+
   };
 
   this.logout = function(req, res){

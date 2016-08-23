@@ -36,56 +36,56 @@ function content(db){
   //   }
   // }
 
-  // this.getCountryName = function(countryCode) {
-  //   if (isoCountries.hasOwnProperty(countryCode)) {
-  //       return isoCountries[countryCode];
-  //   } else {
-  //       return countryCode;
-  //   }
-  // }
+  this.getCountryName = function(countryCode) {
+    if (isoCountries.hasOwnProperty(countryCode)) {
+        return isoCountries[countryCode];
+    } else {
+        return countryCode;
+    }
+  }
 
-  // this.getStats = function(callback){
-  //   visitStats.aggregate([
-  //     {
-  //       $group : {
-  //       _id : {source: "$userAgent.source"},
-  //       count: { $sum: 1 }
-  //     }}
-  //     ]).sort({_id: 1}).toArray(function (err, source) {
-  //       if (err) {
-  //         console.log(err);
-  //         callback(err, null);
-  //       }
-  //       visitStats.aggregate([
-  //         {
-  //           $match: { "userAgent.source" :{ $not: /bot|spider/i }}
-  //         },
-  //         { $group : {
-  //           _id : {country: "$country"},
-  //           count: { $sum: 1 }
-  //         }}
-  //         ]).sort({_id: 1}).toArray(function (err, countries) {
-  //           if (err) {
-  //             console.log(err);
-  //             callback(err, null);
-  //           } else if (countries.length) {
-  //             console.log(countries);
-  //             var country = [];
-  //             countries.forEach(function(item){
-  //               country.push({
-  //                 country: getCountryName(item._id.country),
-  //                 count: item.count
-  //               })
-  //             })
-  //             callback(err,source,country);
-  //           } else {
-  //             console.log('No document(s) found with defined "find" criteria!');
-  //             callback(err, false, false);
-  //           }
-  //         });
+  this.getStats = function(callback){
+    visitStats.aggregate([
+      {
+        $group : {
+        _id : {source: "$userAgent.source"},
+        count: { $sum: 1 }
+      }}
+      ]).sort({_id: 1}).toArray(function (err, source) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        }
+        visitStats.aggregate([
+          {
+            $match: { "userAgent.source" :{ $not: /bot|spider/i }}
+          },
+          { $group : {
+            _id : {country: "$country"},
+            count: { $sum: 1 }
+          }}
+          ]).sort({_id: 1}).toArray(function (err, countries) {
+            if (err) {
+              console.log(err);
+              callback(err, null);
+            } else if (countries.length) {
+              console.log(countries);
+              var country = [];
+              countries.forEach(function(item){
+                country.push({
+                  country: getCountryName(item._id.country),
+                  count: item.count
+                })
+              })
+              callback(err,source,country);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false, false);
+            }
+          });
 
-  //       });
-  // };
+        });
+  };
 
 
 this.getPosts = function(req,res,category,startValue,limitValue){
