@@ -10,7 +10,23 @@ block content
           | Blog
         span.logo-lg
           | Admin section
-    nav.navbar.navbar-static-top
+      nav.navbar.navbar-static-top
+        .navbar-custom-menu
+          ul.nav.navbar-nav
+            li.dropdown.user.user-menu
+              a
+                span user
+              ul.dropdown-menu
+                li.user-header
+                  img.img-circle
+                  p
+                    | User
+                    span
+                      | date?
+
+                li.user-footer
+                  a.btn.btn-default.btn-flat
+                    | Sign out
     aside.main-sidebar
       section.main-sidebar
         ul.sidebar-menu
@@ -30,12 +46,75 @@ block content
                 | Categories
     .content-wrapper
       section.content-header
-        | test header
+        | Visitor stats
       section.content
         .row
           .col-md-8
-            .box.box-sucess
+            .box.box-success.no-padding
               .box-header
-                | Visitors
+                .box-title
+                  | Visitors
+                .box-tools.pull-right(ng-if="!vm.visitorChart.loaded")
+                  i.glyphicon.glyphicon-refresh.spin
               .box-body.no-padding
-                div(google-chart chart="vm.chart")
+                div(google-chart chart="vm.visitorChart" agc-on-ready="vm.visitorChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Platform
+              .box-body
+                div(google-chart chart="vm.platformChart" agc-on-ready="vm.platformChart.loaded = true")
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Device
+              .box-body
+                div(google-chart chart="vm.deviceChart" agc-on-ready="vm.platformChart.loaded = true")
+      section.content-header
+        | Browser Stats
+      section.content
+        .row
+          .col-md-4
+            .box.box-success.no-padding
+              .box-header
+                .box-title
+                  | Chrome
+              .box-body
+                div(google-chart chart="vm.chromeChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Firefox
+              .box-body
+                div(google-chart chart="vm.firefoxChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-danger.no-padding
+              .box-header
+                .box-title
+                  | Opera
+              .box-body
+                div(google-chart chart="vm.operaChart" agc-on-ready="vm.osChart.loaded = true")
+        .row
+          .col-md-4
+            .box.no-padding
+              .box-header
+                .box-title
+                  | Internet explorer
+              .box-body
+                div(google-chart chart="vm.IEChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.no-padding
+              .box-header
+                .box-title
+                  | Safari
+              .box-body
+                div(google-chart chart="vm.safariChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | OS
+              .box-body
+                div(google-chart chart="vm.osChart" agc-on-ready="vm.osChart.loaded = true")

@@ -44,21 +44,18 @@ function content(db){
     }
   }
 
-  this.getStats = function(callback){
-    visitStats.aggregate([
-      {
-        $group : {
-        _id : {source: "$userAgent.source"},
-        count: { $sum: 1 }
-      }}
-      ]).sort({_id: 1}).toArray(function (err, source) {
-        if (err) {
-          console.log(err);
-          callback(err, null);
-        }
+  this.getVisitCountries = function(callback){
         visitStats.aggregate([
           {
-            $match: { "userAgent.source" :{ $not: /bot|spider/i }}
+            $match: {
+              $and: [
+                {"country" :{ $ne: null }},
+                {"userAgent.platform" :{ $ne: 'unknown' }},
+                {"userAgent.isBot" : { $ne: true }},
+                {"userAgent.source" :{ $not: /bot|spider/ig }}
+              ]
+
+            }
           },
           { $group : {
             _id : {country: "$country"},
@@ -77,15 +74,136 @@ function content(db){
                   count: item.count
                 })
               })
-              callback(err,source,country);
+              callback(err,country);
             } else {
               console.log('No document(s) found with defined "find" criteria!');
               callback(err, false, false);
             }
           });
 
-        });
+        }
+
+
+  this.getVisitOs = function(callback){
+    visitStats.aggregate([
+      {
+        $match: {
+          $and: [
+            {"userAgent.source" :{ $not: /bot|spider/ig }},
+            {"userAgent.os":{$ne: 'unknown'}}
+          ]
+        }
+      },
+      {
+        $group : {
+        _id : {os: "$userAgent.os"},
+        count: { $sum: 1 }
+      }}
+    ]).sort({_id: 1}).toArray(function (err, os) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        } else if (os.length) {
+          callback(err,os);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false);
+            }
+          });
   };
+  this.getVisitPlatform = function(callback){
+    visitStats.aggregate([
+      {
+        $match: {
+          $and: [
+            {"userAgent.source" :{ $not: /bot|spider/ig }},
+            {"userAgent.platform":{$ne: 'unknown'}}
+          ]
+        }
+      },
+      {
+        $group : {
+        _id : {platform: "$userAgent.platform"},
+        count: { $sum: 1 }
+      }}
+    ]).sort({_id: 1}).toArray(function (err, Platform) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        } else if (Platform.length) {
+          callback(err,Platform);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false);
+            }
+          });
+  };
+
+
+  this.getVisitBrowser = function(callback){
+    visitStats.aggregate([
+      {
+        $match: {
+          $and: [
+            {"userAgent.source" :{ $not: /bot|spider/ig }},
+            {"userAgent.platform":{$ne: 'unknown'}},
+            {"userAgent.version":{$ne: null}}
+          ]
+        }
+      },
+      {
+        $group : {
+        _id : {
+          chrome: "$userAgent.isChrome",
+          edge: "$userAgent.isEdge",
+          firefox: "$userAgent.isFirefox",
+          ie:'$userAgent.isIE',
+          opera: '$userAgent.isOpera',
+          safari: '$userAgent.isSafari',
+          version: {$substr:['$userAgent.version',0,3]}
+        },
+        count: { $sum: 1 }
+      }}
+    ]).sort({_id: 1}).toArray(function (err, browser) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        } else if (browser.length) {
+          callback(err,browser);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false);
+            }
+          });
+  };
+
+  this.getVisitDevice = function(callback){
+    visitStats.aggregate([
+      {
+        $match: { "userAgent.source" :{ $not: /bot|spider/ig }}
+      },
+      {
+        $group : {
+        _id : {
+          desktop: "$userAgent.isDesktop",
+          tablet: "$userAgent.isTablet",
+          mobile: "$userAgent.isMobile"
+        },
+        count: { $sum: 1 }
+      }}
+    ]).sort({_id: 1}).toArray(function (err, device) {
+        if (err) {
+          console.log(err);
+          callback(err, null);
+        } else if (device.length) {
+          callback(err,device);
+            } else {
+              console.log('No document(s) found with defined "find" criteria!');
+              callback(err, false);
+            }
+          });
+  };
+
 
 
 this.getPosts = function(req,res,category,startValue,limitValue){

@@ -21,12 +21,34 @@ module.exports = function(app,db) {
     getPosts(req,res,req.query.category,req.query.start,req.query.limit);
   })
 
-	app.get('/admin/visits', function (req, res){
-		getStats(function(err, source,country) {
-			res.send({
-				sources: source,
-				countries: country
-			})
+	app.get('/admin/visit/countries', function (req, res){
+		getVisitCountries(function(err,country) {
+			res.send(country);
+		})
+	});
+
+	app.get('/admin/visit/os', function (req, res){
+		getVisitOs(function(err,os) {
+			res.send(os);
+		})
+	});
+
+	app.get('/admin/visit/platform', function (req, res){
+		getVisitPlatform(function(err,platform) {
+			res.send(platform);
+		})
+	});
+
+	app.get('/admin/visit/browser', function (req, res){
+		getVisitBrowser(function(err,browser) {
+			res.send(browser);
+		})
+	});
+
+
+	app.get('/admin/visit/devices', function (req, res){
+		getVisitDevice(function(err,device) {
+			res.send(device);
 		})
 	});
 

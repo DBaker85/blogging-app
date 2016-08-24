@@ -36,6 +36,10 @@
   }
 }
 
+.spin {
+  animation: rotate 1000ms infinite linear;
+}
+
 .sr-only{
   display: none;
 }
@@ -49,4 +53,3 @@
   max-width: 100%;
   height: auto;
 }
-

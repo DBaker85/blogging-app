@@ -158,10 +158,16 @@ gulp.task('admin-build-css', function() {
     }))
     .pipe(concat('admin.css'))
     .pipe( sourcemaps.write('.') )
+    .pipe(replace('../fonts/glyphicons-halflings-regular.','../fonts/icons/glyphicons-halflings-regular.'))
     .pipe(header(banner, { pkg : pkg } ))
     .pipe(gulp.dest('public/css'))
     .pipe(browserSync.stream({match: '**/*.css'}));
 });
+
+gulp.task('admin-pipe-icons', function () {
+  return gulp.src(['./bower_components/AdminLTE/bootstrap/fonts/*.eot','./bower_components/AdminLTE/bootstrap/fonts/*.svg','./bower_components/AdminLTE/bootstrap/fonts/*.ttf','./bower_components/AdminLTE/bootstrap/fonts/*.woff*' ])
+    .pipe(gulp.dest('public/fonts/icons'));
+})
 
 gulp.task('bower', function() {
     return gulp.src(mainBowerFiles())
