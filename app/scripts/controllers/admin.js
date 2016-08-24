@@ -3,6 +3,8 @@ angular
 .controller('adminController',['Stats',function(Stats){
   var vm = this;
 
+  vm.activeView = 'posts';
+
   vm.visitorChart = {};
   vm.visitorChart.type = "GeoChart";
   vm.visitorChart.loaded = false;

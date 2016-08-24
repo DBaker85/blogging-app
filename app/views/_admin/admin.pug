@@ -33,18 +33,32 @@ block content
           li.header
             | Stuff
           li
-            a(href="#")
-              span
-                | Statistics
-          li
-            a(href="#")
+            a(href="#" ng-click="vm.activeView = 'posts'")
               span
                 | Posts
           li
-            a(href="#")
+            a(href="#" ng-click="vm.activeView = 'categories'")
               span
                 | Categories
-    .content-wrapper
+          li
+            a(href="#" ng-click="vm.activeView = 'statistics'")
+              span
+                | Statistics
+    .content-wrapper(ng-if="vm.activeView == 'posts'" ng-cloak)
+      section.content-header
+        | Edit posts
+      section.content
+
+
+
+    .content-wrapper(ng-if="vm.activeView == 'categories'" ng-cloak)
+      section.content-header
+        | Edit categories
+      section.content
+
+
+
+    .content-wrapper(ng-if="vm.activeView == 'statistics'" ng-cloak)
       section.content-header
         | Visitor stats
       section.content
