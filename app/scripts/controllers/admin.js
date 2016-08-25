@@ -1,6 +1,6 @@
 angular
 .module('BloggingApp')
-.controller('adminController',['Stats',function(Stats){
+.controller('adminController',['Stats','Posts','Categories',function(Stats,Posts,Categories){
   var vm = this;
 
   vm.activeView = 'posts';
@@ -185,6 +185,14 @@ Stats.browser().then(function(response){
   }
 
 });
+
+Posts.getPosts('all',0,0).then(function(response){
+  vm.postList = response.data;
+})
+
+Categories.getCategories().then(function(response){
+  vm.categories = response.data
+})
 
 
 
