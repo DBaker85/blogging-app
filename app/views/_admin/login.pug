@@ -79,7 +79,7 @@ block content
 						type:'submit',
 						text:'submit'
 					})
-				.alert.alert-danger(ng-if="vm.passwordIncorrect")
+				.alert.alert-danger(ng-cloak ng-if="vm.passwordIncorrect")
 					| Your username and password do not match
 
 		//- turn login into logout page

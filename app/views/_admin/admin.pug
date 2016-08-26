@@ -1,236 +1,248 @@
 extends ../_base/layout.pug
 
 block content
-	link(rel="stylesheet", href="../css/admin.css")
+  link(rel="stylesheet", href="../css/admin.css")
 
-	.admin.wrapper.skin-red(ng-controller="adminController as vm")
-		header.main-header
-			a.logo
-				span.logo-mini
-					| Blog
-				span.logo-lg
-					| Admin section
-			nav.navbar.navbar-static-top
-				.navbar-custom-menu
-					ul.nav.navbar-nav
-						li.dropdown.user.user-menu
-							a
-								span user
-							ul.dropdown-menu
-								li.user-header
-									img.img-circle
-									p
-										| User
-										span
-											| date?
+  .admin.wrapper.skin-red(ng-controller="adminController as vm")
+    header.main-header
+      a.logo
+        span.logo-mini
+          | Blog
+        span.logo-lg
+          | Admin section
+      nav.navbar.navbar-static-top
+        .navbar-custom-menu
+          ul.nav.navbar-nav
+            li.dropdown.user.user-menu
+              a
+                span user
+              ul.dropdown-menu
+                li.user-header
+                  img.img-circle
+                  p
+                    | User
+                    span
+                      | date?
 
-								li.user-footer
-									a.btn.btn-default.btn-flat
-										| Sign out
-		aside.main-sidebar
-			section.main-sidebar
-				ul.sidebar-menu
-					li.header
-						| Stuff
-					li
-						a(href="#" ng-click="vm.activeView = 'posts'")
-							span
-								| Posts
-					li
-						a(href="#" ng-click="vm.activeView = 'categories'")
-							span
-								| Categories
-					li
-						a(href="#" ng-click="vm.activeView = 'statistics'")
-							span
-								| Statistics
-		.content-wrapper(ng-if="vm.activeView == 'posts'" ng-cloak)
-			section.content-header
-				| Edit posts
-			section.content
-				.row
-					.col-md-8
-						.box.box-primary
-							.box-header.with-border
-								h3 create new post
-							.box-body
-								form(method="post" action="/submit-post" no-validate)
-										+input({
-												classes:'input',
-												name:'title',
-												text: 'Post title',
-												error: 'Field is alphanumerical with spaces and basic punctuation only',
-												attributes:{
-														'maxlength':'60',
-														'minlength':'4',
-														'required':'required',
-														'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
-														'ng-model':'vm.createPost.title'
-												}
-										})
-										+input({
-												type: 'textarea',
-												name: 'body',
-												text: 'Post body',
-												attributes:{
-														'required':'required',
-														'ng-model':'vm.createPost.body'
-												}
-										})
-										select(name="category" ng-model="vm.createPost.category")
-											optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
-												option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
-													| {{subcategory.subcategory}}
-										+button({
-												type:'submit',
-												text:'submit'
-										})
+                li.user-footer
+                  a.btn.btn-default.btn-flat
+                    | Sign out
+    aside.main-sidebar
+      section.main-sidebar
+        ul.sidebar-menu
+          li.header
+            | Stuff
+          li
+            a(href="#" ng-click="vm.activeView = 'posts'")
+              span
+                | Posts
+          li
+            a(href="#" ng-click="vm.activeView = 'categories'")
+              span
+                | Categories
+          li
+            a(href="#" ng-click="vm.activeView = 'statistics'")
+              span
+                | Statistics
+    .content-wrapper(ng-if="vm.activeView == 'posts'" ng-cloak)
+      section.content-header
+        | Edit posts
+      section.content
+        .row
+          .col-md-8
+            .box.box-primary
+              .box-header.with-border
+                h3 create new post
+              .box-body
+                form(method="post" action="/submit-post" no-validate)
+                    +input({
+                        classes:'input',
+                        name:'title',
+                        text: 'Post title',
+                        error: 'Field is alphanumerical with spaces and basic punctuation only',
+                        attributes:{
+                            'maxlength':'60',
+                            'minlength':'4',
+                            'required':'required',
+                            'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
+                            'ng-model':'vm.createPost.title'
+                        }
+                    })
+                    +input({
+                        type: 'textarea',
+                        name: 'body',
+                        text: 'Post body',
+                        attributes:{
+                            'required':'required',
+                            'ng-model':'vm.createPost.body'
+                        }
+                    })
+                    select(name="category" ng-model="vm.createPost.category")
+                      optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
+                        option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
+                          | {{subcategory.subcategory}}
+                    +button({
+                        type:'submit',
+                        text:'submit'
+                    })
 
-						.box.box-primary
-							.box-header.with-border
-								h3 post preview
-							.box-body
-								| add preview with marked here or just sce filter
-								div(ng-cloak ng-if="vm.createPost.body.length > 1")
-									| {{vm.createPost.body | limitHtml: false}}
-					.col-md-4
-						.box.box-primary
-							.box-header.with-border
-								h3 Articles
-							.box-body
-								ul.products-list.product-list-in-box
-									li.item(ng-repeat="post in vm.postList")
-										.product-info
-											.product-title
-												| {{post.title}}
-												span.pull-right
-													+button({
-														type:'icon',
-														icon: 'trash',
-														classes:'small',
-														attributes:{
-															'ng-click':'vm.deletePost(post)'
-														}
-													})
-													+button({
-														type:'icon',
-														icon: 'pencil',
-														classes:'small',
-														attributes:{
-															'ng-click':'vm.editPost(post)'
-														}
-													})
-											.product-description
-												p posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
-												p latest edit on {{post.editdate | date: 'EEE dd/MM/yy hh:mma'}}
-												p filed under {{post.category}}
+            .box.box-primary
+              .box-header.with-border
+                h3 post preview
+              .box-body(ng-init="vm.expandedPreview = false")
+                .pull-right
+                  button.btn-link(ng-click="vm.expandedPreview = !vm.expandedPreview")
+                    span(ng-show="vm.expandedPreview")
+                      | /\ Compact preview
+                    span(ng-show="!vm.expandedPreview")
+                      | \/ Full preview
+                .post__content
+                  article
+                    .post__title
+                      h2 {{vm.createPost.title}}
+                    div(ng-cloak ng-if="vm.createPost.body.length > 1" ng-bind-html="vm.createPost.body | limitHtml: vm.expandedPreview")
 
-
-		.content-wrapper(ng-if="vm.activeView == 'categories'" ng-cloak)
-			section.content-header
-				| Edit categories
-			section.content
-				.row
-					.col-md-8
-						.box
-							.box-header
-								| Add tags
-							.box-body
-						.box
-							.box-header
-								| edit tags
-							.box-body
-					.col-md-4
-						.box.no-padding
-							.box-header
-								.box-title
-									| Available tags
-								.box-body
-									table.table.table-striped(ng-repeat="category in vm.categories")
-										tbody
-											tr
-												th.bg-primary.text-center.text-capitalize.disabled(colspan="2")
-													strong {{category.category}}
-										tbody
-											tr(ng-repeat="subcategory in category.subcategories")
-												td
-													| {{subcategory.subcategory}}
-												td.text-right
-													span.label.label-success(ng-if="subcategory.active")
-														| In use
+          .col-md-4
+            .box.box-primary
+              .box-header.with-border
+                h3 Articles
+              .box-body
+                ul.products-list.product-list-in-box
+                  li.item(ng-repeat="post in vm.postList")
+                    .product-info
+                      .product-title
+                        | {{post.title}}
+                        span.pull-right
+                          +button({
+                            type:'icon',
+                            icon: 'trash',
+                            classes:'small',
+                            attributes:{
+                              'ng-click':'vm.deletePost(post)'
+                            }
+                          })
+                          +button({
+                            type:'icon',
+                            icon: 'pencil',
+                            classes:'small',
+                            attributes:{
+                              'ng-click':'vm.editPost(post)'
+                            }
+                          })
+                      .product-description
+                        .small
+                          | Posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
+                        .small(ng-if="post.editdate")
+                          | Edited on {{post.editdate | date: 'EEE dd/MM/yy hh:mma'}}
+                        small.label.label-primary
+                          |  {{post.category}}
 
 
-		.content-wrapper(ng-if="vm.activeView == 'statistics'" ng-cloak)
-			section.content-header
-				| Visitor stats
-			section.content
-				.row
-					.col-md-8
-						.box.box-success.no-padding
-							.box-header
-								.box-title
-									| Visitors
-								.box-tools.pull-right(ng-if="!vm.visitorChart.loaded")
-									i.glyphicon.glyphicon-refresh.spin
-							.box-body.no-padding
-								div(google-chart chart="vm.visitorChart" agc-on-ready="vm.visitorChart.loaded = true")
-					.col-md-4
-						.box.box-warning.no-padding
-							.box-header
-								.box-title
-									| Platform
-							.box-body
-								div(google-chart chart="vm.platformChart" agc-on-ready="vm.platformChart.loaded = true")
-						.box.box-warning.no-padding
-							.box-header
-								.box-title
-									| Device
-							.box-body
-								div(google-chart chart="vm.deviceChart" agc-on-ready="vm.platformChart.loaded = true")
-			section.content-header
-				| Browser Stats
-			section.content
-				.row
-					.col-md-4
-						.box.box-success.no-padding
-							.box-header
-								.box-title
-									| Chrome
-							.box-body
-								div(google-chart chart="vm.chromeChart" agc-on-ready="vm.osChart.loaded = true")
-					.col-md-4
-						.box.box-warning.no-padding
-							.box-header
-								.box-title
-									| Firefox
-							.box-body
-								div(google-chart chart="vm.firefoxChart" agc-on-ready="vm.osChart.loaded = true")
-					.col-md-4
-						.box.box-danger.no-padding
-							.box-header
-								.box-title
-									| Opera
-							.box-body
-								div(google-chart chart="vm.operaChart" agc-on-ready="vm.osChart.loaded = true")
-				.row
-					.col-md-4
-						.box.no-padding
-							.box-header
-								.box-title
-									| Internet explorer
-							.box-body
-								div(google-chart chart="vm.IEChart" agc-on-ready="vm.osChart.loaded = true")
-					.col-md-4
-						.box.no-padding
-							.box-header
-								.box-title
-									| Safari
-							.box-body
-								div(google-chart chart="vm.safariChart" agc-on-ready="vm.osChart.loaded = true")
-					.col-md-4
-						.box.box-warning.no-padding
-							.box-header
-								.box-title
-									| OS
-							.box-body
-								div(google-chart chart="vm.osChart" agc-on-ready="vm.osChart.loaded = true")
+    .content-wrapper(ng-if="vm.activeView == 'categories'" ng-cloak)
+      section.content-header
+        | Edit categories
+      section.content
+        .row
+          .col-md-8
+            .box
+              .box-header
+                | Add tags
+              .box-body
+            .box
+              .box-header
+                | edit tags
+              .box-body
+          .col-md-4
+            .box.no-padding
+              .box-header
+                .box-title
+                  | Available tags
+                .box-body
+                  table.table.table-striped(ng-repeat="category in vm.categories")
+                    tbody
+                      tr
+                        th.bg-primary.text-center.text-capitalize.disabled(colspan="2")
+                          strong {{category.category}}
+                    tbody
+                      tr(ng-repeat="subcategory in category.subcategories")
+                        td
+                          | {{subcategory.subcategory}}
+                        td.text-right
+                          span.label.label-success(ng-if="subcategory.active")
+                            | In use
+
+
+    .content-wrapper(ng-if="vm.activeView == 'statistics'" ng-cloak)
+      section.content-header
+        | Visitor stats
+      section.content
+        .row
+          .col-md-8
+            .box.box-success.no-padding
+              .box-header
+                .box-title
+                  | Visitors
+                .box-tools.pull-right(ng-if="!vm.visitorChart.loaded")
+                  i.glyphicon.glyphicon-refresh.spin
+              .box-body.no-padding
+                div(google-chart chart="vm.visitorChart" agc-on-ready="vm.visitorChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Platform
+              .box-body
+                div(google-chart chart="vm.platformChart" agc-on-ready="vm.platformChart.loaded = true")
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Device
+              .box-body
+                div(google-chart chart="vm.deviceChart" agc-on-ready="vm.platformChart.loaded = true")
+      section.content-header
+        | Browser Stats
+      section.content
+        .row
+          .col-md-4
+            .box.box-success.no-padding
+              .box-header
+                .box-title
+                  | Chrome
+              .box-body
+                div(google-chart chart="vm.chromeChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | Firefox
+              .box-body
+                div(google-chart chart="vm.firefoxChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-danger.no-padding
+              .box-header
+                .box-title
+                  | Opera
+              .box-body
+                div(google-chart chart="vm.operaChart" agc-on-ready="vm.osChart.loaded = true")
+        .row
+          .col-md-4
+            .box.no-padding
+              .box-header
+                .box-title
+                  | Internet explorer
+              .box-body
+                div(google-chart chart="vm.IEChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.no-padding
+              .box-header
+                .box-title
+                  | Safari
+              .box-body
+                div(google-chart chart="vm.safariChart" agc-on-ready="vm.osChart.loaded = true")
+          .col-md-4
+            .box.box-warning.no-padding
+              .box-header
+                .box-title
+                  | OS
+              .box-body
+                div(google-chart chart="vm.osChart" agc-on-ready="vm.osChart.loaded = true")

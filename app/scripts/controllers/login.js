@@ -2,10 +2,10 @@ angular
 .module('BloggingApp')
 .controller('LoginController', ['$cookies','$http', '$window', function($cookies, $http, $window){
   var vm = this;
-
+  vm.passwordIncorrect = false;
   vm.createPassword = function(){
 
-    console.log(vm.user, vm.password);
+
 
     $http.post('/signup', {
       'username':vm.user,
@@ -22,7 +22,7 @@ angular
 
   vm.login = function(){
 
-  
+
 
 
     $http.post('/login', {
