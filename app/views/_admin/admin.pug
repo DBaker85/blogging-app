@@ -1,8 +1,7 @@
 extends ../_base/layout.pug
-
-block content
+block append styles
   link(rel="stylesheet", href="../css/admin.css")
-
+block content
   .admin.wrapper.skin-red(ng-controller="adminController as vm")
     header.main-header
       a.logo
@@ -81,6 +80,8 @@ block content
                       optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
                         option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
                           | {{subcategory.subcategory}}
+                    div(dropzone)
+                      | add angular dropzone here
                     +button({
                         type:'submit',
                         text:'submit'
@@ -109,6 +110,8 @@ block content
               .box-body
                 ul.products-list.product-list-in-box
                   li.item(ng-repeat="post in vm.postList")
+                    .product-img
+                      img(src="dist/img/default-50x50.gif" alt="Article Image")
                     .product-info
                       .product-title
                         | {{post.title}}
@@ -148,10 +151,60 @@ block content
               .box-header
                 | Add tags
               .box-body
+                h3 Create categories
+                form.js-add-tags(method="put" action="/categories" data-parsley-validate)
+                    +input({
+                        text:'category',
+                        name:'category',
+                        classes:'js-category-input',
+                        attributes: {
+                            'required':'required',
+                            'data-parsley-type':'alphanum'
+                        }
+                    })
+                    +button({
+                            type: 'primary',
+                            icon: 'plus',
+                            text: 'Add a subcategory',
+                            classes:'js-add-subcategory small',
+                            attributes :{
+                                'data-tooltip':'Add a subcategory'
+                            }
+                    })
+                    .js-subcategory-holders
+                        .edit-tag__subcategory-holder
+                            .edit-tag__subcategory--input
+                                +input({
+                                    text: 'subcategory',
+                                    name:'subcategory',
+                                    classes: 'js-subcategories',
+                                    attributes: {
+                                        'required':'required',
+                                        'data-parsley-type':'alphanum'
+                                    }
+                                })
+
+
+
+                    +button({
+                        type:'submit',
+                        text:'Create category'
+                    })
             .box
               .box-header
                 | edit tags
               .box-body
+                .edit-tag__subcategory-holder
+                  .edit-tag__subcategory--input
+                    +input({
+                        text: 'subcategory',
+                        name:'subcategory',
+                        classes: 'js-subcategories',
+                        attributes: {
+                            'required':'required',
+                            'data-parsley-type':'alphanum'
+                        }
+                    })
           .col-md-4
             .box.no-padding
               .box-header
@@ -161,7 +214,7 @@ block content
                   table.table.table-striped(ng-repeat="category in vm.categories")
                     tbody
                       tr
-                        th.bg-primary.text-center.text-capitalize.disabled(colspan="2")
+                        th.bg-primary.text-center.text-capitalize.disabled(colspan="3")
                           strong {{category.category}}
                     tbody
                       tr(ng-repeat="subcategory in category.subcategories")
@@ -170,7 +223,15 @@ block content
                         td.text-right
                           span.label.label-success(ng-if="subcategory.active")
                             | In use
+                        td.text-right
+                          +button({
+                              type: 'icon',
+                              icon: 'trash',
+                              classes: 'small',
+                              attributes: {
 
+                              }
+                          })
 
     .content-wrapper(ng-if="vm.activeView == 'statistics'" ng-cloak)
       section.content-header
