@@ -14,7 +14,7 @@ module.exports = function(app,db) {
       });
 	});
 
-	app.get
+
 
   app.get('/posts', function(req,res){
 		console.log(req.query)
@@ -65,6 +65,9 @@ module.exports = function(app,db) {
     getPostCount(req,res, req.params.category);
   })
 
+	app.post('/submit-post', function(req,res){
+		createPost(req,res);
+	})
 
 
 	// app.get('/post/:url', function(req, res){

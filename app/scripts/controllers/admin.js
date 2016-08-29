@@ -1,6 +1,6 @@
 angular
 .module('BloggingApp')
-.controller('adminController',['Stats','Posts','Categories',function(Stats,Posts,Categories){
+.controller('adminController',['Stats','Posts','Categories','$http','$uibModal',function(Stats,Posts,Categories,$http,$uibModal){
   var vm = this;
 
   vm.activeView = 'posts';
@@ -186,14 +186,77 @@ Stats.browser().then(function(response){
 
 });
 
-Posts.getPosts('all',0,0).then(function(response){
-  vm.postList = response.data;
-})
+vm.createPost = function(){
+  $http.post('/submit-post',{
+    title : vm.createPost.title,
+    body : vm.createPost.body,
+    category : vm.createPost.category
+  }).then(function(){
+    vm.createPost = {};
+    vm.fetchposts();
+    vm.fetchCategories();
+  },function(){
 
-Categories.getCategories().then(function(response){
-  vm.categories = response.data
-})
+  })
+}
 
+vm.deletePostConfirm = function(post){
+    vm.modalInstance = $uibModal.open({
+      controller: ['$uibModalInstance',function($uibModalInstance){
+        var $modal = this;
+        $modal.post = post;
+
+        $modal.close = function () {
+          $uibModalInstance.close();
+        }
+
+        $modal.ok = function () {
+          $uibModalInstance.close();
+          vm.deletePost(post);
+        }
+
+      }],
+      controllerAs: '$modal',
+      template: `
+      <div class="modal-header">
+          <h3 class="modal-title" id="modal-title">Delete Article</h3>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <p>Are you sure you wish to delete article:</p>
+        <h4>{{$modal.post.title}}</strong> ?</h4>
+        <small>created on the {{$modal.post.date | date : 'EEE, dd/mm/yyyy'}}</small>
+        <p>This cannot be un-done</p>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" type="button" ng-click="$modal.ok()">OK</button>
+          <button class="btn btn-secondary" type="button" ng-click="$modal.close()">Cancel</button>
+      </div>
+      `
+    })
+  }
+  vm.deletePost = function(post){
+    $http.delete(`/post?category=${post.category}&postId=${post.postId}`).then(function(){
+      console.log('deletePost')
+      vm.fetchposts();
+      vm.fetchCategories();
+    },function(){
+
+    })
+}
+
+vm.fetchposts = function(){
+  Posts.getPosts('all',0,0).then(function(response){
+    vm.postList = response.data;
+  })
+}
+vm.fetchCategories = function(){
+  Categories.getCategories().then(function(response){
+    vm.categories = response.data
+  })
+}
+
+vm.fetchposts();
+vm.fetchCategories();
 
 
 }])

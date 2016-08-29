@@ -464,18 +464,7 @@ this.createPost = function(req, res){
         if(err) {
           res.send('err');
         } else {
-          getPosts(function(err, results) {
-            "use strict";
-
-            if (err) {
-              res.send(err);
-            }
-            else {
-              return res.render('_admin/article-list', {
-                posts: results,
-              });
-            }
-          });
+          res.send(200);
         };
       });
 

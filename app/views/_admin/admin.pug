@@ -12,12 +12,12 @@ block content
       nav.navbar.navbar-static-top
         .navbar-custom-menu
           ul.nav.navbar-nav
-            li.dropdown.user.user-menu
-              a
+            li.dropdown.user.user-menu(ng-class="{open:vm.menuOpen}")
+              a(ng-click="vm.menuOpen = !vm.menuOpen")
                 span user
               ul.dropdown-menu
                 li.user-header
-                  img.img-circle
+                  img.img-circle(src="images/icons/user.svg" alt="user")
                   p
                     | User
                     span
@@ -51,9 +51,9 @@ block content
           .col-md-8
             .box.box-primary
               .box-header.with-border
-                h3 create new post
+                h3 Create new post
               .box-body
-                form(method="post" action="/submit-post" no-validate)
+                form(no-validate ng-submit="vm.createPost()")
                     +input({
                         classes:'input',
                         name:'title',
@@ -89,7 +89,7 @@ block content
 
             .box.box-primary
               .box-header.with-border
-                h3 post preview
+                h3 Post preview
               .box-body(ng-init="vm.expandedPreview = false")
                 .pull-right
                   button.btn-link(ng-click="vm.expandedPreview = !vm.expandedPreview")
@@ -110,36 +110,38 @@ block content
               .box-body
                 ul.products-list.product-list-in-box
                   li.item(ng-repeat="post in vm.postList")
-                    .product-img
-                      img(src="dist/img/default-50x50.gif" alt="Article Image")
-                    .product-info
-                      .product-title
-                        | {{post.title}}
-                        span.pull-right
-                          +button({
-                            type:'icon',
-                            icon: 'trash',
-                            classes:'small',
-                            attributes:{
-                              'ng-click':'vm.deletePost(post)'
-                            }
-                          })
-                          +button({
-                            type:'icon',
-                            icon: 'pencil',
-                            classes:'small',
-                            attributes:{
-                              'ng-click':'vm.editPost(post)'
-                            }
-                          })
-                      .product-description
-                        .small
-                          | Posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
-                        .small(ng-if="post.editdate")
-                          | Edited on {{post.editdate | date: 'EEE dd/MM/yy hh:mma'}}
-                        small.label.label-primary
-                          |  {{post.category}}
+                    .row
+                      .col-sm-10
+                        .product-img
+                          img(src="images/icons/file.svg" alt="Article Image")
+                        .product-info
+                          .product-title
+                            | {{post.title}}
 
+                          .product-description
+                            .small
+                              | Posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
+                            .small(ng-if="post.editdate")
+                              | Edited on {{post.editdate | date: 'EEE dd/MM/yy hh:mma'}}
+                            small.label.label-primary
+                              |  {{post.category}}
+                      .col-sm-2
+                        +button({
+                          type:'icon',
+                          icon: 'trash',
+                          classes:'small',
+                          attributes:{
+                            'ng-click':'vm.deletePostConfirm(post)'
+                          }
+                        })
+                        +button({
+                          type:'icon',
+                          icon: 'pencil',
+                          classes:'small',
+                          attributes:{
+                            'ng-click':'vm.editPost(post)'
+                          }
+                      })
 
     .content-wrapper(ng-if="vm.activeView == 'categories'" ng-cloak)
       section.content-header

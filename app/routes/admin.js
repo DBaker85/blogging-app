@@ -12,14 +12,15 @@ module.exports = function(app,db) {
       if (req.session.user){
           "use strict";
             return res.render('_admin/admin', {
-              pagetitle : 'Admin panel | '+blogName
+              pagetitle : 'Admin panel | '+blogName,
+              appname: "BloggingAppAdmin"
             });
       } else {
         return res.redirect('/login');
       }
   	});
 
-  
+
 
   	app.post('/submit-post', function(req, res){
     	createPost(req, res);
@@ -47,25 +48,13 @@ module.exports = function(app,db) {
 
 
   	app.delete('/post', function(req, res){
-    updateCategoryStatus(req.body.category);
-    posts.removeOne({postId:req.body.postId}, function(err, result){
+    updateCategoryStatus(req.query.category);
+    posts.removeOne({postId:req.query.postId}, function(err, result){
 
       if (err) {
         res.send(500);
       }else {
-        getPosts(function(err, results) {
-          "use strict";
-
-          if (err) {
-            res.sendStatus(500);
-          }
-          else {
-            return res.render('_admin/article-list', {
-              posts: results,
-            });
-          }
-        });
-
+        res.send(200);
       }
     })
 

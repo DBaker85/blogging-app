@@ -16,5 +16,6 @@ angular
   'ngSanitize',
   'angularLazyImg',
   'ngCookies',
-  'googlechart'
+  'googlechart',
+  'ui.bootstrap'
   ]);

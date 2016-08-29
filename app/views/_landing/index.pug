@@ -1,44 +1,45 @@
 extends ../_base/layout.pug
 
 block content
-  .container(ng-controller="ContentController as vm")
-    .row
-      +box({
-        "size":"small"
-      })
-        | search
-      +box({
-        "size":"small"
-      })
-        | menu
+  div(ng-app="BloggingApp")
+    .container(ng-controller="ContentController as vm")
+      .row
+        +box({
+          "size":"small"
+        })
+          | search
+        +box({
+          "size":"small"
+        })
+          | menu
 
-    .row(class="{{expandedArticle?'large':''}}")
-      .row__main
-        .main-content__posts
-          post-bloc
-      .row__sidebar(class="{{vm.openSide? 'open':''}}")
-        .expand-tab(ng-click="vm.openSide = !vm.openSide")
-        .tile(ng-repeat="tile in vm.tiles" data-expand="{{tile.expand}}" data-theme="{{tile.theme}}" ng-click="vm.expander($index)" class="{{ (tile.state == 'loaded') ? '' : 'loading' }} {{ tile.error ? 'error' : '' }}{{ tile.expanded == true ? 'expanded' : '' }}")
-          .tile__content
-            .tile__picture(ng-switch="tile.type")
-              .tile__image(ng-switch-when="image")
-                img(src="images/tiles/{{tile.image}}.jpg" title="" width="100%" height="100")
-              .tile__icon(ng-switch-when="icon")
-                +icon({
-                    icon:'{{tile.icon}}'
-                  })
-              .tile__description
-                | {{tile.title}}
-          .tile__expander(ng-switch="tile.theme")
-            .expanded__content(ng-switch-when="twitter")
-              .twitter-holder
-                twitter-timeline(twitter-timeline-id="'"+content.Twitter.widgetID+"'" twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
-            .expanded__content(ng-switch-when="about")
-              include ../_tiles/aboutme.pug
-            .expanded__content(ng-switch-when="codeschool")
-              include ../_tiles/codeschool.pug
+      .row(class="{{expandedArticle?'large':''}}")
+        .row__main
+          .main-content__posts
+            post-bloc
+        .row__sidebar(class="{{vm.openSide? 'open':''}}")
+          .expand-tab(ng-click="vm.openSide = !vm.openSide")
+          .tile(ng-repeat="tile in vm.tiles" data-expand="{{tile.expand}}" data-theme="{{tile.theme}}" ng-click="vm.expander($index)" class="{{ (tile.state == 'loaded') ? '' : 'loading' }} {{ tile.error ? 'error' : '' }}{{ tile.expanded == true ? 'expanded' : '' }}")
+            .tile__content
+              .tile__picture(ng-switch="tile.type")
+                .tile__image(ng-switch-when="image")
+                  img(src="images/tiles/{{tile.image}}.jpg" title="" width="100%" height="100")
+                .tile__icon(ng-switch-when="icon")
+                  +icon({
+                      icon:'{{tile.icon}}'
+                    })
+                .tile__description
+                  | {{tile.title}}
+            .tile__expander(ng-switch="tile.theme")
+              .expanded__content(ng-switch-when="twitter")
+                .twitter-holder
+                  twitter-timeline(twitter-timeline-id="'"+content.Twitter.widgetID+"'" twitter-timeline-options='{"chrome": "noheader nofooter", "height":"340", "theme":"light"}')
+              .expanded__content(ng-switch-when="about")
+                include ../_tiles/aboutme.pug
+              .expanded__content(ng-switch-when="codeschool")
+                include ../_tiles/codeschool.pug
 
-            .expanded__content(ng-switch-when="duolingo")
-              include ../_tiles/duolingo.pug
+              .expanded__content(ng-switch-when="duolingo")
+                include ../_tiles/duolingo.pug
 
-            .expanded__content(ng-switch-default ng-bind-html="content")
+              .expanded__content(ng-switch-default ng-bind-html="content")
