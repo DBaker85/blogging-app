@@ -255,6 +255,8 @@ vm.fetchCategories = function(){
   })
 }
 
+
+
 vm.fetchposts();
 vm.fetchCategories();
 

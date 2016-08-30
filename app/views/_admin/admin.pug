@@ -2,18 +2,23 @@ extends ../_base/layout.pug
 block append styles
   link(rel="stylesheet", href="../css/admin.css")
 block content
-  .admin.wrapper.skin-red(ng-controller="adminController as vm")
+  .admin.wrapper.skin-red.sidebar-mini(ng-controller="adminController as vm" class="{{vm.menuCollapse?'sidebar-collapse':''}}")
     header.main-header
-      a.logo
+      .logo
         span.logo-mini
           | Blog
         span.logo-lg
           | Admin section
       nav.navbar.navbar-static-top
+        a(href="#" role="button" ng-click="vm.menuCollapse = !vm.menuCollapse")
+          i.icon-menu
+          span.sr-only
+            | Toggle navigation
         .navbar-custom-menu
           ul.nav.navbar-nav
-            li.dropdown.user.user-menu(ng-class="{open:vm.menuOpen}")
-              a(ng-click="vm.menuOpen = !vm.menuOpen")
+            li.dropdown.user.user-menu(ng-class="{open:vm.userMenuOpen}")
+              a(ng-click="vm.userMenuOpen = !vm.userMenuOpen")
+                img(src="images/icons/user.svg" class="user-image" alt="User Image")
                 span user
               ul.dropdown-menu
                 li.user-header
@@ -24,28 +29,33 @@ block content
                       | date?
 
                 li.user-footer
-                  a.btn.btn-default.btn-flat
+                  a.btn.btn-default.btn-flat(href='/login')
                     | Sign out
     aside.main-sidebar
       section.main-sidebar
         ul.sidebar-menu
           li.header
-            | Stuff
+            | content
           li
             a(href="#" ng-click="vm.activeView = 'posts'")
+              i.icon-book
               span
-                | Posts
+                |  Posts
           li
             a(href="#" ng-click="vm.activeView = 'categories'")
+              i.icon-shopping
               span
-                | Categories
+                |  Categories
+          li.header
+            | Analytics
           li
             a(href="#" ng-click="vm.activeView = 'statistics'")
+              i.icon-bar-graph
               span
-                | Statistics
+                |  Statistics
     .content-wrapper(ng-if="vm.activeView == 'posts'" ng-cloak)
       section.content-header
-        | Edit posts
+        | Create and edit posts
       section.content
         .row
           .col-md-8
