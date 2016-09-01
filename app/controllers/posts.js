@@ -346,7 +346,7 @@ this.getCategories = function(req,res){
 
 this.getEditPost = function(req, res) {
   "use strict";
-
+  console.log('inside get edit post '+req.body.postId)
   posts.findOne({postId:req.body.postId}, function(err, result){
     if (err) {
       res.send(500)
@@ -361,28 +361,19 @@ this.getEditPost = function(req, res) {
 this.EditPost = function(req, res) {
   "use strict";
   var post = {
-    body: req.body.body,
-    category : req.body.category,
+    body: req.query.body,
+    category : req.query.category,
     editdate : new Date()
   }
-  posts.update({postId: req.body.id} ,{$set: post}, function(err, result){
+  posts.update({postId: req.query.postId} ,{$set: post}, function(err, result){
+    console.log(req.query);
     if (err) {
       res.send(500)
     }else {
-     getPosts(function(err, results) {
-      "use strict";
-
-      if (err) {
-        res.send(err);
-      }
-      else {
-        return res.render('_admin/article-list', {
-          posts: results,
-        });
-      }
-    });
+      res.send(200)
    }
  });
+
   if (oldcategory !== req.body.category){
     updateCategoryStatus(oldcategory);
     oldcategory = '';

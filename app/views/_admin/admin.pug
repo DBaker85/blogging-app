@@ -63,7 +63,7 @@ block content
               .box-header.with-border
                 h3 Create new post
               .box-body
-                form(no-validate ng-submit="vm.createPost()")
+                form(no-validate ng-submit="vm.sendPost()" name="vm.formContent")
                     +input({
                         classes:'input',
                         name:'title',
@@ -74,7 +74,7 @@ block content
                             'minlength':'4',
                             'required':'required',
                             'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
-                            'ng-model':'vm.createPost.title'
+                            'ng-model':'vm.postContent.title'
                         }
                     })
                     +input({
@@ -83,10 +83,10 @@ block content
                         text: 'Post body',
                         attributes:{
                             'required':'required',
-                            'ng-model':'vm.createPost.body'
+                            'ng-model':'vm.postContent.body'
                         }
                     })
-                    select(name="category" ng-model="vm.createPost.category")
+                    select(name="category" ng-model="vm.postContent.category")
                       optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
                         option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
                           | {{subcategory.subcategory}}
@@ -95,6 +95,14 @@ block content
                     +button({
                         type:'submit',
                         text:'submit'
+                    })
+                    +button({
+                        type: 'secondary',
+                        text:'cancel',
+                        attributes:{
+                          'ng-click':'vm.resetPostForm()',
+                          'ng-if':'vm.postContent.edit==true'
+                        }
                     })
 
             .box.box-primary
@@ -110,8 +118,8 @@ block content
                 .post__content
                   article
                     .post__title
-                      h2 {{vm.createPost.title}}
-                    div(ng-cloak ng-if="vm.createPost.body.length > 1" ng-bind-html="vm.createPost.body | limitHtml: vm.expandedPreview")
+                      h2 {{vm.postContent.title}}
+                    div(ng-cloak ng-if="vm.postContent.body.length > 1" ng-bind-html="vm.postContent.body | limitHtml: vm.expandedPreview")
 
           .col-md-4
             .box.box-primary
@@ -127,7 +135,6 @@ block content
                         .product-info
                           .product-title
                             | {{post.title}}
-
                           .product-description
                             .small
                               | Posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
@@ -149,7 +156,7 @@ block content
                           icon: 'pencil',
                           classes:'small',
                           attributes:{
-                            'ng-click':'vm.editPost(post)'
+                            'ng-click':'vm.editPost(post.postId)'
                           }
                       })
 

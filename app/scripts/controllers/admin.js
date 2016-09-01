@@ -186,15 +186,50 @@ Stats.browser().then(function(response){
 
 });
 
-vm.createPost = function(){
-  $http.post('/submit-post',{
-    title : vm.createPost.title,
-    body : vm.createPost.body,
-    category : vm.createPost.category
-  }).then(function(){
-    vm.createPost = {};
-    vm.fetchposts();
-    vm.fetchCategories();
+vm.resetPostForm = function(){
+  vm.postContent = {};
+  vm.formContent.$setPristine();
+  vm.formContent.$setUntouched();
+
+}
+
+vm.sendPost = function(){
+  if(vm.postContent.edit != true){
+    $http.post('/submit-post',{
+      title : vm.postContent.title,
+      body : vm.postContent.body,
+      category : vm.postContent.category
+    }).then(function(){
+      vm.resetPostForm();
+      vm.fetchposts();
+      vm.fetchCategories();
+    },function(){
+
+    })
+  } else {
+    $http.put(`/edit-post?category=${vm.postContent.category}&postId=${vm.postContent.id}&body=${vm.postContent.body}`).then(function(){
+      vm.resetPostForm();
+      vm.fetchposts();
+      vm.fetchCategories();
+    },function(){
+
+    })
+  }
+}
+
+vm.editPost = function(id){
+  console.log(id);
+  $http.post('/edit-post',{
+    'postId': id
+  }).then(function(response){
+    vm.postContent = {
+      id: response.data.postId,
+      title:response.data.title,
+      body:response.data.body,
+      category:response.data.category,
+      edit: true
+    }
+    console.log(vm.postContent)
   },function(){
 
   })
