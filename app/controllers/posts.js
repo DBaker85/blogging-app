@@ -374,11 +374,11 @@ this.EditPost = function(req, res) {
    }
  });
 
-  if (oldcategory !== req.body.category){
+  if (oldcategory !== req.query.category){
     updateCategoryStatus(oldcategory);
     oldcategory = '';
   }
-  categories.update({"subcategories.subcategory" : req.body.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
+  categories.update({"subcategories.subcategory" : req.query.category}, {"$set" : {"subcategories.$.active" : true}}, function(err, inserted) {
     if(err){
       console.log('category not updated');
     }
