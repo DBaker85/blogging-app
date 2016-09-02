@@ -290,7 +290,21 @@ vm.fetchCategories = function(){
   })
 }
 
+vm.subcategories = [];
 
+vm.removeSubcategory = function(index){
+  vm.subcategories.splice(index,1);
+}
+vm.addSubcategory = function(){
+  vm.subCategoryError = '';
+  if (vm.subcategories.indexOf(vm.subCategoryName) == -1) {
+    vm.subcategories.push(vm.subCategoryName);
+  } else if (vm.subcategories.indexOf(vm.subCategoryName) > -1){
+    vm.subCategoryError = 'This subcategory already exists'
+    vm.categoryform.subcategory.$setValidity('duplicate', false)
+  }
+
+}
 
 vm.fetchposts();
 vm.fetchCategories();

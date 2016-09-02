@@ -7,7 +7,7 @@
 		opacity: 0;
 		pointer-events: none;
 		position: absolute;
-		bottom: 150%;
+		bottom: 95%;
 		left: 50%;
 		margin-bottom: 5px;
 		margin-left: -80px;
@@ -15,7 +15,7 @@
 		width: 160px;
 		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 		border-radius: 3px;
-		// background-color: $color-primary;
+		background-color: $color-pink;
 		color: #fff;
 		content: attr(data-tooltip);
 		text-align: center;
@@ -27,7 +27,7 @@
 		opacity: 0;
 		pointer-events: none;
 		position: absolute;
-		bottom: 150%;
+		bottom: 95%;
 		left: 50%;
 		margin-left: -5px;
 		width: 0;

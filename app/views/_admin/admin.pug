@@ -64,11 +64,12 @@ block content
                 h3 Create new post
               .box-body
                 form(no-validate ng-submit="vm.sendPost()" name="vm.formContent")
+                  div
                     +input({
                         classes:'input',
                         name:'title',
                         text: 'Post title',
-                        error: 'Field is alphanumerical with spaces and basic punctuation only',
+                        error: 'Field is at least 4 alphanumerical characters with spaces and basic punctuation only',
                         attributes:{
                             'maxlength':'60',
                             'minlength':'4',
@@ -77,6 +78,7 @@ block content
                             'ng-model':'vm.postContent.title'
                         }
                     })
+                  div
                     +input({
                         type: 'textarea',
                         name: 'body',
@@ -86,24 +88,24 @@ block content
                             'ng-model':'vm.postContent.body'
                         }
                     })
-                    select(name="category" ng-model="vm.postContent.category")
-                      optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
-                        option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
-                          | {{subcategory.subcategory}}
-                    div(dropzone)
-                      | add angular dropzone here
-                    +button({
-                        type:'submit',
-                        text:'submit'
-                    })
-                    +button({
-                        type: 'secondary',
-                        text:'cancel',
-                        attributes:{
-                          'ng-click':'vm.resetPostForm()',
-                          'ng-if':'vm.postContent.edit==true'
-                        }
-                    })
+                  select(name="category" ng-model="vm.postContent.category")
+                    optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
+                      option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
+                        | {{subcategory.subcategory}}
+                  div(dropzone)
+                    | add angular dropzone here
+                  +button({
+                      type:'submit',
+                      text:'submit'
+                  })
+                  +button({
+                      type: 'secondary',
+                      text:'cancel',
+                      attributes:{
+                        'ng-click':'vm.resetPostForm()',
+                        'ng-if':'vm.postContent.edit==true'
+                      }
+                  })
 
             .box.box-primary
               .box-header.with-border
@@ -148,7 +150,8 @@ block content
                           icon: 'trash',
                           classes:'small',
                           attributes:{
-                            'ng-click':'vm.deletePostConfirm(post)'
+                            'ng-click':'vm.deletePostConfirm(post)',
+                            'data-tooltip':'Delete post',
                           }
                         })
                         +button({
@@ -156,7 +159,8 @@ block content
                           icon: 'pencil',
                           classes:'small',
                           attributes:{
-                            'ng-click':'vm.editPost(post.postId)'
+                            'ng-click':'vm.editPost(post.postId)',
+                            'data-tooltip':'Edit post',
                           }
                       })
 
@@ -171,59 +175,95 @@ block content
                 | Add tags
               .box-body
                 h3 Create categories
-                form.js-add-tags(method="put" action="/categories" data-parsley-validate)
-                    +input({
-                        text:'category',
-                        name:'category',
-                        classes:'js-category-input',
-                        attributes: {
-                            'required':'required',
-                            'data-parsley-type':'alphanum'
-                        }
-                    })
-                    +button({
-                            type: 'primary',
-                            icon: 'plus',
-                            text: 'Add a subcategory',
-                            classes:'js-add-subcategory small',
-                            attributes :{
-                                'data-tooltip':'Add a subcategory'
+                form(method="put" action="/categories" name="vm.categoryform")
+                  .row
+                    .col-md-8
+                      div
+                        +input({
+                            text:'category',
+                            name:'category',
+                            attributes: {
+                                'required':'required',
+                                'ng-model':'vm.categoryName'
                             }
-                    })
-                    .js-subcategory-holders
-                        .edit-tag__subcategory-holder
-                            .edit-tag__subcategory--input
-                                +input({
-                                    text: 'subcategory',
-                                    name:'subcategory',
-                                    classes: 'js-subcategories',
-                                    attributes: {
-                                        'required':'required',
-                                        'data-parsley-type':'alphanum'
-                                    }
-                                })
+                        })
 
-
-
-                    +button({
-                        type:'submit',
-                        text:'Create category'
-                    })
+                      div
+                        +input({
+                            text: 'subcategory',
+                            name:'subcategory',
+                            error: '{{vm.subCategoryError}}',
+                            attributes: {
+                                'required':'required',
+                                'ng-model':'vm.subCategoryName'
+                            }
+                        })
+                        +button({
+                                type: 'icon',
+                                icon: 'plus',
+                                classes: 'small',
+                                attributes :{
+                                    'data-tooltip':'Add a subcategory',
+                                    'ng-click':"vm.addSubcategory()"
+                                }
+                        })
+                    .col-md-4
+                      table.table.table-striped
+                        tbody
+                          tr
+                            th.bg-primary.text-center.text-capitalize.disabled(colspan="2" ng-show="vm.categoryName.length > 0")
+                              strong {{vm.categoryName}}
+                        tbody
+                          tr(ng-repeat="subcategory in vm.subcategories")
+                            td
+                              | {{subcategory}}
+                            td.text-right
+                              +button({
+                                  type: 'icon',
+                                  icon: 'trash',
+                                  classes: 'small',
+                                  attributes: {
+                                    'ng-click':'vm.removeSubcategory($index)',
+                                    'data-tooltip':'Remove subcategory'
+                                  }
+                              })
+                  .row
+                    .col-md-12
+                      +button({
+                          type:'submit',
+                          text:'Create category'
+                      })
             .box
               .box-header
                 | edit tags
               .box-body
-                .edit-tag__subcategory-holder
-                  .edit-tag__subcategory--input
-                    +input({
-                        text: 'subcategory',
-                        name:'subcategory',
-                        classes: 'js-subcategories',
-                        attributes: {
-                            'required':'required',
-                            'data-parsley-type':'alphanum'
-                        }
-                    })
+                h3 {{vm.editTag.category}}
+                +input({
+                    text: 'subcategory',
+                    name:'subcategory',
+                    attributes: {
+                        'required':'required',
+                        'data-parsley-type':'alphanum',
+                        'ng-repeat': 'tag in vm.editTag.subcategories',
+                        'value':'{{tag.subcategory}}'
+                    }
+                })
+              .box-footer
+                +button({
+                  type: 'primary',
+                  text: 'Edit Category',
+                  attributes: {
+
+                  }
+                })
+                +button({
+                  type: 'secondary',
+                  text: 'Cancel',
+                  attributes: {
+                    'ng-if': 'vm.editTag.category != undefined',
+                    'ng-click': 'vm.editTag = {}'
+                  }
+                })
           .col-md-4
             .box.no-padding
               .box-header
@@ -233,8 +273,19 @@ block content
                   table.table.table-striped(ng-repeat="category in vm.categories")
                     tbody
                       tr
-                        th.bg-primary.text-center.text-capitalize.disabled(colspan="3")
+                        th.bg-primary.text-capitalize.disabled
                           strong {{category.category}}
+                        th.bg-primary.text-right.disabled
+                            +button({
+                              type: 'icon',
+                              icon: 'pencil',
+                              classes: 'small',
+                              attributes: {
+                                'ng-click': 'vm.editTag = category',
+                                'data-tooltip':'Edit this category'
+                              }
+                            })
+
                     tbody
                       tr(ng-repeat="subcategory in category.subcategories")
                         td
@@ -242,15 +293,7 @@ block content
                         td.text-right
                           span.label.label-success(ng-if="subcategory.active")
                             | In use
-                        td.text-right
-                          +button({
-                              type: 'icon',
-                              icon: 'trash',
-                              classes: 'small',
-                              attributes: {
 
-                              }
-                          })
 
     .content-wrapper(ng-if="vm.activeView == 'statistics'" ng-cloak)
       section.content-header
