@@ -87,8 +87,8 @@ module.exports = function(app,db) {
  //    	displayCookiePage(req, res);
  //  });
 
- //  app.get('/aboutmeContent', function (req, res) {
- //      sendAboutmeData(req, res);
- //  });
+  app.get('/aboutmeContent', function (req, res) {
+      sendAboutmeData(req, res);
+  });
 
 }

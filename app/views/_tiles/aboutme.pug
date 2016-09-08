@@ -38,7 +38,9 @@
     | #{content.blogSetup.blogDescription}
   .aside__legend
     p My tech stack
-      div(ng-repeat="tech in tile.content.techStack" style="display: inline-block; margin: 5px;")
-        img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto" ng-if="!tech.link")
+      .tech(ng-repeat="tech in tile.content.techStack")
+        div(ng-if="!tech.link")
+          img(src="images/icons/tech/{{tech.logo}}")
         a(target="_blank" href="{{tech.link}}" ng-if="tech.link")
-          img(src="images/icons/tech/{{tech.logo}}" height="35px" width="auto")
+          img(src="images/icons/tech/{{tech.logo}}")
+        p {{tech.name}}

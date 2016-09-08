@@ -33,20 +33,11 @@
       "linkedIn":"linkedin",
       "twitter":"twitter",
       "techStack" : [
-        {
-        "name": "MongoDB",
-        "logo": "mongodb.svg",
-        "link": "https://www.mongodb.com/"
-        },
+
         {
         "name": "NodeJS",
         "logo": "nodejs.svg",
         "link" : "https://nodejs.org/en/"
-        },
-        {
-        "name": "ExpressJS",
-        "logo": "express.svg",
-        "link": "http://expressjs.com/"
         },
         {
         "name": "Pug",
@@ -59,6 +50,11 @@
         "link":"http://gruntjs.com/"
         },
         {
+        "name": "Bower",
+        "logo": "bower.svg",
+        "link":"http://bower.io/"
+        },
+        {
         "name": "Gulp",
         "logo": "gulp.svg",
         "link": "http://gulpjs.com/"
@@ -68,6 +64,16 @@
         "logo": "browserify.svg",
         "link":"http://browserify.org/"
         },
+        {
+       "name": "Git",
+       "logo": "git.svg",
+       "link":"https://git-scm.com/"
+       },
+        {
+         "name": "Npm",
+         "logo": "npm.png",
+         "link" : "https://www.npmjs.com/"
+         },
          {
         "name": "webpack",
         "logo": "webpack.svg",
@@ -88,13 +94,33 @@
         "logo": "jasmine.svg",
         "link": "http://jasmine.github.io/"
         },
+        {
+       "name": "Socket io",
+       "logo": "socket-io.svg",
+       "link": "http://socket.io/"
+       },
+       {
+      "name": "Bootstrap",
+      "logo": "bootstrap.svg",
+      "link": "http://getbootstrap.com/"
+      },
          {
         "name": "HTML5",
-        "logo": "html-5.svg"
+        "logo": "html5.svg"
         },
-         {
+        {
         "name": "CSS3",
-        "logo": "css-3.svg"
+        "logo": "css3.svg"
+        },
+        {
+        "name": "MongoDB",
+        "logo": "mongodb.svg",
+        "link": "https://www.mongodb.com/"
+        },
+        {
+        "name": "ExpressJS",
+        "logo": "express.svg",
+        "link": "http://expressjs.com/"
         },
          {
         "name": "jQuery",
