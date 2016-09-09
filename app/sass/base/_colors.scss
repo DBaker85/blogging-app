@@ -1,5 +1,6 @@
 // #d81e5b vibrant pink
 $color-pink: #d81e5b;
+$color-pink-dark: darken($color-pink, 40);
 
 // not sure to use this
 $color-green: #d81e5b;
@@ -9,7 +10,7 @@ $color-white: #FFFFFF;
 $color-background-dark: #292929;
 $color-text-dark: #FFFFFF;
 
-$color-background-light: #FFFFFF;
+$color-background-light: #f5f2f2;
 $color-text-light: #1a1a1a;
 
 $color-grey: #cccccc;

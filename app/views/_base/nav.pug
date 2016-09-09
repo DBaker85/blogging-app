@@ -1,31 +1,32 @@
-//- nav.nav.sb-slide
-//- 	.nav__container
-//- 		.nav__logo
-//- 			a(href="/" title="Home")
-//- 				+img({
-//- 					src:'icons/logo.png',
-//- 					lazy: 'false',
-//- 					width:'78',
-//- 					height:'40',
-//- 					alt:'logo',
-//- 					lazy:'false'
-//- 				})
-//- 		.nav__title
-//- 			span.title
-//- 				| #{siteTitle}
-//- 			span.tagline
-//- 				| &nbsp;|&nbsp;#{siteTagLine}
-//- 		.nav__actions
-//- 			.nav__search-container
-//- 				//- TODO : implement search functionality
-//- 				form.js-search(method="get" action="/search" data-parsley-validate)
-//- 					+input({type:'search',classes:'search-input js-search-bar',nolabel: 'true',name:'q',attributes:{placeholder:'search'}})
-//- 					+button({type:'icon',icon:'search',style:'inversed',classes:'js-search-icon'})
-//- 			.nav__menu-container
-//- 				+button({
-//- 					type:'icon',
-//- 					icon:'menu',
-//- 					style:'inversed',
-//- 					classes: 'sb-toggle-right'
-//- 				})
-
+nav.main-nav
+	.nav__container
+		.nav__logo
+			a(href="/" title="Home")
+				+img({
+					src:'icons/logo.png',
+					lazy: 'false',
+					width:'78',
+					height:'40',
+					alt:'logo',
+					lazy:'false'
+				})
+		.nav__title
+			span.title
+				| #{siteTitle}
+			span.tagline
+				| &nbsp;|&nbsp;#{siteTagLine}
+		//- .nav__actions
+		//- 	.nav__search-container
+		//- 		//- TODO : implement search functionality
+		//- 		form.js-search(method="get" action="/search" data-parsley-validate)
+		//- 			+input({type:'search',classes:'search-input js-search-bar',nolabel: 'true',name:'q',attributes:{placeholder:'search'}})
+		//- 			+button({type:'icon',icon:'search',style:'inversed',classes:'js-search-icon'})
+		//- 	.nav__menu-container
+		//- 		+button({
+		//- 			type:'icon',
+		//- 			icon:'menu',
+		//- 			style:'inversed',
+		//- 			classes: 'sb-toggle-right'
+		//- 		})
+.nav__strip
+	.strip

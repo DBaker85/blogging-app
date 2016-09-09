@@ -5,7 +5,7 @@ $mobile-tile-height: 60px;
   .row__sidebar {
     width:0;
     right: 0;
-    top: 5%;
+    top: 10%;
     position: fixed;
     transition: width .7s ease;
     @include media(desktop) {

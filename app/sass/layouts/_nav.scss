@@ -1,0 +1,48 @@
+nav.main-nav{
+  height: 50px;
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0;
+  background-color: $color-pink-dark;
+  .nav__logo,
+  .nav__title {
+  }
+  .nav__container{
+    display: block;
+    max-width: $site-width;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    display: inline-flex;
+    align-content: space-between;
+  }
+  .nav__title{
+    color: lighten($color-pink, 45);
+    align-self: center;
+    padding-left: 10px;
+    .title{
+      font-size: 22px
+    }
+    .tagline{
+
+    }
+
+  }
+
+
+}
+
+.nav__strip{
+  width: 100%;
+  background-color: $color-pink;
+  .strip{
+    display: block;
+    height: 15px;
+    max-width: $site-width;
+    width: 100%;
+    margin: 0 auto;
+    // background-color: $color-pink;
+    background: url("/images/layout/menu/header_behind.svg") no-repeat top left;
+  }
+
+}

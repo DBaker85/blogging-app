@@ -1,6 +1,7 @@
 extends ../_base/layout.pug
 block append styles
   link(rel="stylesheet", href="../css/admin.css")
+  - admin = true
 block content
   .admin.wrapper.skin-red.sidebar-mini(ng-controller="adminController as vm" class="{{vm.menuCollapse?'sidebar-collapse':''}}")
     header.main-header
@@ -305,10 +306,11 @@ block content
               .box-header
                 .box-title
                   | Visitors
-                .box-tools.pull-right(ng-if="!vm.visitorChart.loaded")
-                  i.glyphicon.glyphicon-refresh.spin
+
               .box-body.no-padding
                 div(google-chart chart="vm.visitorChart" agc-on-ready="vm.visitorChart.loaded = true")
+              .overlay(ng-if="!vm.visitorChart.loaded")
+                i.fa.glyphicon.glyphicon-refresh.spin
           .col-md-4
             .box.box-warning.no-padding
               .box-header
