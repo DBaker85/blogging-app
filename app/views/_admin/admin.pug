@@ -176,7 +176,7 @@ block content
                 | Add tags
               .box-body
                 h3 Create categories
-                form(method="put" action="/categories" name="vm.categoryform")
+                form(ng-submit="vm.createCategory()" name="vm.categoryform")
                   .row
                     .col-md-8
                       div
@@ -254,7 +254,7 @@ block content
                   type: 'primary',
                   text: 'Edit Category',
                   attributes: {
-
+                    'ng-click':'vm.postEditTag()'
                   }
                 })
                 +button({

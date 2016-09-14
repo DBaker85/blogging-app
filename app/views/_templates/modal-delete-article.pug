@@ -1,0 +1,32 @@
+include ../_base/components.pug
+.modal-header
+  h3.modal-title#modal-title
+    | Delete Article
+
+.modal-body#modal-body
+  p
+    | Are you sure you wish to delete article:
+  h4
+    strong
+      | {{$modal.post.title}}
+    | ?
+  small
+    | created on the {{$modal.post.date | date : 'EEE, dd/mm/yyyy'}}
+  p
+    | This cannot be un-done
+.modal-footer
+  +button({
+    type: 'primary',
+    text: 'Ok',
+    attributes:{
+      'ng-click': '$modal.ok()'
+    }
+  })
+  +button({
+    type: 'secondary',
+    text: 'Cancel',
+    attributes:{
+      'ng-click': '$modal.close()'
+    }
+  })
+  

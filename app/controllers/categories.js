@@ -84,12 +84,7 @@ function categoryHandler(db){
         if(err) {
           res.send('err');
         } else {
-          getCategories(function(err, categories) {
-            if (err) return next(err);
-            return res.render('_admin/category-list', {
-              categories: categories
-            });
-          })
+          res.send('ok')
         };
       });
 

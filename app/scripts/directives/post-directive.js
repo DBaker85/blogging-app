@@ -3,9 +3,8 @@ angular
   .directive('postBloc',[function(){
     return{
       restrict: 'E',
-      replace: true,
       templateUrl: 'templates/post.html',
-      controller: ['Posts','Categories','$interval','$rootScope',function(Posts,Categories,$interval,$rootScope){
+      controller: ['Posts','Categories','$interval','$rootScope',function PostController(Posts,Categories,$interval,$rootScope){
         var vm = this
         var minutes = 1000*60;
         vm.selectedCategory = 'all';

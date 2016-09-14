@@ -252,21 +252,7 @@ vm.deletePostConfirm = function(post){
 
       }],
       controllerAs: '$modal',
-      template: `
-      <div class="modal-header">
-          <h3 class="modal-title" id="modal-title">Delete Article</h3>
-      </div>
-      <div class="modal-body" id="modal-body">
-        <p>Are you sure you wish to delete article:</p>
-        <h4>{{$modal.post.title}}</strong> ?</h4>
-        <small>created on the {{$modal.post.date | date : 'EEE, dd/mm/yyyy'}}</small>
-        <p>This cannot be un-done</p>
-      </div>
-      <div class="modal-footer">
-          <button class="btn btn-primary" type="button" ng-click="$modal.ok()">OK</button>
-          <button class="btn btn-secondary" type="button" ng-click="$modal.close()">Cancel</button>
-      </div>
-      `
+      templateUrl: 'templates/modal-delete-article.html'
     })
   }
   vm.deletePost = function(post){
@@ -294,17 +280,43 @@ vm.subcategories = [];
 
 vm.removeSubcategory = function(index){
   vm.subcategories.splice(index,1);
-}
+};
+
 vm.addSubcategory = function(){
   vm.subCategoryError = '';
   if (vm.subcategories.indexOf(vm.subCategoryName) == -1) {
     vm.subcategories.push(vm.subCategoryName);
+    vm.subCategoryName = '';
+    vm.categoryform.subcategory.$setValidity('', true);
   } else if (vm.subcategories.indexOf(vm.subCategoryName) > -1){
     vm.subCategoryError = 'This subcategory already exists'
     vm.categoryform.subcategory.$setValidity('duplicate', false)
   }
 
+};
+
+vm.createCategory = function(){
+  // "category":"web development",
+  //  "subcategories": [
+
+  $http.put('./categories',{
+    "category":vm.categoryName,
+    "subcategories":vm.subcategories
+  }).then(
+    function(){
+      vm.fetchCategories();
+    },
+    function(){}
+  )
 }
+
+vm.postEditTag = function(){
+    $http.post('').then(function(){
+
+    }, function(){
+
+    })
+};
 
 vm.fetchposts();
 vm.fetchCategories();

@@ -1,24 +1,24 @@
 include ../_base/components.pug
-.post
-  .post__filter
-    .select-container
-      select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
-        option(value="all" disabled)
-          | Filter by category
-        optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
-          option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
-            | {{subcategory.subcategory}}
-      label.sr-only.label--select(for="category")
+.post__filter
+  .select-container
+    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
+      option(value="all" disabled)
         | Filter by category
-    //- button.btn.btn-primary(ng-click="postCtrl.fetchposts()")
-      | X
-    +button({
-            type:'icon',
-            icon:'cross',
-            attributes:{
-              'ng-click':'postCtrl.clearCategory()'
-            }
-          })
+      optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
+        option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
+          | {{subcategory.subcategory}}
+    label.sr-only.label--select(for="category")
+      | Filter by category
+  //- button.btn.btn-primary(ng-click="postCtrl.fetchposts()")
+    | X
+  +button({
+          type:'icon',
+          icon:'cross',
+          attributes:{
+            'ng-click':'postCtrl.clearCategory()'
+          }
+        })
+.post
   .post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
     article
       .post__title
@@ -37,12 +37,7 @@ include ../_base/components.pug
       .tag.small(ng-click="postCtrl.selectedCategory=post.category; postCtrl.fetchposts(0)")
         i.icon-shopping
         |  {{post.category}}
-    .readmore(ng-click="postCtrl.postExpander($index)")
-      .readmore__text
-        | Read more
-      .readmore__close
-        | Close
-      i.icon-chevron-thin-right
+    close-arrow
   select(name="pagesize" id="pagesize" ng-model="postCtrl.range" ng-change="postCtrl.fetchposts(0)")
     option(value="2") 2
     option(value="5") 5
