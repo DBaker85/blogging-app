@@ -28,7 +28,8 @@
     "angular-cookies": "~1.5.7",
     "AdminLTE": "admin-lte#^2.3.5",
     "angular-animate": "^1.5.8",
-    "angular-google-chart": "^0.1.0"
+    "angular-google-chart": "^0.1.0",
+    "ng-dropzone": "ngdropzone#^1.0.5"
   },
   "overrides": {
     "angular": {

@@ -47,6 +47,8 @@ module.exports = function(app,db) {
     })
 
 
+
+
   	app.delete('/post', function(req, res){
     updateCategoryStatus(req.query.category);
     posts.removeOne({postId:req.query.postId}, function(err, result){
@@ -75,6 +77,8 @@ module.exports = function(app,db) {
     app.post('/logout', function(req, res){
       logout(req, res);
     });
+
+
 
 
 

@@ -152,7 +152,11 @@ gulp.task('js', function() {
 // });
 
 gulp.task('admin-build-css', function() {
-  return gulp.src(['./bower_components/AdminLTE/bootstrap/css/bootstrap.min.css','./bower_components/AdminLTE/dist/css/AdminLTE.min.css','./bower_components/AdminLTE/dist/css/skins/skin-red.min.css'])
+  return gulp.src([
+    './bower_components/AdminLTE/bootstrap/css/bootstrap.min.css',
+    './bower_components/AdminLTE/dist/css/AdminLTE.min.css',
+    './bower_components/AdminLTE/dist/css/skins/skin-red.min.css'
+  ])
   .pipe(plumber({
       errorHandler: function(err){
         gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
@@ -174,7 +178,13 @@ gulp.task('admin-pipe-icons', function () {
 
 
 gulp.task('bower', function() {
-    return gulp.src(mainBowerFiles())
+      return gulp.src(mainBowerFiles({
+        overrides: {
+          dropzone: {
+            main: './dist/dropzone.js'
+          }
+        }
+      }))
       .pipe(plumber({
         errorHandler: function(err){
           gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);

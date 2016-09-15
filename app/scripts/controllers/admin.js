@@ -2,6 +2,7 @@ angular
 .module('BloggingApp')
 .controller('adminController',['Stats','Posts','Categories','$http','$uibModal',function(Stats,Posts,Categories,$http,$uibModal){
   var vm = this;
+  Dropzone.autoDiscover = false;
 
   vm.activeView = 'posts';
 
@@ -287,7 +288,7 @@ vm.addSubcategory = function(){
   if (vm.subcategories.indexOf(vm.subCategoryName) == -1) {
     vm.subcategories.push(vm.subCategoryName);
     vm.subCategoryName = '';
-    vm.categoryform.subcategory.$setValidity('', true);
+    vm.categoryform.subcategory.$setPristine();
   } else if (vm.subcategories.indexOf(vm.subCategoryName) > -1){
     vm.subCategoryError = 'This subcategory already exists'
     vm.categoryform.subcategory.$setValidity('duplicate', false)
@@ -296,9 +297,6 @@ vm.addSubcategory = function(){
 };
 
 vm.createCategory = function(){
-  // "category":"web development",
-  //  "subcategories": [
-
   $http.put('./categories',{
     "category":vm.categoryName,
     "subcategories":vm.subcategories
@@ -316,6 +314,46 @@ vm.postEditTag = function(){
     }, function(){
 
     })
+};
+
+vm.dzOptions = {
+  url : '/uploads/article/cover',
+  paramName : 'photo',
+  maxFilesize : '10',
+  acceptedFiles : 'image/jpeg, images/jpg, image/png',
+  addRemoveLinks : true,
+  thumbnailWidth: 120,
+  thumbnailHeight: 120,
+  previewTemplate: `
+  <div class="dz-preview dz-file-preview">
+    <div class="clearfix">
+      <div class="dz-image">
+        <div class="dz-success-mark">
+          <i class="icon-check"></i>
+        </div>
+        <div class="dz-error-mark">
+          <i class="icon-cross"></i>
+        </div>
+        <img class="img-responsive" data-dz-thumbnail />
+      </div>
+      <div class="dz-details">
+          <div class="dz-filename">
+            <span data-dz-name></span>
+          </div>
+          <div class="dz-size small">
+            <span data-dz-size></span>
+          </div>
+      </div>
+    </div>
+    <div class="progress progress-xs active dz-progress">
+      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress>
+    </div>
+    </div>
+    <div class="dz-error-message">
+      <span data-dz-errormessage></span>
+    </div>
+  </div>
+`
 };
 
 vm.fetchposts();

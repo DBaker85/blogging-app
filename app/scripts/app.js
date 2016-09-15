@@ -17,5 +17,6 @@ angular
   'angularLazyImg',
   'ngCookies',
   'googlechart',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'thatisuday.dropzone'
   ]);

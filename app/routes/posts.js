@@ -14,6 +14,9 @@ module.exports = function(app,db) {
       });
 	});
 
+	app.post('/uploads/article/cover', function(req,res){
+		uploadArticleCover(req,res);
+	})
 
 
   app.get('/posts', function(req,res){

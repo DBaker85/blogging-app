@@ -2,6 +2,8 @@ var crypto = require('crypto');
 var request = require('request');
 var fs = require('fs-extra');
 var isoCountries = require('../content/countries');
+var path = require('path');
+var formidable = require('formidable');
 
 function content(db){
   var oldcategory;
@@ -35,6 +37,45 @@ function content(db){
   //     return res.redirect('/login');
   //   }
   // }
+
+
+  this.uploadArticleCover = function(req,res){
+
+    const uploadPath = path.join(__dirname, '..', '..', 'public/images');
+      // create an incoming form object
+    var form = new formidable.IncomingForm();
+
+    // specify that we want to allow the user to upload multiple files in a single request
+    form.multiples = true;
+
+    // store all uploads in the /uploads directory
+    form.uploadDir = uploadPath;
+
+    // every time a file has been uploaded successfully,
+    // rename it to it's orignal name
+    form.on('file', function(field, file) {
+      var sanitizedFileName = file.name.toLowerCase()
+                              .replace(/[,\-!&?#<$+%>`*'|{"=}/:@]/g,"")
+                              .replace(/\s/g,"_");
+      fs.rename(file.path, path.join(form.uploadDir, sanitizedFileName));
+    });
+
+    // log any errors that occur
+    form.on('error', function(err) {
+      console.log('An error has occured: \n' + err);
+    });
+
+    // once all the files have been uploaded, send a response to the client
+    form.on('end', function() {
+      res.end('success');
+    });
+
+    // parse the incoming request containing the form data
+    form.parse(req);
+  }
+
+
+
 
   this.getCountryName = function(countryCode) {
     if (isoCountries.hasOwnProperty(countryCode)) {

@@ -64,50 +64,53 @@ block content
               .box-header.with-border
                 h3 Create new post
               .box-body
-                form(no-validate ng-submit="vm.sendPost()" name="vm.formContent")
-                  div
-                    +input({
-                        classes:'input',
-                        name:'title',
-                        text: 'Post title',
-                        error: 'Field is at least 4 alphanumerical characters with spaces and basic punctuation only',
-                        attributes:{
-                            'maxlength':'60',
-                            'minlength':'4',
-                            'required':'required',
-                            'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
-                            'ng-model':'vm.postContent.title'
-                        }
-                    })
-                  div
-                    +input({
-                        type: 'textarea',
-                        name: 'body',
-                        text: 'Post body',
-                        attributes:{
-                            'required':'required',
-                            'ng-model':'vm.postContent.body'
-                        }
-                    })
-                  select(name="category" ng-model="vm.postContent.category")
-                    optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
-                      option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
-                        | {{subcategory.subcategory}}
-                  div(dropzone)
-                    | add angular dropzone here
-                  +button({
-                      type:'submit',
-                      text:'submit'
-                  })
-                  +button({
-                      type: 'secondary',
-                      text:'cancel',
-                      attributes:{
-                        'ng-click':'vm.resetPostForm()',
-                        'ng-if':'vm.postContent.edit==true'
-                      }
-                  })
-
+                .row
+                  .col-md-8
+                    form(no-validate ng-submit="vm.sendPost()" name="vm.formContent")
+                      div
+                        +input({
+                            classes:'input',
+                            name:'title',
+                            text: 'Post title',
+                            error: 'Field is at least 4 alphanumerical characters with spaces and basic punctuation only',
+                            attributes:{
+                                'maxlength':'60',
+                                'minlength':'4',
+                                'required':'required',
+                                'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
+                                'ng-model':'vm.postContent.title'
+                            }
+                        })
+                      div
+                        +input({
+                            type: 'textarea',
+                            name: 'body',
+                            text: 'Post body',
+                            attributes:{
+                                'required':'required',
+                                'ng-model':'vm.postContent.body'
+                            }
+                        })
+                      select(name="category" ng-model="vm.postContent.category")
+                        optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
+                          option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
+                            | {{subcategory.subcategory}}
+                      +button({
+                          type:'submit',
+                          text:'submit'
+                      })
+                      +button({
+                          type: 'secondary',
+                          text:'cancel',
+                          attributes:{
+                            'ng-click':'vm.resetPostForm()',
+                            'ng-if':'vm.postContent.edit==true'
+                          }
+                      })
+                  .col-md-4
+                    h4
+                      | Article cover image
+                    ng-dropzone.dropzone(options="vm.dzOptions" callbacks="dzCallbacks" methods="dzMethods")
             .box.box-primary
               .box-header.with-border
                 h3 Post preview
@@ -183,6 +186,7 @@ block content
                         +input({
                             text:'category',
                             name:'category',
+                            error: 'This field is required',
                             attributes: {
                                 'required':'required',
                                 'ng-model':'vm.categoryName'
