@@ -41,39 +41,56 @@ function content(db){
 
   this.uploadArticleCover = function(req,res){
 
-    const uploadPath = path.join(__dirname, '..', '..', 'public/images');
+    const uploadPath = path.join(__dirname, '..', '..', 'uploads/temp_covers');
+
+    function uploadcovers(){
       // create an incoming form object
-    var form = new formidable.IncomingForm();
+      var form = new formidable.IncomingForm();
 
-    // specify that we want to allow the user to upload multiple files in a single request
-    form.multiples = true;
+      // specify that we want to allow the user to upload multiple files in a single request
+      form.multiples = true;
 
-    // store all uploads in the /uploads directory
-    form.uploadDir = uploadPath;
+      // store all uploads in the /uploads directory
+      form.uploadDir = uploadPath;
 
-    // every time a file has been uploaded successfully,
-    // rename it to it's orignal name
-    form.on('file', function(field, file) {
-      var sanitizedFileName = file.name.toLowerCase()
-                              .replace(/[,\-!&?#<$+%>`*'|{"=}/:@]/g,"")
-                              .replace(/\s/g,"_");
-      fs.rename(file.path, path.join(form.uploadDir, sanitizedFileName));
-    });
+      // every time a file has been uploaded successfully,
+      // rename it to it's orignal name
+      form.on('file', function(field, file) {
+        var sanitizedFileName = file.name.toLowerCase()
+                                .replace(/[,\!&?#<$+%>`*'|{"=}/:@]/g,"")
+                                .replace(/[-\s]/g,"_");
+        fs.rename(file.path, path.join(form.uploadDir, sanitizedFileName));
+      });
 
-    // log any errors that occur
-    form.on('error', function(err) {
-      console.log('An error has occured: \n' + err);
-    });
+      // log any errors that occur
+      form.on('error', function(err) {
+        console.log('An error has occured: \n' + err);
+      });
 
-    // once all the files have been uploaded, send a response to the client
-    form.on('end', function() {
-      res.end('success');
-    });
+      // once all the files have been uploaded, send a response to the client
+      form.on('end', function() {
+        res.end('success');
+      });
 
-    // parse the incoming request containing the form data
-    form.parse(req);
+      // parse the incoming request containing the form data
+      form.parse(req);
+    }
+
+    fs.mkdirs(uploadPath, function (err) {
+      if (err) return console.error(err)
+        uploadcovers();
+    })
   }
 
+  this.deleteArticleCover = function(req,res){
+    const deletePath = path.join(__dirname, '..', '..', 'uploads/temp_covers',req.query.filename);
+    fs.remove(deletePath, function (err) {
+    if (err) return console.error(err)
+      console.log('success!')
+      res.send('ok');
+    })
+    // fs.rename(file.path, path.join(form.uploadDir, sanitizedFileName));
+  }
 
 
 
@@ -482,7 +499,8 @@ this.createPost = function(req, res){
             date: currentDate,
             body: req.body.body,
             urlSlug: slug,
-            category : req.body.category
+            category : req.body.category,
+            cover: req.body.cover
           };
 
       //- {"category":"web development","subcategories":[{"subcategory":"nodejs","active":true},{"subcategory":"mongodb","active":true},{"subcategory":"sass","active":false}]}
@@ -491,6 +509,16 @@ this.createPost = function(req, res){
           console.log('category not updated');
         }
       });
+
+      // move temp cover to final folder
+      const coverPath = path.join(__dirname, '..', '..', 'uploads/temp_covers',req.body.cover);
+
+      const articleCoverPath = path.join(__dirname, '..', '..', 'public/images/articles',slug,'cover',req.body.cover);
+
+      fs.move(coverPath, articleCoverPath, function (err) {
+        if (err) return console.error(err)
+        console.log("success!")
+      })
 
       posts.insert(post, function(err, inserted) {
         if(err) {

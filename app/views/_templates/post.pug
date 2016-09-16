@@ -21,6 +21,8 @@ include ../_base/components.pug
 .post
   .post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
     article
+      .post__title(ng-if="post.cover")
+        img.img-responsive(ng-src="./images/articles/{{post.urlSlug}}/cover/{{post.cover}}" alt="{{post.title}}")
       .post__title
         h2 {{post.title}}
         .date

@@ -78,7 +78,8 @@ block content
                                 'minlength':'4',
                                 'required':'required',
                                 'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
-                                'ng-model':'vm.postContent.title'
+                                'ng-model':'vm.postContent.title',
+                                'ng-change':'vm.articleFolder()'
                             }
                         })
                       div
@@ -110,7 +111,7 @@ block content
                   .col-md-4
                     h4
                       | Article cover image
-                    ng-dropzone.dropzone(options="vm.dzOptions" callbacks="dzCallbacks" methods="dzMethods")
+                    ng-dropzone.dropzone(options="vm.dzOptions" callbacks="vm.dzCallbacks" methods="dzMethods")
             .box.box-primary
               .box-header.with-border
                 h3 Post preview

@@ -199,7 +199,8 @@ vm.sendPost = function(){
     $http.post('/submit-post',{
       title : vm.postContent.title,
       body : vm.postContent.body,
-      category : vm.postContent.category
+      category : vm.postContent.category,
+      cover: vm.articleCover
     }).then(function(){
       vm.resetPostForm();
       vm.fetchposts();
@@ -316,14 +317,38 @@ vm.postEditTag = function(){
     })
 };
 
+vm.articleCover = null;
+
+vm.dzCallbacks = {
+  'success':function(file){
+    vm.articleCover = file.name.toLowerCase()
+                            .replace(/[,\!&?#<$+%>`*'|{"=}/:@]/g,"")
+                            .replace(/[-\s]/g,"_");
+  },
+  'removedfile':function(file, arg, arg2, arg3){
+    if(file.accepted){
+      var sanitizedFileName = file.name.toLowerCase()
+                            .replace(/[,\!&?#<$+%>`*'|{"=}/:@]/g,"")
+                            .replace(/[-\s]/g,"_");
+      $http.delete(`/uploads/article/cover?filename=${sanitizedFileName}`).then(function(reponse){
+        console.log('delete file');
+        vm.articleCover = null;
+    },function(){
+
+    })}
+  }
+}
+
 vm.dzOptions = {
-  url : '/uploads/article/cover',
+  url : `/uploads/article/cover`,
   paramName : 'photo',
   maxFilesize : '10',
   acceptedFiles : 'image/jpeg, images/jpg, image/png',
   addRemoveLinks : true,
   thumbnailWidth: 120,
   thumbnailHeight: 120,
+  maxFiles: 1,
+  // autoProcessQueue: false,
   previewTemplate: `
   <div class="dz-preview dz-file-preview">
     <div class="clearfix">

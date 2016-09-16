@@ -17,6 +17,9 @@ module.exports = function(app,db) {
 	app.post('/uploads/article/cover', function(req,res){
 		uploadArticleCover(req,res);
 	})
+	app.delete('/uploads/article/cover', function(req,res){
+		deleteArticleCover(req,res);
+	})
 
 
   app.get('/posts', function(req,res){
