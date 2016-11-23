@@ -7,6 +7,9 @@ angular
       },
       countPosts : function(category) {
         return $http.get('/post-count/'+category, {cache:false});
+      },
+      imageGallery : function() {
+        return $http.get('/gallery',{cache: false});
       }
     }
   }])

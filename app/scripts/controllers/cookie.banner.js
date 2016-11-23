@@ -1,6 +1,6 @@
 angular
 .module('BloggingApp')
-.controller('CookieBannerController', ['$cookies', function($cookies){
+.controller('CookieBannerController', ['$cookies','$uibModal', function($cookies,$uibModal){
   var vm = this;
   vm.showBanner = false;
   vm.checkCookieStatus = function() {
@@ -16,6 +16,26 @@ angular
     expiryDate.setDate(expiryDate.getDate() + 180);
     $cookies.put('acceptCookiePolicy', true, {expires: expiryDate})
   };
+
+vm.policy = function(){
+  vm.modalInstance = $uibModal.open({
+    controller: ['$uibModalInstance',function($uibModalInstance){
+      var $modal = this;
+
+      $modal.close = function () {
+        $uibModalInstance.close();
+      }
+
+      $modal.ok = function () {
+        $uibModalInstance.close();
+        vm.acceptCookies();
+      }
+
+    }],
+    controllerAs: '$modal',
+    templateUrl: 'templates/modal-cookie-policy.html'
+  })
+}
 
   vm.checkCookieStatus();
 

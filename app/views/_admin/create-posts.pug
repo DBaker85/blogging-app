@@ -1,0 +1,113 @@
+section.content-header
+  | Create and edit posts
+section.content
+  .row
+    .col-md-8
+      .box.box-primary
+        .box-header.with-border
+          h3 Create new post
+        .box-body
+          .row
+            .col-md-8
+              form(no-validate ng-submit="vm.sendPost()" name="vm.formContent")
+                div
+                  +input({
+                      classes:'input',
+                      name:'title',
+                      text: 'Post title',
+                      error: 'Field is at least 4 alphanumerical characters with spaces and basic punctuation only',
+                      attributes:{
+                          'maxlength':'60',
+                          'minlength':'4',
+                          'required':'required',
+                          'ng-pattern':'/^[0-9A-Za-z\d\ \?\!\.\,]+$/',
+                          'ng-model':'vm.postContent.title',
+                          'ng-change':'vm.coverDropzoneActivator()'
+                      }
+                  })
+                div
+                  +input({
+                      type: 'textarea',
+                      name: 'body',
+                      text: 'Post body',
+                      attributes:{
+                          'required':'required',
+                          'ng-model':'vm.postContent.body'
+                      }
+                  })
+                select(name="category" ng-model="vm.postContent.category")
+                  optgroup(label="{{category.category}}" ng-repeat="category in vm.categories")
+                    option(value="{{subcategory.subcategory}}" ng-repeat="subcategory in category.subcategories")
+                      | {{subcategory.subcategory}}
+                +button({
+                    type:'submit',
+                    text:'submit'
+                })
+                +button({
+                    type: 'secondary',
+                    text:'cancel',
+                    attributes:{
+                      'ng-click':'vm.resetPostForm()',
+                      'ng-if':'vm.postContent.edit==true'
+                    }
+                })
+            .col-md-4
+              h4
+                | Article cover image
+              ng-dropzone.dropzone(options="vm.dzOptions" callbacks="vm.dzCallbacks" methods="dzMethods" ng-if="vm.coverDropzoneActive == true")
+      .box.box-primary
+        .box-header.with-border
+          h3 Post preview
+        .box-body(ng-init="vm.expandedPreview = false")
+          .pull-right
+            button.btn-link(ng-click="vm.expandedPreview = !vm.expandedPreview")
+              span(ng-show="vm.expandedPreview")
+                | /\ Compact preview
+              span(ng-show="!vm.expandedPreview")
+                | \/ Full preview
+          .post__content
+            article
+              .post__title
+                h2 {{vm.postContent.title}}
+              div(ng-cloak ng-if="vm.postContent.body.length > 1" ng-bind-html="vm.postContent.body | limitHtml: vm.expandedPreview")
+
+    .col-md-4
+      .box.box-primary
+        .box-header.with-border
+          h3 Articles
+        .box-body
+          ul.products-list.product-list-in-box
+            li.item(ng-repeat="post in vm.postList")
+              .row
+                .col-sm-10
+                  .product-img
+                    img(src="images/icons/file.svg" alt="Article Image")
+                  .product-info
+                    .product-title
+                      | {{post.title}}
+                    .product-description
+                      .small
+                        | Posted on {{post.date | date: 'EEE dd/MM/yy hh:mma'}}
+                      .small(ng-if="post.editdate")
+                        | Edited on {{post.editdate | date: 'EEE dd/MM/yy hh:mma'}}
+                      small.label.label-primary
+                        |  {{post.category}}
+                .col-sm-2
+                  +button({
+                    type:'icon',
+                    icon: 'trash',
+                    classes:'small',
+                    attributes:{
+                      'ng-click':'vm.deletePostConfirm(post)',
+                      'data-tooltip':'Delete post',
+                    }
+                  })
+                  +button({
+                    type:'icon',
+                    icon: 'pencil',
+                    classes:'small',
+                    attributes:{
+                      'ng-click':'vm.editPost(post.postId)',
+                      'data-tooltip':'Edit post',
+                    }
+                })

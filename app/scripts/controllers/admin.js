@@ -92,6 +92,36 @@ angular
   };
 
 
+  vm.uploaderTemplate = `
+    <div class="dz-preview dz-file-preview">
+      <div class="clearfix">
+        <div class="dz-image">
+          <div class="dz-success-mark">
+            <i class="icon-check"></i>
+          </div>
+          <div class="dz-error-mark">
+            <i class="icon-cross"></i>
+          </div>
+          <img class="img-responsive" data-dz-thumbnail />
+        </div>
+        <div class="dz-details">
+            <div class="dz-filename">
+              <span data-dz-name></span>
+            </div>
+            <div class="dz-size small">
+              <span data-dz-size></span>
+            </div>
+        </div>
+      </div>
+      <div class="progress progress-xs active dz-progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress>
+      </div>
+      </div>
+      <div class="dz-error-message">
+        <span data-dz-errormessage></span>
+      </div>
+    </div>
+  `
 
 
   Stats.countries().then(function(response){
@@ -191,7 +221,7 @@ vm.resetPostForm = function(){
   vm.postContent = {};
   vm.formContent.$setPristine();
   vm.formContent.$setUntouched();
-
+  vm.coverDropzoneActive = false;
 }
 
 vm.sendPost = function(){
@@ -277,6 +307,11 @@ vm.fetchCategories = function(){
     vm.categories = response.data
   })
 }
+vm.fetchGallery = function(){
+  Posts.imageGallery().then(function(response){
+    vm.gallery = response.data
+  })
+}
 
 vm.subcategories = [];
 
@@ -325,7 +360,7 @@ vm.dzCallbacks = {
                             .replace(/[,\!&?#<$+%>`*'|{"=}/:@]/g,"")
                             .replace(/[-\s]/g,"_");
   },
-  'removedfile':function(file, arg, arg2, arg3){
+  'removedfile':function(file){
     if(file.accepted){
       var sanitizedFileName = file.name.toLowerCase()
                             .replace(/[,\!&?#<$+%>`*'|{"=}/:@]/g,"")
@@ -339,6 +374,14 @@ vm.dzCallbacks = {
   }
 }
 
+vm.coverDropzoneActive = false;
+
+vm.coverDropzoneActivator = function(){
+  if(!vm.postContent.title.$pristine){
+    vm.coverDropzoneActive = true;
+  }
+}
+
 vm.dzOptions = {
   url : `/uploads/article/cover`,
   paramName : 'photo',
@@ -348,41 +391,35 @@ vm.dzOptions = {
   thumbnailWidth: 120,
   thumbnailHeight: 120,
   maxFiles: 1,
-  // autoProcessQueue: false,
-  previewTemplate: `
-  <div class="dz-preview dz-file-preview">
-    <div class="clearfix">
-      <div class="dz-image">
-        <div class="dz-success-mark">
-          <i class="icon-check"></i>
-        </div>
-        <div class="dz-error-mark">
-          <i class="icon-cross"></i>
-        </div>
-        <img class="img-responsive" data-dz-thumbnail />
-      </div>
-      <div class="dz-details">
-          <div class="dz-filename">
-            <span data-dz-name></span>
-          </div>
-          <div class="dz-size small">
-            <span data-dz-size></span>
-          </div>
-      </div>
-    </div>
-    <div class="progress progress-xs active dz-progress">
-      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress>
-    </div>
-    </div>
-    <div class="dz-error-message">
-      <span data-dz-errormessage></span>
-    </div>
-  </div>
-`
+  previewTemplate: vm.uploaderTemplate
 };
 
+vm.galleryDzOptions = {
+  url : `/uploads`,
+  paramName : 'photo',
+  maxFilesize : '10',
+  acceptedFiles : 'image/jpeg, images/jpg, image/png',
+  addRemoveLinks : true,
+  thumbnailWidth: 120,
+  thumbnailHeight: 120,
+  maxFiles: 10,
+  autoProcessQueue: false,
+  parallelUploads: 10,
+  previewTemplate: vm.uploaderTemplate
+};
+
+vm.articleAssociatedToImage = null;
+
+vm.uploadGallery = function(){
+  vm.galleryDzMethods.getDropzone().options.url = `/uploads?article=${vm.articleAssociatedToImage}`
+  vm.galleryDzMethods.processQueue();
+  // $http.put(`/uploads?article=${vm.articleAssociatedToImage}`).then(function(response){
+
+  // })
+}
 vm.fetchposts();
 vm.fetchCategories();
+vm.fetchGallery();
 
 
 }])

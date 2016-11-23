@@ -53,6 +53,7 @@
     "mongoose": "^4.0.2",
     "node-notifier": "^4.2.1",
     "pug": "^2.0.0-alpha6",
-    "request": "^2.70.0"
+    "request": "^2.70.0",
+    "walk": "^2.3.9"
   }
 }

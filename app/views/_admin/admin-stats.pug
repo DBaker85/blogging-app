@@ -1,0 +1,74 @@
+section.content-header
+  | Visitor stats
+section.content
+  .row
+    .col-md-8
+      .box.box-success.no-padding
+        .box-header
+          .box-title
+            | Visitors
+
+        .box-body.no-padding
+          div(google-chart chart="vm.visitorChart" agc-on-ready="vm.visitorChart.loaded = true")
+        .overlay(ng-if="!vm.visitorChart.loaded")
+          i.fa.glyphicon.glyphicon-refresh.spin
+    .col-md-4
+      .box.box-warning.no-padding
+        .box-header
+          .box-title
+            | Platform
+        .box-body
+          div(google-chart chart="vm.platformChart" agc-on-ready="vm.platformChart.loaded = true")
+      .box.box-warning.no-padding
+        .box-header
+          .box-title
+            | Device
+        .box-body
+          div(google-chart chart="vm.deviceChart" agc-on-ready="vm.platformChart.loaded = true")
+section.content-header
+  | Browser Stats
+section.content
+  .row
+    .col-md-4
+      .box.box-success.no-padding
+        .box-header
+          .box-title
+            | Chrome
+        .box-body
+          div(google-chart chart="vm.chromeChart" agc-on-ready="vm.osChart.loaded = true")
+    .col-md-4
+      .box.box-warning.no-padding
+        .box-header
+          .box-title
+            | Firefox
+        .box-body
+          div(google-chart chart="vm.firefoxChart" agc-on-ready="vm.osChart.loaded = true")
+    .col-md-4
+      .box.box-danger.no-padding
+        .box-header
+          .box-title
+            | Opera
+        .box-body
+          div(google-chart chart="vm.operaChart" agc-on-ready="vm.osChart.loaded = true")
+  .row
+    .col-md-4
+      .box.no-padding
+        .box-header
+          .box-title
+            | Internet explorer
+        .box-body
+          div(google-chart chart="vm.IEChart" agc-on-ready="vm.osChart.loaded = true")
+    .col-md-4
+      .box.no-padding
+        .box-header
+          .box-title
+            | Safari
+        .box-body
+          div(google-chart chart="vm.safariChart" agc-on-ready="vm.osChart.loaded = true")
+    .col-md-4
+      .box.box-warning.no-padding
+        .box-header
+          .box-title
+            | OS
+        .box-body
+          div(google-chart chart="vm.osChart" agc-on-ready="vm.osChart.loaded = true")

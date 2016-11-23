@@ -1,0 +1,42 @@
+section.content-header
+  | images
+section.content
+  .row
+
+    .col-md-8
+      .box
+        .box-header.with-border
+          h3 Gallery
+        .box-body
+          .panel.panel-default(ng-repeat="folder in vm.gallery")
+            .panel-heading.color-primary
+              | {{folder.path}}
+            .panel-body
+              .row
+                .col-md-6(ng-repeat="file in folder.files")
+                  .row
+                    .col-md-5
+                      img.img-responsive.image_preview(ng-src="/images{{folder.basepath}}{{folder.path}}/{{file}}" src="")
+                    .col-md-7.text-break
+                      .small
+                        | /images{{folder.basepath}}{{folder.path}}/{{file}}
+    .col-md-4
+      .box
+        .box-header.with-border
+          h3 Upload images
+        .box-body
+          .row
+            .col-md-12
+              p
+                | You can associate the images to a specific article or just upload them to the general images
+            .col-md-8
+              select(ng-options="article.urlSlug as article.title for article in vm.postList" ng-model="vm.articleAssociatedToImage")
+            .col-md-4
+              +button({
+                type:'primary',
+                text:'upload',
+                attributes:{
+                  'ng-click': 'vm.uploadGallery();'
+                }
+              })
+          ng-dropzone.dropzone(options="vm.galleryDzOptions" callbacks="vm.galleryDzCallbacks" methods="vm.galleryDzMethods")

@@ -1,0 +1,37 @@
+include ../_base/components.pug
+.modal-header
+  h3.modal-title#modal-title
+    | Cookie policy
+
+.modal-body#modal-body
+  p
+    | This site uses cookies and localstorage to improve the user experience and for statistics
+  h5 visit
+  p
+    | `visit` cookie is used for statistics and to tell if the user has already visited the site or not.
+  h5 acceptCookiePolicy
+  p
+    | This cookie is stores if the user has already accepted the cookie policy and dismisses the message.
+  h5 Collected data
+  p
+    | Some data is collected and stored for analytics purposes.
+    ul
+      li Date of unique visit
+      li Device used
+      li Browser used
+      li Geographical data consisting of:  Town, City and Country
+.modal-footer
+  +button({
+    type: 'primary',
+    text: 'Ok',
+    attributes:{
+      'ng-click': '$modal.ok()'
+    }
+  })
+  +button({
+    type: 'secondary',
+    text: 'Cancel',
+    attributes:{
+      'ng-click': '$modal.close()'
+    }
+  })

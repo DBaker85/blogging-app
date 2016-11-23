@@ -54,6 +54,10 @@
   height: auto;
 }
 
+.text-break {
+  word-break: break-all;
+}
+
 [ng-click] {
   cursor: pointer;
 }
