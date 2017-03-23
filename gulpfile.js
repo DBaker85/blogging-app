@@ -297,3 +297,5 @@ gulp.task('default', ['icon', 'pug' ,'sass', 'bower', 'js','nodemon'], function 
   gulp.watch('bower.json', ['bower-watch']);
   gulp.watch('./app/views/**/*.pug', ['pug-watch']);
 });
+
+
