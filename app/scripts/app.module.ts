@@ -1,6 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser'
-import {bloggingComponent} from './app.component'
 import {NgModule} from '@angular/core'
+
+import {bloggingComponent} from './app.component'
+import {PostComponent} from './posts/post.component'
+
+
 
 @NgModule({
   imports:      [
@@ -8,6 +12,7 @@ import {NgModule} from '@angular/core'
   ],
   declarations: [
     bloggingComponent,
+    PostComponent
     ],
     providers:[
 

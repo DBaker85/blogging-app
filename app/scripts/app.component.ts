@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
     selector:'blogging-app',
     template:`
       <h1>hello world and welcome to a brand new</h1>
-      <p>here is to webpack stream!</p>
+      <posts></posts>
     `
 })
 export class bloggingComponent {
