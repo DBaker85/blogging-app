@@ -1,44 +1,28 @@
-import {Component, Optional} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import {Post} from './post.model'
+import {PostCall} from './post.service'
+import {FullPost} from './post.model'
 
 @Component({
     selector:'posts',
-    template:`
-      <article *ngFor="let article of articles">
-        <h2>{{article.title}}</h2>
-        <div class="small">
-          <i class="icon-clock"></i>
-          Mon Jan 04 2016&nbsp;<span>|| posted in&nbsp;<a href="/category/mongodb">{{article.category}}</a></span>
-        </div>
-        <p>{{article.content}}</p>
-        <a href="/post/improving-the-stat-tracker_412016" role="button" type="button" class="btn-reset read-more">
-          Read more
-          <i class="icon-chevron-thin-right"></i>
-        </a>
-      </article>
-    `
+    templateUrl:'./post.template.html'
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
 
    constructor(
-    @Optional()
-     private articles:Array<Post>
-   ){
-     this.articles=[
-       {
-         title:'this',
-         category:'mongodb',
-         date: new Date(),
-         content: `<p>help me</p>`
-       },
-       {
-         title:'this',
-         category:'magic',
-         date: new Date(),
-         content: `<p>make magic</p>`
-        }
-     ]
-   }
+    private articles:Array<FullPost>, 
+    private postCall:PostCall
+   ){}
 
+   ngOnInit(){
+     this.postCall
+         .call('all',0,10)
+         .then(
+           Response => {
+             this.articles = Response;
+           }
+         )
+   }
 }
+
+  

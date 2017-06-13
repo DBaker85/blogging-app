@@ -6,18 +6,21 @@ var mongodb      = require('mongodb');
 var MongoClient  = mongodb.MongoClient;
 
 var session      = require('client-sessions');
-var contentJson  = require('./app/content/content.json');
+var contentJson  = require('./content/content.json');
 var useragent    = require('express-useragent');
 var cookieParser = require('cookie-parser');
 var marked       = require('marked');
 var logger       = require('morgan');
+var gutil        = require('gulp-util');
 
 var errorHandler = require('errorhandler');
 var exports      = module.exports = {};
 
 // set express render engine
 app.set('view engine', 'pug');
-app.set('views', './app/views/');
+app.set('views', './views/');
+
+gutil.log(process.env.NODE_ENV);
 
 // if port is set in config use that else use env port (heroku requirement)
 if (contentJson.config.port) {
@@ -80,12 +83,12 @@ MongoClient.connect(url, function (err, db) {
     // console.log(locals);
 
     // require routes and controllers
-    require('./app/routes/posts')(app,db);
-    require('./app/routes/admin')(app,db);
-    require('./app/routes/search')(app,db);
-    require('./app/routes/colorchanger')(app);
+    require('./routes/posts')(app,db);
+    require('./routes/admin')(app,db);
+    require('./routes/search')(app,db);
+    require('./routes/colorchanger')(app);
 
-    require('./app/routes/uploads')(app);
+    require('./routes/uploads')(app);
 
     // Handle routes that are not found and give them 404 status
     app.get('*', function (req, res, next) {
@@ -99,7 +102,7 @@ MongoClient.connect(url, function (err, db) {
       if (err.status !== 404) {
         return next();
       }
-      displayErrorPage(req, res, 404);
+      gutil.log(`cannot find link ${req.url}`)
     });
   }
 

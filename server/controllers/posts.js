@@ -307,23 +307,23 @@ this.EditPost = function(req, res) {
 
 
 
-this.displayErrorPage = function(req,res, status) {
+// this.displayErrorPage = function(req,res, status) {
 
-  if (status == 404){
-    res.render('_landing/index', {
-      pagetitle:'Page not found | '+blogName,
-      maintext:'404',
-      subtext:'Sorry We could not find page: ' + req.url
-    })
-  } else {
-    res.render('_landing/index', {
-      pagetitle:'An error occured | '+blogName,
-      maintext: 'error',
-      subtext:'Sorry an error occured. Please try again',
-      message:'message'
-    })
-  }
-}
+//   if (status == 404){
+//     res.render('_landing/index', {
+//       pagetitle:'Page not found | '+blogName,
+//       maintext:'404',
+//       subtext:'Sorry We could not find page: ' + req.url
+//     })
+//   } else {
+//     res.render('_landing/index', {
+//       pagetitle:'An error occured | '+blogName,
+//       maintext: 'error',
+//       subtext:'Sorry an error occured. Please try again',
+//       message:'message'
+//     })
+//   }
+// }
 
 this.createPost = function(req, res){
   var currentDate = new Date();

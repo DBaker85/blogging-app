@@ -96,28 +96,28 @@ gulp.task('js',['clean:js'], function() {
 //
 //
 //
-// gulp.task('nodemon', function (cb) {
-//
-//   var started = false;
-//   return nodemon({
-//     script: './app.js',
-//     watch: [
-//         './app/routes/*.js',
-//         './app/controllers/*.js',
-//         './app/content/*.*',
-//         './app.js',
-//         './gulpfile.js'
-//       ],
-//     ignore: './public/*'
-//   }).on('start', function () {
-//     // to avoid nodemon being started multiple times
-//     // thanks @matthisk
-//     if (!started) {
-//       cb();
-//       started = true;
-//     }
-//   });
-// });
+gulp.task('nodemon', function (cb) {
+
+  var started = false;
+  return nodemon({
+    script: './app.js',
+    watch: [
+        './app/routes/*.js',
+        './app/controllers/*.js',
+        './app/content/*.*',
+        './app.js',
+        './gulpfile.js'
+      ],
+    ignore: './public/*'
+  }).on('start', function () {
+    // to avoid nodemon being started multiple times
+    // thanks @matthisk
+    if (!started) {
+      cb();
+      started = true;
+    }
+  });
+});
 //
 //
 // // main tasks to be run
@@ -155,27 +155,7 @@ gulp.task('js',['clean:js'], function() {
 // })
 //
 //
-// gulp.task('bower', function() {
-//       return gulp.src(mainBowerFiles({
-//         overrides: {
-//           dropzone: {
-//             main: './dist/dropzone.js'
-//           }
-//         }
-//       }))
-//       .pipe(plumber({
-//         errorHandler: function(err){
-//           gutil.log(gutil.colors.red(err.name)+' in plugin '+gutil.colors.magenta(err.plugin)+' : '+err.message);
-//           this.emit('end');
-//         }
-//       }))
-//       .pipe(addsrc.append('./app/scripts/vendors/*.js'))
-//       .pipe(concat('vendors.js'))
-//       .pipe(uglify())
-//       .pipe(header(banner, { pkg : pkg } ))
-//       .pipe(gulp.dest('public/scripts'))
-//       .pipe(browserSync.stream());
-// });
+
 //
 // gulp.task('sass', function() {
 //     return gulp.src('./app/sass/main.scss')

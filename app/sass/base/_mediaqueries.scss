@@ -1,5 +1,0 @@
-@mixin media($point) {
-   @if $point == desktop {
-     @media (min-width: 900px) { @content ; }
-  }
-}

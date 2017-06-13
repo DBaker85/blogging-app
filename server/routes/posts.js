@@ -1,5 +1,5 @@
 var marked = require('marked');
-
+const path = require('path');
 
 module.exports = function(app,db) {
 
@@ -7,12 +7,6 @@ module.exports = function(app,db) {
 
 	var posts = db.collection('posts');
 	var categories = db.collection('categories');
-
-	app.get('/', function (req, res) {
-      res.render('_landing/index', {
-        pagetitle: blogName+' | '+blogTagLine
-      });
-	});
 
 
   app.get('/posts', function(req,res){
@@ -68,6 +62,9 @@ module.exports = function(app,db) {
 		createPost(req,res);
 	})
 
+	app.get('/template/post', function(req,res){
+		res.render('_templates/test')
+	})
 
 	// app.get('/post/:url', function(req, res){
 	// 	url = req.params.url;
@@ -75,6 +72,7 @@ module.exports = function(app,db) {
 	// });
 
 	// app.get('/category/:url', function (req, res) {
+
 	// 	displayCategoryPage(req, res, req.params.url);
 	// });
 

@@ -1,58 +1,23 @@
 include ../_base/components.pug
-.post__filter
-  .select-container
-    select(name="categories" id="category" ng-model="postCtrl.selectedCategory" ng-change="postCtrl.fetchposts(0)")
-      option(value="all" disabled)
-        | Filter by category
-      optgroup(ng-repeat="category in postCtrl.categories" label="{{category.category}}")
-        option(ng-repeat="subcategory in category.subcategories" ng-show="subcategory.active")
-          | {{subcategory.subcategory}}
-    label.sr-only.label--select(for="category")
-      | Filter by category
-  //- button.btn.btn-primary(ng-click="postCtrl.fetchposts()")
-    | X
-  +button({
-          type:'icon',
-          icon:'cross',
-          attributes:{
-            'ng-click':'postCtrl.clearCategory()'
-          }
-        })
+
 .post
-  .post__content.box.box8(data-expand="true" data-theme="1" ng-repeat="post in postCtrl.posts" class="{{post.open?'open-article':''}}")
+  .post__content.box.box8(data-expand="true",data-theme="1",*ngFor="let article of articles")
     article
-      .post__title(ng-if="post.cover")
-        img.img-responsive(ng-src="./images/articles/{{post.urlSlug}}/cover/{{post.cover}}" alt="{{post.title}}")
+      .post__title(ng-if="article.cover")
+        //- img.img-responsive(ng-src="./images/articles/{{post.urlSlug}}/cover/{{post.cover}}" alt="{{post.title}}")
       .post__title
-        h2 {{post.title}}
+        h2 {{article.title}}
         .date
           .date__icon
             +icon({
               icon:'clock'
             })
           .date__text
-            .big {{post.date | date : 'EEE'}}
-            .small {{post.date | date : 'dd/mm/yy'}}
-      .small(ng-if="post.editdate")
+            .big {{article.date | date : 'EEE'}}
+            .small {{article.date | date : 'dd/mm/yy'}}
+      .small(ng-if="article.editdate")
         | last edited on {{post.editdate | date : 'EEE, dd/mm/yyyy'}}
-      div(ng-bind-html="post.body | limitHtml: post.open")
-      .tag.small(ng-click="postCtrl.selectedCategory=post.category; postCtrl.fetchposts(0)")
+      div('[innerHTML]'="article.body")
+      .tag.small('(click)'="postCtrl.selectedCategory=post.category; postCtrl.fetchposts(0)")
         i.icon-shopping
-        |  {{post.category}}
-    close-arrow
-  select(name="pagesize" id="pagesize" ng-model="postCtrl.range" ng-change="postCtrl.fetchposts(0)")
-    option(value="2") 2
-    option(value="5") 5
-    option(value="10") 10
-    option(value="15") 15
-  .post__pagination(ng-if="postCtrl.pages.length > 1")
-    ul
-      li
-        a
-          | <<
-      li(ng-repeat="page in postCtrl.pages" class="{{ postCtrl.activePage == $index? 'active': '' }}")
-        a(ng-click="postCtrl.navigate($index)")
-          | {{$index+1}}
-      li
-        a
-          | >>
+        |  {{article.category}}
