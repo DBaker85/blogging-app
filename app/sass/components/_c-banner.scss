@@ -1,0 +1,15 @@
+.cookie-banner {
+	position:fixed;
+	bottom: 0%;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(darken($color-pink,40),.8);
+	padding: 20px;
+	display: none;
+	&.open{
+		display: block;
+	}
+	p {
+		color: white;
+	}
+}

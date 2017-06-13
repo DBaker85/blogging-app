@@ -1,15 +1,22 @@
-
-  <div class="card" *ngFor="let article of articles; index as i">
-    <h2>{{article.title}}</h2>
-    <div class="small">
-    <i class="icon-clock"></i>Mon Jan 04 2016&nbsp; 
-    <span>|| posted in&nbsp; 
-    <a href="/category/mongodb">{{article.category}}</a></span></div>
-    <p>{{article.content}}</p>
-    <a class="btn-reset read-more"
-       href="/post/improving-the-stat-tracker_412016"
-       role="button"
-       type="button">Read more 
-    <i class="icon-chevron-thin-right"></i></a>
+<div class="row">
+  
+    <div class="col-4" *ngFor="let article of articles; index as i">
+      <div class="post">
+        <div class="post-image">
+        </div>
+        <div class="post-body">
+          <h2>{{article.title}}</h2>
+          <div class="small">
+          <i class="icon-clock"></i>Mon Jan 04 2016&nbsp; 
+          <span>|| posted in&nbsp; 
+          <a href="/category/mongodb">{{article.category}}</a></span></div>
+          <p>{{article.content}}</p>
+          <a class="btn-reset read-more"
+            href="/post/improving-the-stat-tracker_412016"
+            role="button"
+            type="button">Read more 
+          <i class="icon-chevron-thin-right"></i></a>
+        </div>
+      </div>
   </div>
-
+</div>

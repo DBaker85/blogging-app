@@ -4,6 +4,7 @@ import {HttpModule} from '@angular/http'
 
 import {bloggingComponent} from './app.component'
 import {PostComponent} from './posts/post.component'
+import {HeaderComponent} from './header/header.component'
 import {PostCall} from './posts/post.service'
 
 
@@ -14,7 +15,8 @@ import {PostCall} from './posts/post.service'
   ],
   declarations: [
     bloggingComponent,
-    PostComponent
+    PostComponent,
+    HeaderComponent
     ],
     providers:[
       PostCall

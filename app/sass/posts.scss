@@ -1,5 +1,12 @@
-.card{
-    width:33%;
-    border: pink solid 1px;
+@import './base/all';
+
+.post{
+    width: 100%;
+    border-radius: 5px;
+    border: $color-pink 1px solid;
     display: inline-flex;
+    
+    &-body{
+        padding:10px;
+    }
 }

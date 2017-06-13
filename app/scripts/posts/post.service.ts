@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http }    from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import {FullPost} from './post.model';
+import {Post} from './post.model';
 
 
 @Injectable()
@@ -11,10 +11,10 @@ export class PostCall {
         private http: Http
     ) {}
     // call(path:string):Promise<ApiResult> {
-    call(filter:string,start:number,limit:number):Promise<FullPost[]> {
+    call(filter:string,start:number,limit:number):Promise<Post[]> {
         return this.http.get(`/posts?category=${filter}&start=${start}&limit=${limit}`)
                .toPromise()
-               .then(response => response.json() as FullPost[])
+               .then(response => response.json() as Post[])
     }
     // $http.get('/posts?category='+filter+'&start='+start+'&limit='+limit ,{cache:false});
 }

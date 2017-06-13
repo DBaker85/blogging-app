@@ -1,0 +1,25 @@
+html{
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body{
+	text-align: center;
+  &.dark{
+    background-color: $color-background-dark;
+  }
+  &.light{
+    background-color: $color-background-light;
+  }
+
+
+}
+
+.container {
+    margin: 0 auto;
+    text-align: left;
+}
+

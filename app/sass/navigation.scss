@@ -1,69 +1,50 @@
-.nav{
-	background-color: $color-dark;
-	width: 100%;
-	display: fixed;
-	top:0;
-	left:0;
-	height: 50px;
-	box-shadow: 0px 3px 8px -2px rgba(0,0,0,0.25);
-	z-index: 10000;
-	position: fixed;
+@import './base/all';
 
-	.nav__container{
-		width: 100%;
-		padding: 5px 10px;
-		max-width: $site-width;
-		margin: 0 auto;
-		@extend %clearfix;
-	}
-	.nav__logo{
-		color: $color-pale;
-		float: left;
-		height: 40px;
-		line-height: 40px;
-		a {
-			color: $color-pale;
-			&:hover{
-				filter: sepia(1);
-			}
-		}
-	}
-	.nav__title{
-		color: $color-pale;
-		float: left;
-		line-height: 40px;
-		margin-left: 15px;
-		.title {
-			color: $color-primary;
-			font-size: 16px;
-			@include media(desktop){
-				font-size: 22px;
-			}
-		}
-		.tagline {
-			display: none;
-			@include media(desktop){
-				display: inline;
-			}
-		}
+nav.main-nav{
+  height: 50px;
+  width: 100%;
+  overflow: hidden;
+  padding: 4px 0;
+  background-color: $color-pink-dark;
+  .nav__logo,
+  .nav__title {
+  }
+  .nav__container{
+    display: block;
+    max-width: $site-width;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    display: inline-flex;
+    align-content: space-between;
+  }
+  .nav__title{
+    color: lighten($color-pink, 45);
+    align-self: center;
+    padding-left: 10px;
+    .title{
+      font-size: 22px
+    }
+    .tagline{
 
-	}
-	.nav__actions{
-		float: right;
-	}
+    }
 
-	.nav__search-container{
-		height: 100%;
-		display: inline-block;
-		label{
-			display: inline-block;
-		}
-		}
-
-	.nav__menu-container{
-		height: 100%;
-		display: inline-block;
+  }
 
 
-	}
+}
+
+.nav__strip{
+  width: 100%;
+  background-color: $color-pink;
+  .strip{
+    display: block;
+    height: 15px;
+    max-width: $site-width;
+    width: 100%;
+    margin: 0 auto;
+    // background-color: $color-pink;
+    background: url("/images/layout/menu/header_behind.svg") no-repeat top left;
+  }
+
 }

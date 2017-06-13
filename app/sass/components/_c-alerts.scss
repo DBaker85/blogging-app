@@ -1,0 +1,29 @@
+.alert{
+   	padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    &-success{
+    	background-color: rgba($color-success,0.5);
+    	color: darken($color-success,10%);
+        border: 1px solid $color-success;
+    }
+    &-info{
+    	background-color: rgba($color-info,0.5);
+        color:  darken($color-info,15%);
+        border: 1px solid $color-info;
+    }
+    &-warning{
+    	background-color: rgba($color-warning,0.5);
+    	color:  darken($color-warning,15%);
+        border: 1px solid $color-warning;
+    }
+    &-danger{
+    	background-color: rgba($color-danger,0.5);
+        color:  darken($color-danger,15%);
+        border: 1px solid $color-danger;
+    }
+}
+
+
+

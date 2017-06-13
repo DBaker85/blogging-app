@@ -1,0 +1,152 @@
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: $border-radius-main;
+  pointer-events:auto;
+  outline: none;
+  position: relative;
+  &[disabled]{
+  	cursor: not-allowed;
+  }
+ }
+
+ a.btn{
+  text-decoration: none;
+ }
+
+
+
+[role="button"]{
+	cursor: pointer;
+}
+
+$types : primary secondary tertiary;
+@each $type in $types {
+  $i: index($types, $type);
+  .btn-#{$type} {
+  	background-color: nth($color-list, $i);
+  	color: $color-white;
+  	box-shadow: 0 3px 0 0 darken(nth($color-list, $i), 15%);
+  	transition: background-color 0.30s ease-in-out;
+  	&:hover{
+  		background-color: darken(nth($color-list, $i), 5%)
+  	}
+  	&[disabled]{
+  		color: #000000;
+  		background-color: $color-disabled;
+  		box-shadow: 0 3px 0 0 darken($color-disabled, 15%);
+  	}
+  	&:active{
+    	top: 2px;
+    	box-shadow: 0 1px 0 0 darken(nth($color-list, $i), 15%);
+    }
+    &.small{
+      padding: 2px 5px;
+      font-size: 12px;
+      box-shadow: 0 2px 0 0 darken(nth($color-list, $i), 15%);
+      &:active{
+        top: 1px;
+        box-shadow: 0 1px 0 0 darken(nth($color-list, $i), 15%);
+      }
+    }
+  }
+}
+
+
+
+.btn-reset{
+		text-decoration: none;
+		&:hover{
+			text-decoration: underline;
+		}
+    .dark & {
+      color: $color-text-dark;
+    }
+    .light & {
+      color: $color-text-light;
+    }
+}
+
+.btn-icon{
+	height: 40px;
+	width:40px;
+	border-radius: $border-radius-main;
+	// color: $color-dark;
+	margin: 0 5px;
+	background: none;
+	padding: 5px;
+
+	i{
+		font-size: 30px;
+		display:block;
+    line-height: 40px;
+
+	}
+	&:hover{
+		color: $color-pink;
+	}
+	&:active{
+		box-shadow: none;
+		color: darken($color-pink, 15%)
+	}
+
+	&.inversed{
+		color: #fff;
+		&:hover{
+			background-color: $color-pink;
+			box-shadow: 0 3px 0 0 darken($color-pink, 15%);
+		}
+		&:active{
+		  	top: 2px;
+		  	box-shadow: 0 1px 0 0 darken($color-pink, 15%);
+		}
+
+	}
+	&.small{
+		height: 30px;
+		width: 30px;
+		// line-height: 30px;
+		i{
+			font-size: 20px;
+      line-height: 20px;
+
+		}
+	}
+}
+
+
+.icon-menu{
+	transition: all, .4s, ease-in-out;
+
+	.sb-active &{
+		@extend .icon-cross;
+		transform: rotate(90deg);
+	}
+}
+
+.icon-search{
+	transition: all, .4s, ease-in-out;
+
+	.sb-active &{
+		@extend .icon-cross;
+		transform: rotate(90deg);
+	}
+}
+
+.btn + .btn {
+  margin-left: 10px;
+}
+
+.read-more{
+	display: block;
+	text-align: right;
+}
