@@ -20,6 +20,8 @@ const plumber        = require('gulp-plumber');
 // const config         = require('./app/content/content');
 // const sassdoc        = require('sassdoc');
 
+const glob = require('glob');
+const path = require('path');
 const del = require('del');
 const webpack = require('webpack2-stream-watch');
 
@@ -96,28 +98,7 @@ gulp.task('js',['clean:js'], function() {
 //
 //
 //
-gulp.task('nodemon', function (cb) {
 
-  var started = false;
-  return nodemon({
-    script: './app.js',
-    watch: [
-        './app/routes/*.js',
-        './app/controllers/*.js',
-        './app/content/*.*',
-        './app.js',
-        './gulpfile.js'
-      ],
-    ignore: './public/*'
-  }).on('start', function () {
-    // to avoid nodemon being started multiple times
-    // thanks @matthisk
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
-});
 //
 //
 // // main tasks to be run
@@ -255,3 +236,11 @@ gulp.task('nodemon', function (cb) {
 //   gulp.watch('bower.json', ['bower-watch']);
 //   gulp.watch('./app/views/**/*.pug', ['pug-watch']);
 // });
+
+
+
+//-- read in all files from gulp/tasks and create tasks for them
+glob.sync('./gulp/tasks/{,*/}*.js').forEach(function (file) {
+    var content = require(file);
+    gulp.task(path.basename(file, path.extname(file)), content.dependencies, content.task);
+});

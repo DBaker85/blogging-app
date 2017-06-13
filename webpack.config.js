@@ -28,9 +28,14 @@ module.exports = {
         loaders: ['awesome-typescript-loader','angular2-template-loader']
       },
       { 
-      test: /\.(html|css)$/, 
+      test: /\.(html)$/, 
       loader: 'raw-loader',
-      exclude: /\.async\.(html|css)$/
+      exclude: /\.async\.(html)$/
+    },
+      { 
+      test: /\.(scss)$/, 
+      loaders: ['raw-loader','sass-loader'],
+      exclude: /\.async\.(scss)$/
     }
     ]
   },
@@ -48,6 +53,7 @@ module.exports = {
   new webpack.optimize.CommonsChunkPlugin({
     name: ['commons','bootstrap']
   }),
+  //  new webpack.HotModuleReplacementPlugin()
   // new webpack.optimize.UglifyJsPlugin()
 ],
 devServer: {

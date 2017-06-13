@@ -1,11 +1,11 @@
-export class Post {
+export interface Post {
     title: string;
     date: Date;
     category: string;
     content: string;
 }
 
-export class FullPost {
+export interface FullPost {
   _id: string;
   body: string;
   category : string;

@@ -2,10 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector:'blogging-app',
-    template:`
-      <h1>hello world and welcome to a brand new</h1>
-      <posts></posts>
-    `
+    templateUrl:'./app.template.html'
 })
 export class bloggingComponent {
 

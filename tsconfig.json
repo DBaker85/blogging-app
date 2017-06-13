@@ -18,7 +18,9 @@
       "node_modules/@types"
     ],
     "types": [
-            ]
+            // add node as an option
+            "node"
+         ]
   },
   "exclude": [
     "node_modules"
