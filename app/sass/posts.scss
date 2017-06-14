@@ -3,10 +3,25 @@
 .post{
     width: 100%;
     border-radius: 5px;
-    border: $color-pink 1px solid;
-    display: inline-flex;
-    
+    overflow: hidden;
+    border: rgba($color-pink,0.3) 1px solid;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    position: relative;
+    &-date{
+        position:absolute;
+        background-color: rgba($color-pink,0.7);
+        padding: 10px;
+        
+    }
     &-body{
         padding:10px;
     }
+    // &-image{
+    //     position: relative;
+    //     ::after{
+            
+    //     }
+    // }
 }

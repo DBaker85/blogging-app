@@ -194,6 +194,9 @@ this.getPosts = function(req,res,category,startValue,limitValue){
         res.status(500).send(err)
       } else if (result.length) {
         console.log('Found:', result.length);
+        for (var i = 0, len = result.length; i < len; i++) {
+          result[i].body=''
+        }
         res.send(result)
       }
     });
@@ -208,6 +211,9 @@ this.getPosts = function(req,res,category,startValue,limitValue){
         res.status(500).send(err)
       } else if (result.length) {
          console.log('Found:', result.length);
+          for (var i = 0, len = result.length; i < len; i++) {
+            result[i].body=''
+          }
         res.send(result)
       }
     });
@@ -360,7 +366,8 @@ this.createPost = function(req, res){
             body: req.body.body,
             urlSlug: slug,
             category : req.body.category,
-            cover: req.body.cover
+            cover: req.body.cover,
+            headline: req.body.headline
           };
 
       //- {"category":"web development","subcategories":[{"subcategory":"nodejs","active":true},{"subcategory":"mongodb","active":true},{"subcategory":"sass","active":false}]}

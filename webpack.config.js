@@ -5,8 +5,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var fs = require('fs-extra');
 // var glob = require('glob');
 
-
-
 // var shared = glob.sync("./scripts/common/!(polyfill)/*.ts");
 
 
@@ -59,6 +57,9 @@ module.exports = {
 devServer: {
   contentBase: path.join(__dirname, "/public"),
   // compress: true,
-  port: 9000
+  port: 9000,
+  // proxy: {
+  //   "/": "http://localhost:4040"
+  // } 
 }
 };

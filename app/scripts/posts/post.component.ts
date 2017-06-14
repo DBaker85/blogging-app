@@ -18,7 +18,7 @@ export class PostComponent implements OnInit {
   
     ngOnInit(){
      this.postCall
-         .call('all',0,10)
+         .call('all',0,11)
          .then(
            Response => {
              this.articles = Response

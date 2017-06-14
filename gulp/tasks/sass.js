@@ -25,7 +25,7 @@ var plugins = [
 module.exports = {
     // dependencies: ['clean-css'],
     task: function () {
-        return gulp.src(path.join(DIR.CONTENT,'sass', '/*.scss'))
+        return gulp.src(path.join(DIR.CONTENT,'sass', '/main.scss'))
             .pipe(plumber())
             .pipe(sourcemaps.init())
             .pipe(sass({
