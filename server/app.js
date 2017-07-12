@@ -12,6 +12,7 @@ var cookieParser = require('cookie-parser');
 var marked       = require('marked');
 var logger       = require('morgan');
 var gutil        = require('gulp-util');
+var path         = require('path')
 
 var errorHandler = require('errorhandler');
 var exports      = module.exports = {};
@@ -66,7 +67,7 @@ app.use(express.static('public'));
 // - pass blogname and title to all responses
 app.use(function(req, res, next){
   // check visit stats
-  logVisit(req,res);
+  // logVisit(req,res);
   next();
 });
 
@@ -82,28 +83,32 @@ MongoClient.connect(url, function (err, db) {
     console.log('Connection established to', url);
     // console.log(locals);
 
-    // require routes and controllers
+    // // require routes and controllers
     require('./routes/posts')(app,db);
-    require('./routes/admin')(app,db);
-    require('./routes/search')(app,db);
-    require('./routes/colorchanger')(app);
+    // require('./routes/admin')(app,db);
+    // require('./routes/search')(app,db);
+    // require('./routes/colorchanger')(app);
 
-    require('./routes/uploads')(app);
+    // require('./routes/uploads')(app);
 
-    // Handle routes that are not found and give them 404 status
-    app.get('*', function (req, res, next) {
-      var err = new Error();
-      err.status = 404;
-      next(err);
+    // // Handle routes that are not found and give them 404 status
+    // app.get('*', function (req, res, next) {
+    //   var err = new Error();
+    //   err.status = 404;
+    //   next(err);
+    // });
+
+    // // handling Errors
+    // app.use(function (err, req, res, next) {
+    //   if (err.status !== 404) {
+    //     return next();
+    //   }
+    //   gutil.log(`cannot find link ${req.url}`)
+    // });
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname,'..', 'public/index.html'));
     });
 
-    // handling Errors
-    app.use(function (err, req, res, next) {
-      if (err.status !== 404) {
-        return next();
-      }
-      gutil.log(`cannot find link ${req.url}`)
-    });
   }
 
   app.listen(app.get('port'), function() {
