@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 
 import {PostCall} from './post.service'
-import {Post} from './post.model'
+import {FullPost} from './post.model'
 
 @Component({
     selector:'posts',
     templateUrl:'./post.template.html',
-    styleUrls:['../../sass/posts.scss']
+    // styleUrls:['../../sass/posts.scss']
 })
 export class PostComponent implements OnInit {
 
@@ -14,14 +14,14 @@ export class PostComponent implements OnInit {
     private postCall:PostCall
    ){}
 
-   private articles:Array<Post>;
+   private article:Array<FullPost>;
   
     ngOnInit(){
      this.postCall
-         .call('all',0,11)
+         .call('sfdgdf')
          .then(
            Response => {
-             this.articles = Response
+             this.article = Response
            }
          )
    }

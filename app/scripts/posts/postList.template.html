@@ -1,7 +1,7 @@
 <div class="row">
   
-    <div class="col-12">
-        <article class="post">
+    <div class="col-12 col-md-6" *ngFor="let article of articles; index as i">
+      <div class="post">
         <div class="post-date">
             {{article.date | date:'shortDate'}}
           </div>
@@ -15,7 +15,6 @@
           <a href="#" title="{{article.category}}">
             <img style="height:30px;width:auto;" src="/images/icons/tech/{{article.category}}.svg">
           </a>
-          </div>
-      </article>
-    
+      </div>
+  </div>
 </div>

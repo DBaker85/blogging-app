@@ -66,10 +66,10 @@ module.exports = function(app,db) {
 		res.render('_templates/test')
 	})
 
-	// app.get('/post/:url', function(req, res){
-	// 	url = req.params.url;
-	// 	displaySinglePost(req,res,url);
-	// });
+	app.get('/post/:url', function(req, res){
+		url = req.params.url;
+		getSinglePost(req,res,url);
+	});
 
 	// app.get('/category/:url', function (req, res) {
 

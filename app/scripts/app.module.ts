@@ -4,18 +4,22 @@ import {HttpModule} from '@angular/http'
 import { RouterModule, Routes }   from '@angular/router';
 
 import {bloggingComponent} from './app.component'
-import {PostComponent} from './posts/post.component'
+import {PostListComponent, PostComponent} from './posts'
 import {HeaderComponent} from './header/header.component'
 import {SidePanelComponent} from './sidepanel/sidepanel.component'
 import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component'
 
-import {PostCall} from './posts/post.service'
+import {PostCall, PostListCall} from './posts/post.service'
 
-import {Logger, WindowRef} from './common/common'
+import {Logger, WindowRef} from './common'
 
 const appRoutes: Routes = [
   {
     path: 'articles',
+    component: PostListComponent
+  },
+   {
+    path: 'article/:urlSlug',
     component: PostComponent,
     data: { title: 'Heroes List' }
   },
@@ -39,12 +43,14 @@ const appRoutes: Routes = [
   declarations: [
     bloggingComponent,
     PostComponent,
+    PostListComponent,
     HeaderComponent,
     SidePanelComponent,
     PageNotFoundComponent
     ],
     providers:[
       PostCall,
+      PostListCall,
       Logger,
       WindowRef
     ],

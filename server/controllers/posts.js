@@ -180,7 +180,17 @@ function content(db){
           });
   };
 
-
+this.getSinglePost = function(req,res,url){
+   posts.findOne({urlSlug:url},function(err, result){
+     if (err) {
+        console.log(err);
+        res.status(404).send(err)
+      } else if (result.length) {
+        console.log('Found:', result.length);
+        res.send(result);
+      }
+   })
+}
 
 this.getPosts = function(req,res,category,startValue,limitValue){
   var start = parseInt(startValue);

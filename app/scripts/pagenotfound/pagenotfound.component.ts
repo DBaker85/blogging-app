@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Logger} from '../common/common'
+import {Logger} from '../common'
 import { ActivatedRoute} from '@angular/router';
 
 
