@@ -1,8 +1,8 @@
-// const iconfont       = require('gulp-iconfont');
-// const iconfontCss    = require('gulp-iconfont-css');
+const iconfont       = require('gulp-iconfont');
+const iconfontCss    = require('gulp-iconfont-css');
 const gulp           = require('gulp');
-// const runSequence    = require('run-sequence');
-// const replace        = require('gulp-replace');
+const runSequence    = require('run-sequence');
+const replace        = require('gulp-replace');
 const gutil          = require('gulp-util');
 // const browserSync    = require('browser-sync').create();
 //
@@ -53,47 +53,47 @@ gulp.task('js',['clean:js'], function() {
     .pipe(gulp.dest('./public/scripts/'));
 });
 //
-// gulp.task('icon-build', function(){
-//   return icon = gulp.src(['./app/icons/*.svg'])
-//     .pipe(iconfontCss({
-//       fontName: 'Icons',
-//       path: 'app/icons/template/icon.scss',
-//       targetPath: 'sass/_c-icons.scss',
-//       fontPath: 'temp_icons'
-//       }))
-//     .pipe(iconfont({
-//         fontName: 'Icons', // required
-//         prependUnicode: true, // recommended option
-//         formats: ['ttf', 'eot', 'woff', 'svg'], // default, 'woff2' and 'svg' are available
-//         normalize:true,
-//         fontHeight: 1001,
-//         timestamp: Math.round(Date.now()/1000) // recommended to get consistent builds when watching files
-//         }))
-//     .on('glyphs', function(glyphs, options) {
-//           // CSS templating, e.g.
-//           console.log(glyphs, options);
-//           })
-//     .pipe(gulp.dest('temp_icons'));
+gulp.task('icon-build', function(){
+  return icon = gulp.src(['./app/icons/*.svg'])
+    .pipe(iconfontCss({
+      fontName: 'Icons',
+      path: 'app/icons/template/icon.scss',
+      targetPath: 'sass/_c-icons.scss',
+      fontPath: 'temp_icons'
+      }))
+    .pipe(iconfont({
+        fontName: 'Icons', // required
+        prependUnicode: true, // recommended option
+        formats: ['ttf', 'eot', 'woff', 'svg'], // default, 'woff2' and 'svg' are available
+        normalize:true,
+        fontHeight: 1001,
+        timestamp: Math.round(Date.now()/1000) // recommended to get consistent builds when watching files
+        }))
+    .on('glyphs', function(glyphs, options) {
+          // CSS templating, e.g.
+          console.log(glyphs, options);
+          })
+    .pipe(gulp.dest('temp_icons'));
+
+
+});
 //
+gulp.task('pipe-icons', function () {
+  return gulp.src(['./temp_icons/*.eot','./temp_icons/*.svg','./temp_icons/*.ttf','./temp_icons/*.woff' ])
+    .pipe(gulp.dest('public/fonts/icons'));
+})
 //
-// });
+gulp.task('pipe-sass', function () {
+  return gulp.src(['./temp_icons/sass/_c-icons.scss'])
+    .pipe(replace('temp_iconsIcons', '../fonts/icons/Icons'))
+    .pipe(gulp.dest('app/sass/components/'));
+})
 //
-// gulp.task('pipe-icons', function () {
-//   return gulp.src(['./temp_icons/*.eot','./temp_icons/*.svg','./temp_icons/*.ttf','./temp_icons/*.woff' ])
-//     .pipe(gulp.dest('public/fonts/icons'));
-// })
-//
-// gulp.task('pipe-sass', function () {
-//   return gulp.src(['./temp_icons/sass/_c-icons.scss'])
-//     .pipe(replace('temp_iconsIcons', '../fonts/icons/Icons'))
-//     .pipe(gulp.dest('app/sass/components/'));
-// })
-//
-// gulp.task('clean-icons', function () {
-//   return gulp.src('temp_icons', {read: false, force: true})
-//     .pipe(clean())
-//     .pipe(browserSync.stream());
-// })
+gulp.task('clean-icons', function () {
+  return gulp.src('temp_icons', {read: false, force: true})
+    .pipe(clean())
+    .pipe(browserSync.stream());
+})
 //
 //
 //
@@ -103,12 +103,12 @@ gulp.task('js',['clean:js'], function() {
 //
 // // main tasks to be run
 //
-// gulp.task('icon',function (callback) {
-//   runSequence('icon-build',
-//               ['pipe-icons', 'pipe-sass'],
-//               'clean-icons',
-//               callback)
-// });
+gulp.task('icon',function (callback) {
+  runSequence('icon-build',
+              ['pipe-icons', 'pipe-sass'],
+              // 'clean-icons',
+              callback)
+});
 //
 // gulp.task('js', function() {
 //   return gulp.src(['./app/scripts/app.js','./app/scripts/values/*.js','./app/scripts/filters/*.js','./app/scripts/factories/*.js','./app/scripts/directives/*.js','./app/scripts/controllers/*.js'])

@@ -20,7 +20,7 @@ p {
 	margin: 12px 0;
 }
 
-$headings: 40px 30px 26px 22px 18px 14px;
+$headings: 2.5em 1.87em 1.625em 1.375em 1.125em 0.875em;
 @each $heading in $headings{
     $i: index($headings, $heading);
     h#{$i} {

@@ -1,0 +1,41 @@
+@import './base/all';
+
+.post{
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    border: rgba($color-pink,0.3) 1px solid;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    position: relative;
+    &-date{
+        position:absolute;
+        background-color: rgba($color-pink,0.4);
+        padding: 5px 15px;
+        border-bottom-right-radius: 10px;
+        color: $color-white;
+        font-size: 14px;        
+    }
+    &-body{
+        padding:10px;
+    }
+    &-date-category{
+        padding: 10px 10px 10px 15px;
+        
+        display: flex;
+        .date{
+            align-self:center;
+        }
+        a{
+            margin-left: auto;
+                display: flex;
+        }
+    }
+    // &-image{
+    //     position: relative;
+    //     ::after{
+            
+    //     }
+    // }
+}

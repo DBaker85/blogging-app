@@ -1,21 +1,25 @@
 <div class="row">
     <div class="col-12">
         <article class="post">
-        <div class="post-date">
-          {{article.date | date:'shortDate'}} 
-        </div>
         <div class="post-image">
-          <img style="width:100%;height:80px;" src="http://8409-presscdn-0-53.pagely.netdna-cdn.com/wp-content/uploads/2015/04/typesofblogposts.png">
+          <img style="width:100%;height:250px;" src="https://pixabay.com/get/eb35b8092bf7023ed1534705fb0938c9bd22ffd41cb1114191f0c379a0/worry-about-hog-2096333_1920.jpg">
         </div>
-        <div class="post-category">
+        <div class="post-date-category">
+          <div class="date">
+            <i class="icon-calendar-full"></i>
+            {{article.date | date:'shortDate'}}
+          </div>
           <a href="#" title="{{article.category}}"> 
             <img style="height:30px;width:auto;" src="/images/icons/tech/{{article.category}}.svg">
           </a> 
         </div>
         <div class="post-body">
            <h2>{{article.title}}</h2> 
+           <blockquote class="post-description">
+             {{article.headline}}
+           </blockquote>
            <div [innerHtml]="article.body"></div> 
-           
         </div>
       </article>
+</div>
 </div>

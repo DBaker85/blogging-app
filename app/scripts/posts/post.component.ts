@@ -9,7 +9,7 @@ import {Logger} from '../common'
 @Component({
     selector:'posts',
     templateUrl:'./post.template.html',
-    // styleUrls:['../../sass/posts.scss']
+    styleUrls:['../../sass/post.scss']
 })
 export class PostComponent implements OnInit {
 
