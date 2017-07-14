@@ -18,10 +18,13 @@ const appRoutes: Routes = [
     path: 'articles',
     component: PostListComponent
   },
+
    {
     path: 'article/:urlSlug',
     component: PostComponent,
-    data: { title: 'Heroes List' }
+  },
+  { path: 'article',
+    redirectTo: '/articles'
   },
   { path: '',
     redirectTo: '/articles',

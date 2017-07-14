@@ -185,8 +185,8 @@ this.getSinglePost = function(req,res,url){
      if (err) {
         console.log(err);
         res.status(404).send(err)
-      } else if (result.length) {
-        console.log('Found:', result.length);
+      } else if (result) {
+        console.log('Found:', result);
         res.send(result);
       }
    })

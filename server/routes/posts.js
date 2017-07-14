@@ -12,7 +12,13 @@ module.exports = function(app,db) {
   app.get('/posts', function(req,res){
 		console.log(req.query)
     getPosts(req,res,req.query.category,req.query.start,req.query.limit);
-  })
+	})
+	
+		app.get('/post', function(req, res){
+		url = req.query.url;
+		// console.log('getsinglepost',url)
+		getSinglePost(req,res,url);
+	});
 
 	app.get('/admin/visit/countries', function (req, res){
 		getVisitCountries(function(err,country) {
@@ -66,10 +72,7 @@ module.exports = function(app,db) {
 		res.render('_templates/test')
 	})
 
-	app.get('/post/:url', function(req, res){
-		url = req.params.url;
-		getSinglePost(req,res,url);
-	});
+
 
 	// app.get('/category/:url', function (req, res) {
 
