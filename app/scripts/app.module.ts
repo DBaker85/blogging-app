@@ -2,14 +2,15 @@ import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
 import {HttpModule} from '@angular/http'
 import { RouterModule, Routes }   from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {bloggingComponent} from './app.component'
-import {PostListComponent, PostComponent} from './posts'
+import {PostListComponent, PostComponent} from './+posts'
 import {HeaderComponent} from './header/header.component'
 import {SidePanelComponent} from './sidepanel/sidepanel.component'
 import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component'
 
-import {PostCall, PostListCall} from './posts/post.service'
+import {PostCall, PostListCall} from './+posts/post.service'
 
 import {Logger, WindowRef} from './common'
 
@@ -18,10 +19,14 @@ const appRoutes: Routes = [
     path: 'articles',
     component: PostListComponent
   },
-
-   {
-    path: 'article/:urlSlug',
-    component: PostComponent,
+  {
+    path: 'article',
+    children:[
+      {
+        path:':urlSlug',
+        component: PostComponent,
+      },
+  ]
   },
   { path: 'article',
     redirectTo: '/articles'
@@ -38,9 +43,10 @@ const appRoutes: Routes = [
   imports:      [
     BrowserModule,
     HttpModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     )
   ],
   declarations: [
