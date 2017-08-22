@@ -1,0 +1,15 @@
+
+<ng-template ngFor let-paragraph [ngForOf]="body">
+
+    <h5 *ngIf="paragraph.type === 'title'">{{paragraph.content}}</h5>
+    
+    <p *ngIf="paragraph.type === 'text'">{{paragraph.content}}</p>
+    
+    <div *ngIf="paragraph.type === 'image'">
+        <img [src]="paragraph.content"/>
+        <p class="small">{{paragraph.legend}}</p>
+    </div>
+    
+    <prism-block *ngIf="paragraph.type === 'code'" [code]="paragraph.content" [language]="paragraph.language"></prism-block>
+
+</ng-template>

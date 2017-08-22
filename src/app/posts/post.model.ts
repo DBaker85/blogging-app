@@ -1,4 +1,4 @@
-import { SafeHtml } from '@angular/platform-browser';
+
 
 export interface Post {
     title: string;
@@ -9,20 +9,18 @@ export interface Post {
 
 export interface FullPost {
   _id: string;
-  body: SafeHtml;
+  body: Array<Paragraph> | null;
   category : string;
   date : Date ;
   postId : string;
   title: string;
+  headline: string;
   urlSlug : string;
 }
 
-export interface ApiFullPost {
-  _id: string;
-  body: string;
-  category : string;
-  date : Date ;
-  postId : string;
-  title: string;
-  urlSlug : string;
+export interface Paragraph {
+  type: string;
+  content: string;
+  language?: string;
+  legend?: string;
 }

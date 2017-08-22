@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router'
-import {PostListCall} from './post.service'
-import {Post} from './post.model'
-import { slideInOutAnimation, fadeInOutAnimation } from '../animations'
+import {PostListCall} from '../post.service'
+import {Post} from '../post.model'
+// import { slideInOutAnimation, fadeInOutAnimation } from '../animations'
 
 
 @Component({
     selector:'posts',
-    templateUrl:'./postList.template.html',
-    styleUrls:['../../sass/posts.scss'],
-    animations: [fadeInOutAnimation],
+    templateUrl:'./postList.component.html',
+    styleUrls:['./postlist.component.scss'],
+    // animations: [fadeInOutAnimation],
  
     // attach the slide in/out animation to the host (root) element of this component
-    host: { '[@fadeInOutAnimation]': '' }
+    // host: { '[@fadeInOutAnimation]': '' }
  
 })
 export class PostListComponent implements OnInit {

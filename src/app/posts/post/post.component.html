@@ -7,7 +7,7 @@
         <div class="post-date-category">
           <div class="date">
             <i class="icon-calendar-full"></i>
-            <!-- {{article.date | date:'shortDate'}} -->
+            {{article.date | date:'shortDate'}}
           </div>
           <a href="#" title="{{article.category}}"> 
             <img style="height:30px;width:auto;" src="/images/icons/tech/{{article.category}}.svg">
@@ -16,10 +16,14 @@
         <div class="post-body">
            <h2>{{article.title}}</h2> 
            <blockquote class="post-description">
-             {{article.headline}}
+            <p>
+               {{article.headline}}
+            </p>
            </blockquote>
-           <div [innerHtml]="article.body"></div> 
+           <article-body *ngIf="article.body !== null" [body]="article.body"></article-body>            
         </div>
+        
       </article>
+        
 </div>
 </div>

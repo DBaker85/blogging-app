@@ -10,7 +10,7 @@ var fs = require('fs-extra');
 
 module.exports = {
   entry: {
-    main:'./app/scripts/main.ts'
+    main:'./src/main.ts'
   },
   output: {
     filename: '[name].[chunkhash].bundle.js',
@@ -40,7 +40,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({  // Also generate a test.html
        filename: path.join(__dirname,'/public/index.html'),
-       template: './app/index.html'
+       template: './src/index.html'
      }),
   new webpack.optimize.CommonsChunkPlugin({
     name: "vendor",

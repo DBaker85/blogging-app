@@ -3,16 +3,21 @@ import {NgModule} from '@angular/core'
 import {HttpModule} from '@angular/http'
 import { RouterModule, Routes }   from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule }   from '@angular/forms';
 
 import {bloggingComponent} from './app.component'
-import {PostListComponent, PostComponent} from './+posts'
+
 import {HeaderComponent} from './header/header.component'
 import {SidePanelComponent} from './sidepanel/sidepanel.component'
 import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component'
 
-import {PostCall, PostListCall} from './+posts/post.service'
+import {PostListComponent, PostComponent, ArticleBodyComponent, PostCall, PostListCall} from './posts'
+import {Logger, WindowRef, TabDirective} from './common'
 
-import {Logger, WindowRef} from './common'
+import 'prismjs/prism';
+import 'prismjs/components/prism-markup';
+
+import { PrismComponent } from 'angular-prism';
 
 const appRoutes: Routes = [
   {
@@ -43,6 +48,7 @@ const appRoutes: Routes = [
   imports:      [
     BrowserModule,
     HttpModule,
+    FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
@@ -55,7 +61,10 @@ const appRoutes: Routes = [
     PostListComponent,
     HeaderComponent,
     SidePanelComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PrismComponent,
+    TabDirective,
+    ArticleBodyComponent
     ],
     providers:[
       PostCall,

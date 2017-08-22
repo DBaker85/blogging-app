@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs';
 
-import {Post, ApiFullPost} from './post.model';
+import {Post, FullPost} from './post.model';
 
 
 
@@ -18,7 +18,7 @@ export class PostCall {
     
 
     // call(path:string):Promise<ApiResult> {
-    call(url:string):Promise<ApiFullPost> {
+    call(url:string):Promise<FullPost> {
 
          let options = {
             params:{
@@ -28,7 +28,7 @@ export class PostCall {
 
         return this.http.get(`/post`,options)
                .toPromise()
-               .then(response => response.json() as ApiFullPost)
+               .then(response => response.json() as FullPost)
     }
     
 }
