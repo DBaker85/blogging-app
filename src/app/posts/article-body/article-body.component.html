@@ -3,7 +3,7 @@
 
     <h5 *ngIf="paragraph.type === 'title'">{{paragraph.content}}</h5>
     
-    <p *ngIf="paragraph.type === 'text'">{{paragraph.content}}</p>
+    <p *ngIf="paragraph.type === 'text'" [innerHtml]="paragraph.content"></p>
     
     <div *ngIf="paragraph.type === 'image'">
         <img [src]="paragraph.content"/>
