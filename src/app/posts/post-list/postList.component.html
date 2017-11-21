@@ -7,9 +7,7 @@
       <div class="col-12 col-md-6" *ngFor="let article of articles; index as i">
         
         <div class="post">
-          <div class="post-date">
-              {{article.date | date:'shortDate'}}
-          </div>
+          
           <div class="post-link clickable" (click)="openPost(article.urlSlug)">
             <div class="post-image">
               <img style="width:100%;height:80px;" src="http://8409-presscdn-0-53.pagely.netdna-cdn.com/wp-content/uploads/2015/04/typesofblogposts.png">
@@ -21,7 +19,10 @@
             </div>
           </div>
           <div class="post-footer">
-            <a href="#" title="{{article.category}}">
+              <div class="date">
+                  {{article.date | date:'shortDate'}}
+              </div>
+            <a class="category" href="#" title="{{article.category}}">
               <img style="height:30px;width:auto;" src="/images/icons/tech/{{article.category}}.svg">
             </a>
         </div>

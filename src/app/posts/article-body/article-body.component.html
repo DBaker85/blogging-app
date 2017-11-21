@@ -1,4 +1,3 @@
-
 <ng-template ngFor let-paragraph [ngForOf]="body">
 
     <h5 *ngIf="paragraph.type === 'title'">{{paragraph.content}}</h5>
@@ -12,4 +11,5 @@
     
     <prism-block *ngIf="paragraph.type === 'code'" [code]="paragraph.content" [language]="paragraph.language"></prism-block>
 
+  
 </ng-template>

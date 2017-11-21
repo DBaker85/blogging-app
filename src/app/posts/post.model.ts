@@ -5,6 +5,8 @@ export interface Post {
     date: Date;
     category: string;
     content: string;
+    urlSlug : string;
+    headline: string;
 }
 
 export interface FullPost {
@@ -14,8 +16,10 @@ export interface FullPost {
   date : Date ;
   postId : string;
   title: string;
-  headline: string;
   urlSlug : string;
+  headline: string;
+
+  
 }
 
 export interface Paragraph {

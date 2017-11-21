@@ -7,7 +7,7 @@ var formidable = require('formidable');
 
 function content(db){
   var oldcategory;
-  var posts = db.collection('posts');
+  var posts = db.collection('posts_v2');
   var categories = db.collection('categories');
   var passwords = db.collection('password');
   var visitStats = db.collection('visitStats');

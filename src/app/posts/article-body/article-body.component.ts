@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 import { Logger } from '../../common'
 
 @Component({
@@ -6,11 +6,17 @@ import { Logger } from '../../common'
     templateUrl: './article-body.component.html'
 })
 export class ArticleBodyComponent {
+    stringified;
     constructor(
-        private logger:Logger
+        private logger:Logger,
+        private el: ElementRef
     ){
         logger.log(this)
     }
     @Input() body;
 
+    logOutput(event) {
+        
+       this.stringified = JSON.stringify(event)
+    }
 }

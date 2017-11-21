@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }   from '@angular/forms';
 
 import {bloggingComponent} from './app.component'
-
+import { routing } from './app.routes';
 import {HeaderComponent} from './header/header.component'
 import {SidePanelComponent} from './sidepanel/sidepanel.component'
 import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component'
@@ -16,33 +16,14 @@ import {Logger, WindowRef, TabDirective} from './common'
 
 import 'prismjs/prism';
 import 'prismjs/components/prism-markup';
-
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-jade';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-json';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import { PrismComponent } from 'angular-prism';
-
-const appRoutes: Routes = [
-  {
-    path: 'articles',
-    component: PostListComponent
-  },
-  {
-    path: 'article',
-    children:[
-      {
-        path:':urlSlug',
-        component: PostComponent,
-      },
-  ]
-  },
-  { path: 'article',
-    redirectTo: '/articles'
-  },
-  { path: '',
-    redirectTo: '/articles',
-    pathMatch: 'full'
-  },
-  { path: '**', component: PageNotFoundComponent }
-]
-  
 
 @NgModule({
   imports:      [
@@ -50,10 +31,7 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
-    )
+    routing     
   ],
   declarations: [
     bloggingComponent,

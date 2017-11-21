@@ -8,28 +8,31 @@
     display: flex;
     flex-direction: column;
     margin: 15px 0;
-    position: relative;
-    &-date{
-        position:absolute;
-        background-color: rgba($color-pink,0.4);
-        padding: 5px 15px;
-        border-bottom-right-radius: 10px;
-        color: $color-white;
-        font-size: 14px;        
-    }
+    position: relative;   
+    
     &-body{
         padding:10px;
     }
     &-date-category{
-        padding: 10px 10px 10px 15px;
-        
+        padding: 10px;
         display: flex;
-        .date{
-            align-self:center;
+        align-items: center;
+        background-color: lighten($color-pink, 50);
+        .date {
+            align-items: center;
+            padding: 5px 15px;
+            font-size: 14px;
+            [class^="icon-"] {
+                margin-right: 5px;
+            }     
         }
         a{
             margin-left: auto;
-                display: flex;
+            display: flex;
+            img {
+                height: 34px;
+                width: auto;
+            }
         }
     }
     // &-image{
@@ -38,4 +41,4 @@
             
     //     }
     // }
-}
+    }

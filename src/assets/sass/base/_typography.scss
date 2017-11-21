@@ -56,8 +56,9 @@ pre {
 }
 
 code {
-  font-size: 14px;
-  background-color: $color-monokai-background;
-  color: $color-monokai-blue;
-  padding: 2px 5px;
+  padding: .2rem .4rem;
+  font-size: 90%;
+  color: $color-pink;
+  background-color: #f8f9fa;
+  border-radius: .25rem;
 }
