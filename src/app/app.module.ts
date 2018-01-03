@@ -17,7 +17,7 @@ import {Logger, WindowRef, TabDirective} from './common'
 import 'prismjs/prism';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-scss';
-import 'prismjs/components/prism-jade';
+import 'prismjs/components/prism-pug';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-python';

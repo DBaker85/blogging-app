@@ -4,13 +4,15 @@
   "description": "My personal website",
   "main": "app.js",
   "scripts": {
+    "webpack": "webpack",
     "start": "pm2 start server/app.js && webpack --watch",
     "server": "nodemon server/app.js"
   },
   "author": "David Baker",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "8.0.53",
+    "@ngtools/webpack": "1.9.3",
+    "@types/node": "^8.0.53",
     "@types/requirejs": "2.1.31",
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "7.1.6",
