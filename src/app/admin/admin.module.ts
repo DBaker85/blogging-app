@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { BlogGalleryComponent } from './gallery'
+import { BlogGalleryComponent } from './gallery';
 
 @NgModule({
     imports:      [
@@ -11,10 +11,8 @@ import { BlogGalleryComponent } from './gallery'
     ],
     declarations: [
         AdminComponent,
-        EditPostComponent
-      ],
-      exports: [
-        AdminComponent
+        EditPostComponent,
+        BlogGalleryComponent
       ]
   })
   export class AdminModule { };
