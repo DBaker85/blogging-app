@@ -6,7 +6,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
     styleUrls:['../assets/sass/main.scss'],
     encapsulation:ViewEncapsulation.None
 })
-export class bloggingComponent {
+export class BloggingComponent {
 
    constructor(
 

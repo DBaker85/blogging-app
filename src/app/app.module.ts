@@ -1,15 +1,15 @@
-import {BrowserModule} from '@angular/platform-browser'
-import {NgModule} from '@angular/core'
-import {HttpModule} from '@angular/http'
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
+import { HttpModule } from '@angular/http'
 import { RouterModule, Routes }   from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule }   from '@angular/forms';
 
-import {bloggingComponent} from './app.component'
-import { routing } from './app.routes';
-import {HeaderComponent} from './header/header.component'
-import {SidePanelComponent} from './sidepanel/sidepanel.component'
-import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component'
+import { BloggingComponent } from './app.component'
+import { Routing } from './app.routes';
+import { HeaderComponent } from './header/header.component'
+import { SidePanelComponent } from './sidepanel/sidepanel.component'
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component'
 
 import {PostListComponent, PostComponent, ArticleBodyComponent, PostCall, PostListCall} from './posts'
 import {Logger, WindowRef, TabDirective} from './common'
@@ -25,16 +25,19 @@ import 'prismjs/components/prism-json';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import { PrismComponent } from 'angular-prism';
 
+import { AdminModule } from './admin/admin.module';
+
 @NgModule({
   imports:      [
     BrowserModule,
     HttpModule,
     FormsModule,
     BrowserAnimationsModule,
-    routing     
+    Routing,
+    AdminModule
   ],
   declarations: [
-    bloggingComponent,
+    BloggingComponent,
     PostComponent,
     PostListComponent,
     HeaderComponent,
@@ -50,6 +53,6 @@ import { PrismComponent } from 'angular-prism';
       Logger,
       WindowRef
     ],
-  bootstrap:    [ bloggingComponent ]
+  bootstrap:    [ BloggingComponent ]
 })
 export class appModule { }
