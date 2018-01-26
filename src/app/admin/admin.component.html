@@ -3,8 +3,12 @@
         <div class="col-1 col-md-3">
             <ul>
                 <!-- <li>new post</li> -->
-                <li>edit post</li>
-                <li>Gallery</li>
+                <li> 
+                  <a (click)="active = 'edit'">edit post</a>
+                </li>
+                <li> 
+                  <a (click)="active = 'gallery'">Gallery</a>
+                </li>
                 <!-- <li>tags</li> -->
                 <!-- <li>stats</li> -->
             </ul>
@@ -12,10 +16,10 @@
         <!-- <div class="col-11 col-md-9">
           Post
         </div> -->
-        <div class="col-11 col-md-9">
+        <div *ngIf="active === 'edit'" class="col-11 col-md-9">
           <blog-admin-edit></blog-admin-edit>
         </div>
-        <div class="col-11 col-md-9">
+        <div *ngIf="active === 'gallery'" class="col-11 col-md-9">
           <blog-admin-gallery></blog-admin-gallery>
         </div>
         <!-- <div class="col-11 col-md-9">
