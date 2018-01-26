@@ -1,1 +1,16 @@
-Gallery component here dude
+<div *ngFor="let images of gallery">
+    <div class="thumbnail-holder">
+        <div class="thumbnail" *ngFor="let image of images.files">
+            <img src="images{{images.basepath}}{{images.path}}/{{image.name}}" alt="">
+            <div class="thumbnail-info">
+                    <p *ngIf="images.path !=='images'"> Associated article : {{images.path}}</p>
+                    <p *ngIf="images.path ==='images'">General Images</p>
+                    {{image.size}}
+            </div>
+            <div class="delete">
+                <a href="#">X</a>
+            </div>
+        </div>
+        
+    </div>
+</div>

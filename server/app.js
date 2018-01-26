@@ -89,7 +89,7 @@ MongoClient.connect(url, function (err, db) {
     // require('./routes/search')(app,db);
     // require('./routes/colorchanger')(app);
 
-    // require('./routes/uploads')(app);
+    require('./routes/uploads')(app);
 
     // // Handle routes that are not found and give them 404 status
     // app.get('*', function (req, res, next) {

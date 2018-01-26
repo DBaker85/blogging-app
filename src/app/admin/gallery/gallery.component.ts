@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Logger } from '../../common/helpers'
 
 import { imageProperties } from './gallery.model';
+import { GalleryCall } from './gallery.service';
 
 @Component({
     selector: 'blog-admin-gallery',
     templateUrl: 'gallery.component.html',
     styleUrls: ['gallery.component.scss']    
 })
-export class BlogGalleryComponent {
+export class BlogGalleryComponent implements OnInit {
 
-    gallery: Array<imageProperties> = [
-        {
-            title: 'Herrror',
-            url: './folder/test.aloha.jpg',
-            size: 300
-        }
-    ]
+    constructor(
+        private galleryCall: GalleryCall,
+        private logger: Logger
+    ){}
+
+    gallery: Array<imageProperties>;
+
+
+    ngOnInit(){
+        this.galleryCall.call().subscribe(
+            data => {
+                this.gallery = data;
+                this.logger.log(data);
+            }
+        )
+    }
 
 }

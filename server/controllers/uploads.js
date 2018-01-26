@@ -4,6 +4,15 @@ const path = require('path');
 const formidable = require('formidable');
 const walk = require('walk');
 
+function formatBytes(bytes,decimals = 2) {
+  if(bytes == 0) return '0 Bytes';
+  var k = 1024,
+      dm = decimals
+      sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+      i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 function uploads(){
   this.uploadImages = function(req,res,target,multiples){
     // create an incoming form object
@@ -81,7 +90,13 @@ function uploads(){
       var imageFiles = []
       walk.walk(path.join(__dirname, '..', '..', 'public/images/images') ,{})
       .on("file", function(root, fileStat, next){
-        imageFiles.push(fileStat.name);
+        imageFiles.push(
+          {
+            name: fileStat.name,
+            size: formatBytes(fileStat.size)
+          }
+        );
+        console.log(fileStat);
         next();
       })
       .on("end", function(){
@@ -103,13 +118,23 @@ function uploads(){
       var file = root.replace(path.join(__dirname, '..', '..', 'public/images/articles/'),'');
       var pathfile = searchPath(file,paths);
       if( pathfile != undefined){
-        paths[pathfile].files.push(fileStat.name);
+        paths[pathfile].files.push(
+          {
+            name: fileStat.name,
+            size: formatBytes(fileStat.size)
+          }
+        );
       } else {
         paths.push(
           {
             basepath:'/articles/',
             path: file,
-            files: [fileStat.name]
+            files: [
+              {
+                name: fileStat.name,
+                size: formatBytes(fileStat.size)
+              }
+            ]
           }
         )
       }

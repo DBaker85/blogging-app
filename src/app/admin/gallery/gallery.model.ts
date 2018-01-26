@@ -1,5 +1,10 @@
 export interface imageProperties {
-    title: String;
-    url: String;
-    size: Number
+    basepath: String;
+    files : Array<fileProperty>;
+    path: String;
+}
+
+interface fileProperty {
+    name: String;
+    size: String
 }
