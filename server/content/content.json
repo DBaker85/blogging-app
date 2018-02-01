@@ -1,0 +1,140 @@
+{
+  "config":{
+    "port":"4040",
+    "sessionSecret":"session_secret_here",
+    "mongoConnect":"mongodb://localhost:27017/blog"
+  },
+  "blogSetup":{
+    "blogname":"blog name",
+    "blogTagLine":"blog title",
+    "blogDescription":"blog description"
+    },
+    "metas":{
+      "title":"meta title",
+      "keywords":"meta keywords",
+      "description":"meta description",
+      "author":"author",
+      "subject":"subject",
+      "language":"lang"
+    },
+    "OG": {
+      "sitename":"site name",
+      "url":"url",
+      "title":"",
+      "description":"description",
+      "image":"image",
+      "type":"website"
+    },
+    "aboutMe":{
+      "name":"about me",
+      "description":"my description",
+      "skypeLink":"skype link",
+      "githubLink":"github link",
+      "linkedIn":"linkedin",
+      "twitter":"twitter",
+      "techStack" : [
+
+        {
+        "name": "NodeJS",
+        "logo": "nodejs.svg",
+        "link" : "https://nodejs.org/en/"
+        },
+        {
+        "name": "Pug",
+        "logo": "pug.svg",
+        "link":"https://github.com/pugjs/pug"
+        },
+        {
+        "name": "Grunt",
+        "logo": "grunt.svg",
+        "link":"http://gruntjs.com/"
+        },
+        {
+        "name": "Bower",
+        "logo": "bower.svg",
+        "link":"http://bower.io/"
+        },
+        {
+        "name": "Gulp",
+        "logo": "gulp.svg",
+        "link": "http://gulpjs.com/"
+        },
+         {
+        "name": "Browserify",
+        "logo": "browserify.svg",
+        "link":"http://browserify.org/"
+        },
+        {
+       "name": "Git",
+       "logo": "git.svg",
+       "link":"https://git-scm.com/"
+       },
+        {
+         "name": "Npm",
+         "logo": "npm.png",
+         "link" : "https://www.npmjs.com/"
+         },
+         {
+        "name": "webpack",
+        "logo": "webpack.svg",
+        "link": "https://webpack.github.io/"
+        },
+         {
+        "name": "Sass",
+        "logo": "sass.png",
+        "link": "http://sass-lang.com/"
+        },
+         {
+        "name": "AngularJS",
+        "logo": "AngularJS.svg",
+        "link" : "https://angularjs.org/"
+        },
+         {
+        "name": "Jasmine",
+        "logo": "jasmine.svg",
+        "link": "http://jasmine.github.io/"
+        },
+        {
+       "name": "Socket io",
+       "logo": "socket-io.svg",
+       "link": "http://socket.io/"
+       },
+       {
+      "name": "Bootstrap",
+      "logo": "bootstrap.svg",
+      "link": "http://getbootstrap.com/"
+      },
+         {
+        "name": "HTML5",
+        "logo": "html5.svg"
+        },
+        {
+        "name": "CSS3",
+        "logo": "css3.svg"
+        },
+        {
+        "name": "MongoDB",
+        "logo": "mongodb.svg",
+        "link": "https://www.mongodb.com/"
+        },
+        {
+        "name": "ExpressJS",
+        "logo": "express.svg",
+        "link": "http://expressjs.com/"
+        },
+         {
+        "name": "jQuery",
+        "logo": "jquery.svg",
+        "link":"https://jquery.com/"
+        }
+      ]
+      },
+    "Twitter":{
+      "twitterName":"twittername",
+      "widgetID":"1234"
+    },
+    "footer":{
+      "line1":"copyright",
+      "line2":"<a href=\"#\">links</a>"
+    }
+}
