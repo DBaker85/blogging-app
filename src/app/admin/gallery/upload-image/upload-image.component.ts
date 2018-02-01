@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class BlogUploadImageComponent {
     
-    @Input() uploadPath;
+    @Input() uploadPath = 'images';
 
 }

@@ -19,7 +19,8 @@
     ],
     "types": [
             // add node as an option
-            "node"
+            "node",
+            "jasmine"
          ]
   },
   "exclude": [
