@@ -2,26 +2,25 @@
 var express      = require('express');
 var bodyParser   = require('body-parser');
 var app          = express();
-var mongodb      = require('mongodb');
-var MongoClient  = mongodb.MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 
 var session      = require('client-sessions');
 var contentJson  = require('./content/content.json');
 var useragent    = require('express-useragent');
 var cookieParser = require('cookie-parser');
-var marked       = require('marked');
-var logger       = require('morgan');
-var gutil        = require('gulp-util');
+// var marked       = require('marked');
+// var logger       = require('morgan');
+// var gutil        = require('gulp-util');
 var path         = require('path')
 
 var errorHandler = require('errorhandler');
 var exports      = module.exports = {};
 
 // set express render engine
-app.set('view engine', 'pug');
-app.set('views', './views/');
+// app.set('view engine', 'pug');
+// app.set('views', './views/');
 
-gutil.log(process.env.NODE_ENV);
+// gutil.log(process.env.NODE_ENV);
 
 // if port is set in config use that else use env port (heroku requirement)
 if (contentJson.config.port) {
@@ -31,16 +30,16 @@ if (contentJson.config.port) {
 }
 
 // set blogname and tagline
-global.blogName = contentJson.blogSetup.blogname;
-global.blogTagLine = contentJson.blogSetup.blogTagLine;
-app.locals.siteTitle = blogName;
-app.locals.siteTagLine = blogTagLine;
+// global.blogName = contentJson.blogSetup.blogname;
+// global.blogTagLine = contentJson.blogSetup.blogTagLine;
+// app.locals.siteTitle = blogName;
+// app.locals.siteTagLine = blogTagLine;
 
 // use content from JSON
-app.locals.content = contentJson;
+// app.locals.content = contentJson;
 
 // use marked everywhere
-app.locals.marked = marked;
+// app.locals.marked = marked;
 
 // Use middleware
 app.use(bodyParser.json());
@@ -48,7 +47,7 @@ app.use(bodyParser.json());
 app.use(useragent.express());
 
 app.enable('trust proxy');
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(errorHandler());
 
 
@@ -62,7 +61,7 @@ app.use(session({
 // - cookie parsers
 app.use(cookieParser());
 
-app.use(express.static('public'));
+app.use(express.static('dist'));
 
 // - pass blogname and title to all responses
 app.use(function(req, res, next){
@@ -74,15 +73,18 @@ app.use(function(req, res, next){
 
 
 
-var url = contentJson.config.mongoConnect;
+const url = contentJson.config.mongoConnect;
+const dbName = contentJson.config.dbName;
 
-MongoClient.connect(url, function (err, db) {
+MongoClient.connect(url, (err, client) => {
   if (err) {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
     console.log('Connection established to', url);
-    // console.log(locals);
 
+    const db = client.db(dbName);
+
+    // console.log(locals);
     // // require routes and controllers
     require('./routes/posts')(app,db);
     // require('./routes/admin')(app,db);

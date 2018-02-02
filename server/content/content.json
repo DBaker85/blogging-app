@@ -1,8 +1,9 @@
 {
   "config":{
-    "port":"4040",
+    "port":"4045",
     "sessionSecret":"session_secret_here",
-    "mongoConnect":"mongodb://localhost:27017/blog"
+    "mongoConnect":"mongodb://localhost:27017",
+    "dbName": "blog"
   },
   "blogSetup":{
     "blogname":"blog name",

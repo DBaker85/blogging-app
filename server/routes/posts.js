@@ -1,4 +1,4 @@
-var marked = require('marked');
+// var marked = require('marked');
 const path = require('path');
 
 module.exports = function(app,db) {
@@ -13,7 +13,7 @@ module.exports = function(app,db) {
 		console.log(req.query)
     getPosts(req,res,req.query.category,req.query.start,req.query.limit);
 	})
-	
+
 		app.get('/post', function(req, res){
 		url = req.query.url;
 		// console.log('getsinglepost',url)
