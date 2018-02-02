@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Logger } from './common';
 
 @Component({
   selector: 'blog-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(
+    private logger: Logger
+  ) {
+    this.logger.log('hello world !');
+  }
+
   title = 'app';
 }
