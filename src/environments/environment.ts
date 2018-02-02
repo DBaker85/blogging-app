@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  test: false
+  test: false,
+  endpoints: 'http://127.0.0.1:4045'
 };

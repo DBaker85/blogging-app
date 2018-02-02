@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  test: false
+  test: false,
+  endpoints: ''
 };
