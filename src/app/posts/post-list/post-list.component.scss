@@ -1,0 +1,35 @@
+@import '../../../sass/base/all';
+
+.post{
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    // border: rgba($color-pink,0.3) 1px solid;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    position: relative;
+
+    &-body{
+        padding:10px;
+    }
+    // &-image{
+    //     position: relative;
+    //     ::after{
+
+    //     }
+    // }
+    &-footer{
+        display: inline-flex;
+        align-items: center;
+        padding: 10px;
+        .date{
+            display: flex;
+        }
+        .category{
+            display: flex;
+            margin-left: auto;
+        }
+    }
+
+}

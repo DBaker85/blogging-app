@@ -1,0 +1,44 @@
+@import '../../../sass/base/all';
+
+.post{
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    // border: rgba($color-pink,0.3) 1px solid;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    position: relative;
+
+    &-body{
+        padding:10px;
+    }
+    &-date-category{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        // background-color: lighten($color-pink, 50);
+        .date {
+            align-items: center;
+            padding: 5px 15px;
+            font-size: 14px;
+            [class^="icon-"] {
+                margin-right: 5px;
+            }
+        }
+        a{
+            margin-left: auto;
+            display: flex;
+            img {
+                height: 34px;
+                width: auto;
+            }
+        }
+    }
+    // &-image{
+    //     position: relative;
+    //     ::after{
+
+    //     }
+    // }
+    }

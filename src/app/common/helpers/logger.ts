@@ -5,10 +5,7 @@ import { environment } from '../../../environments/environment';
 export class Logger {
 
   public log(...args) {
-    // if (this.windowRef.nativeWindow.console !== undefined) {
-    //     this.windowRef.nativeWindow.console.log(this.logPrefix, args);
-    // }
-    if (!environment.production) {
+    if (!environment.production && window !== undefined) {
         window.console.log(args);
     }
 }
