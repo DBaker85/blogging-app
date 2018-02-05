@@ -3,30 +3,34 @@
   <!-- <div *ngIf="!postsLoaded">
     Loading posts
   </div> -->
-  <!-- <ng-container *ngIf="postsLoaded">
-    <div class="col-12 col-md-6" *ngFor="let article of articles; index as i">
+  <div>
+    No posts found in this category
+  </div>
+  <!-- <ng-container *ngIf="postsLoaded"> -->
+    <div class="col-12 col-md-6" *ngFor="let post of posts; index as i">
 
       <div class="post">
 
-        <div class="post-link clickable" (click)="openPost(article.urlSlug)">
+        <div class="post-link clickable">
+            <!-- (click)="openPost(article.urlSlug)" -->
           <div class="post-image">
             <img style="width:100%;height:80px;" src="http://8409-presscdn-0-53.pagely.netdna-cdn.com/wp-content/uploads/2015/04/typesofblogposts.png">
           </div>
           <div class="post-body">
-            <h2>{{article.title}}</h2>
+            <h2>{{post.title}}</h2>
 
-            <p>{{article.headline}}</p>
+            <p>{{post.headline}}</p>
           </div>
         </div>
         <div class="post-footer">
             <div class="date">
-                {{article.date | date:'shortDate'}}
+                {{post.date | date:'shortDate'}}
             </div>
-          <a class="category" href="#" title="{{article.category}}">
-            <img style="height:30px;width:auto;" src="/images/icons/tech/{{article.category}}.svg">
+          <a class="category" href="#" title="{{post.category}}">
+            <img style="height:30px;width:auto;" src="/images/icons/tech/{{post.category}}.svg">
           </a>
       </div>
   </div>
  </div>
-</ng-container> -->
+<!-- </ng-container> -->
 </div>

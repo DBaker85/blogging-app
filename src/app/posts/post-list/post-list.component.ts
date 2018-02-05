@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PostService } from '../post.service';
+import { FullPost } from '../post';
+import { Logger } from '../../common';
 
 @Component({
   selector: 'blog-post-list',
@@ -7,31 +11,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostListComponent implements OnInit {
 
+  public posts: Array<FullPost>;
+  public postsLoaded: Boolean = false;
+  public modelError: Boolean = false;
+  public modelMessage: string;
 
-  // constructor(
-  //   private postListCall:PostListCall,
-  //   private router: Router
-  //  ){}
+  constructor(
+    private postService: PostService,
+    private logger: Logger
+   ) {}
 
-  //  private articles:Array<Post>;
-  //  public postsLoaded:Boolean = false
-  // private modelError: boolean =false;
+
     ngOnInit() {
-  //    this.postListCall
-  //       .call('all',0,11)
-  //       .subscribe(result => {
-  //                   this.articles = result;
-  //                   this.postsLoaded = true;
-  //               },
-  //               Error => {
-  //                   this.postsLoaded = false;
-  //                   // if (Error != null) {
-  //                   //     this.modelMessage = Error;
-  //                   // } else {
-  //                   //     this.modelMessage = 'Account fetch failed without an error message';
-  //                   // }
-  //               }
-  //           );
+      this.postService
+        .getPostList('all', 0, 11)
+        .subscribe(
+          postlist => {
+            this.logger.log(postlist);
+            this.posts = postlist;
+            this.postsLoaded = true;
+          },
+          (err: HttpErrorResponse) => {
+            this.postsLoaded = false;
+            if (err.statusText != null) {
+                this.modelMessage = err.statusText;
+            } else {
+                this.modelMessage = 'Account fetch failed without an error message';
+            }
+          }
+        );
    }
 
   //  openPost(url:string):void{

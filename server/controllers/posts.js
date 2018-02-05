@@ -225,6 +225,8 @@ this.getPosts = function(req,res,category,startValue,limitValue){
             result[i].body=''
           }
         res.send(result)
+      } else {
+        res.send([]);
       }
     });
 

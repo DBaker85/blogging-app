@@ -24,7 +24,7 @@ var exports      = module.exports = {};
 
 // if port is set in config use that else use env port (heroku requirement)
 if (contentJson.config.port) {
-  app.set('port', (contentJson.config.port));
+  app.set('port', (8888));
 } else {
   app.set('port', (process.env.PORT))
 }
@@ -108,7 +108,7 @@ MongoClient.connect(url, (err, client) => {
     //   gutil.log(`cannot find link ${req.url}`)
     // });
     app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname,'..', 'public/index.html'));
+      res.sendFile(path.join(__dirname,'..', 'dist/index.html'));
     });
 
   }
