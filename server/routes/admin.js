@@ -8,7 +8,7 @@ module.exports = function(app,db) {
   var categories = db.collection('categories');
   var password = db.collection('password');
 
-    app.get('/admin', function (req, res) {
+    app.get('/api/admin', function (req, res) {
       if (req.session.user){
           "use strict";
             return res.render('_admin/admin', {
@@ -16,40 +16,40 @@ module.exports = function(app,db) {
               appname: "BloggingAppAdmin"
             });
       } else {
-        return res.redirect('/login');
+        return res.redirect('/api/login');
       }
   	});
 
 
 
-  	app.post('/submit-post', function(req, res){
+  	app.post('/api/submit-post', function(req, res){
     	createPost(req, res);
   	});
 
-    app.post('/create-category', function(req, res){
+    app.post('/api/create-category', function(req, res){
       createCategory(req, res);
     });
 
-    app.post('/edit-post', function(req, res){
+    app.post('/api/edit-post', function(req, res){
       getEditPost(req, res);
     });
 
-    app.put('/edit-post', function(req, res){
+    app.put('/api/edit-post', function(req, res){
       EditPost(req, res);
     });
 
-    app.get('/category-list', function(req,res){
+    app.get('/api/category-list', function(req,res){
       getCategoryList(req,res);
     })
 
-    app.put('/categories', function(req,res){
+    app.put('/api/categories', function(req,res){
       addCategory(req,res);
     })
 
 
 
 
-  	app.delete('/post', function(req, res){
+  	app.delete('/api/post', function(req, res){
     updateCategoryStatus(req.query.category);
     posts.removeOne({postId:req.query.postId}, function(err, result){
 
@@ -62,19 +62,19 @@ module.exports = function(app,db) {
 
   });
 
-    app.get('/login', function(req, res){
+    app.get('/api/login', function(req, res){
       login(req, res);
     });
 
-    app.post('/signup', function(req, res){
+    app.post('/api/signup', function(req, res){
       createPassword(req, res);
     });
 
-    app.post('/login', function(req, res){
+    app.post('/api/login', function(req, res){
       fetchPassword(req, res);
     });
 
-    app.post('/logout', function(req, res){
+    app.post('/api/logout', function(req, res){
       logout(req, res);
     });
 

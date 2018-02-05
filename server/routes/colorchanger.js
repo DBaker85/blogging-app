@@ -3,7 +3,7 @@
 var fs = require("fs");
 
 module.exports = function(app) {
-  app.post('/color-changer', function (req, res){
+  app.post('/api/color-changer', function (req, res){
 
     var colorresp;
     var stylesheet;
