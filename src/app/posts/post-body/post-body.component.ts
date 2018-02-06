@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Logger } from '../../common';
+import { Paragraph } from '../post';
 
 @Component({
   selector: 'blog-post-body',
@@ -7,13 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PostBodyComponent {
 
-  @Input() body;
+  @Input() body: Array<Paragraph>;
   stringified;
   constructor(
-      // private logger:Logger,
+      private logger: Logger,
       // private el: ElementRef
   ) {
-      // logger.log(this)
+      logger.log(this);
   }
 
   logOutput(event) {

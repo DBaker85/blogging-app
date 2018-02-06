@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-12">
       <article class="post">
@@ -7,20 +8,20 @@
       <div class="post-date-category">
         <div class="date">
           <i class="icon-calendar-full"></i>
-          <!-- {{article.date | date:'shortDate'}} -->
+          {{post?.date | date:'shortDate'}}
         </div>
-        <!-- <a href="#" title="{{article.category}}">
-          <img src="/images/icons/tech/{{article.category}}.svg">
-        </a> -->
+        <a href="#" title="{{post?.category}}">
+          <img src="/images/icons/tech/{{post?.category}}.svg">
+        </a>
       </div>
       <div class="post-body">
-         <!-- <h2>{{article.title}}</h2> -->
+         <h2>{{post?.title}}</h2>
          <blockquote class="post-description">
           <p>
-             <!-- {{article.headline}} -->
+             {{post?.headline}}
           </p>
          </blockquote>
-         <!-- <blog-post-body *ngIf="post.body !== null"></blog-post-body> -->
+         <blog-post-body [body]="post.body" *ngIf="post?.body !== null"></blog-post-body>
       </div>
 
     </article>

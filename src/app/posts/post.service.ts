@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FullPost } from './post';
+import { FullPost, Post } from './post';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -11,7 +11,25 @@ export class PostService {
   ) { }
 
   getPostList(category, start, limit) {
-    return this.http.get<FullPost[]>(`${environment.endpoints}/api/posts?category=${category}&start=${start}&limit=${limit}`);
+
+    const options = {
+      params: {
+          category,
+          start,
+          limit
+      }
+    };
+
+    return this.http.get<Post[]>(`${environment.endpoints}/api/posts`, options);
+  }
+
+  getSinglePost(url) {
+    const options = {
+      params: {
+          url: url
+      }
+    };
+    return this.http.get<FullPost>(`${environment.endpoints}/api/post`, options);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../post.service';
-import { FullPost } from '../post';
+import { FullPost, Post } from '../post';
 import { Logger } from '../../common';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class PostListComponent implements OnInit {
 
-  public posts: Array<FullPost>;
+  public posts: Array<Post>;
   public postsLoaded: Boolean = false;
   public modelError: Boolean = false;
   public modelMessage: string;

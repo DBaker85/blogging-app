@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../post.service';
+import { FullPost } from '../post';
+import { Logger } from '../../common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'blog-post',
@@ -7,28 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+  post: FullPost;
+
   constructor(
-    // private postCall:PostCall,
-    // private logger: Logger,
-    // private route: ActivatedRoute,
+    private postService: PostService,
+    private logger: Logger,
+    private route: ActivatedRoute
     // private sanitizer : DomSanitizer,
     // private el: ElementRef
    ) {}
 
-  //  public article:FullPost = {
-  //   _id: '_id',
-  //   body: null,
-  //   category : 'category',
-  //   date : new Date(),
-  //   postId : 'postId',
-  //   title: 'title',
-  //   headline: 'headline',
-  //   urlSlug : 'urlslug'
-  //  };
-
     ngOnInit() {
-      // this.logger.log(this);
-      // this.logger.log(this.route.snapshot.params);
+      this.postService
+          .getSinglePost(this.route.snapshot.params.urlSlug)
+          .subscribe(post => {
+            this.logger.log(post.body);
+            this.post = post;
+          });
       // this.postCall
       //     .call(this.route.snapshot.params.urlSlug)
       //     .then(
