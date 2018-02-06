@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../post.service';
 import { FullPost } from '../post';
 import { Logger } from '../../common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'blog-post-list',
@@ -18,7 +19,8 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private logger: Logger
+    private logger: Logger,
+    private router: Router
    ) {}
 
 
@@ -42,8 +44,8 @@ export class PostListComponent implements OnInit {
         );
    }
 
-  //  openPost(url:string):void{
-  //     this.router.navigate([`./article/`,url]);
-  //  }
+   openPost(url: string): void {
+      this.router.navigate([`./article/`, url]);
+   }
 
 }

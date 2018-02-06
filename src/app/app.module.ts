@@ -7,25 +7,27 @@ import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { SidepanelComponent } from './sidepanel/sidepanel.component';
 import { HeaderComponent } from './header/header.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { TabDirective } from './common/directives/tab.directive';
 import { Logger } from './common';
-
+import { Routing } from './app.routes';
+import { provideRoutes} from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidepanelComponent,
     HeaderComponent,
-    PagenotfoundComponent,
+    PageNotFoundComponent,
     TabDirective
   ],
   imports: [
     BrowserModule,
-    PostsModule
+    PostsModule,
+    Routing
   ],
   providers: [
-    Logger
+    Logger,
   ],
   bootstrap: [AppComponent]
 })

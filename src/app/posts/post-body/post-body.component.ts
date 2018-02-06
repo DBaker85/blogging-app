@@ -17,7 +17,7 @@ export class PostBodyComponent {
   }
 
   logOutput(event) {
-     this.stringified = JSON.stringify(event)
+     this.stringified = JSON.stringify(event);
   }
 
 }
