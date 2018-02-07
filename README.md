@@ -1,4 +1,4 @@
-# Blogging App v4.0
+# Blogging App v4.0 [![Build Status](https://travis-ci.org/DBaker85/blogging-app.svg?branch=angularCli)](https://travis-ci.org/DBaker85/blogging-app)
 
 A Simple blog running on NodeJs, ExpressJs and MongoDB for casual blogging.
 
