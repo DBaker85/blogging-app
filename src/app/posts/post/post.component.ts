@@ -25,6 +25,8 @@ export class PostComponent implements OnInit {
 
     ngOnInit() {
 
+      this.logger.log(this.route);
+
       this.postService
           .getSinglePost(this.route.snapshot.params.urlSlug)
           .subscribe(post => {
@@ -33,23 +35,22 @@ export class PostComponent implements OnInit {
             this.pageTitle.setTitle(`${post.title} | ${webTagLine}`);
             // Normal meta tags
             this.pageMeta.addTags([
-              { name: 'Title', content: 'space'},
-              { name: 'Keywords', content: 'content.metas.keywords'},
-              { name: 'Description', content: 'content.metas.description'},
-              { name: 'Author', content: 'content.metas.author' },
-              { name: 'Subject', content: 'content.metas.subject' },
-              { name: 'Language', content: 'content.metas.language' }
+              { name: 'Title', content: `${post.title}`},
+              { name: 'Keywords', content: `${post.category}`},
+              { name: 'Description', content: `${post.headline}`},
+              { name: 'Author', content: 'David Baker' },
+              { name: 'Subject', content: 'Coding' },
+              { name: 'Language', content: 'English' }
             ]);
             // Facebook meta tags
             this.pageMeta.addTags([
-              { property: 'og:site_name', content: 'content.OG.sitename'},
-              { property: 'og:url', content: 'content.OG.url' },
-              { property: 'og:title', content: 'pagetitle' },
-              { property: 'og:description', content: 'content.OG.description' },
+              { property: 'og:site_name', content: `David Baker's space`},
+              { property: 'og:url', content: `https://www.davidbaker.space/article/${this.route.snapshot.params.urlSlug}` },
+              { property: 'og:title', content: `${post.title} | ${webTagLine}`},
+              { property: 'og:description', content: `${post.headline}`},
               { property: 'og:image', content: 'content.OG.image' },
-              { property: 'og:type', content: 'content.OG.type' }
+              { property: 'og:type', content: 'article' }
             ]);
           });
     }
 }
-
