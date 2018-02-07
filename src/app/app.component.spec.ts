@@ -3,11 +3,13 @@ import { AppComponent } from './app.component';
 import { SidepanelComponent } from './sidepanel/sidepanel.component';
 import { Logger } from './common';
 import { HeaderComponent } from './header/header.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { TabDirective } from './common/directives/tab.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsModule } from './posts/posts.module';
+import { Routing } from './app.routes';
+import { APP_BASE_HREF } from '@angular/common';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,16 +18,18 @@ describe('AppComponent', () => {
         AppComponent,
         SidepanelComponent,
         HeaderComponent,
-        PagenotfoundComponent,
+        PageNotFoundComponent,
         TabDirective
       ],
       imports: [
         BrowserModule,
         PostsModule,
-        HttpClientModule
+        HttpClientModule,
+        Routing
         ],
       providers: [
-        Logger
+        Logger,
+        {provide: APP_BASE_HREF, useValue: '/'}
       ]
     }).compileComponents();
   }));

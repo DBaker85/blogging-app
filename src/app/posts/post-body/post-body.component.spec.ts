@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostBodyComponent } from './post-body.component';
+import { Logger } from '../../common';
 
 describe('PostBodyComponent', () => {
   let component: PostBodyComponent;
@@ -8,7 +9,8 @@ describe('PostBodyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostBodyComponent ]
+      declarations: [ PostBodyComponent ],
+      providers: [Logger]
     })
     .compileComponents();
   }));

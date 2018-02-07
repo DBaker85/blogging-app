@@ -11,7 +11,6 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { TabDirective } from './common/directives/tab.directive';
 import { Logger } from './common';
 import { Routing } from './app.routes';
-import { provideRoutes} from '@angular/router';
 
 @NgModule({
   declarations: [

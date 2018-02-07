@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { PostListComponent } from './post-list.component';
 import { PostService } from '../post.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Logger } from '../../common';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -12,9 +13,14 @@ describe('PostListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PostListComponent ],
-      providers: [PostService, HttpClient, Logger],
+      providers: [
+        PostService,
+        HttpClient,
+        Logger
+      ],
       imports: [
-        HttpClientModule
+        HttpClientTestingModule,
+        RouterTestingModule
       ]
     })
     .compileComponents();

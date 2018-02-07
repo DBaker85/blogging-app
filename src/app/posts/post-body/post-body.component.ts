@@ -9,17 +9,10 @@ import { Paragraph } from '../post';
 })
 export class PostBodyComponent {
 
-  @Input() body: Array<Paragraph>;
-  stringified;
-  constructor(
-      private logger: Logger,
-      // private el: ElementRef
-  ) {
-      logger.log(this);
-  }
+  @Input() bodyContent: Array<Paragraph>;
 
-  logOutput(event) {
-     this.stringified = JSON.stringify(event);
-  }
+  constructor(
+      private logger: Logger
+  ) {}
 
 }
