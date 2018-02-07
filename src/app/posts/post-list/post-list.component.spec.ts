@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { PostListComponent } from './post-list.component';
 import { PostService } from '../post.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Logger } from '../../common';
+import { Logger } from '../../core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CoreModule } from '../../core/core.module';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -20,7 +21,8 @@ describe('PostListComponent', () => {
       ],
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        CoreModule
       ]
     })
     .compileComponents();

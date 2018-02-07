@@ -5,11 +5,13 @@ import { PostComponent } from './post/post.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostBodyComponent } from './post-body/post-body.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
   ],
   declarations: [
     PostComponent,

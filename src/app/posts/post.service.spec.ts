@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { PostService } from './post.service';
-import { Logger } from '../common';
+import { Logger } from '../core';
 
 describe('PostService', () => {
   beforeEach(() => {

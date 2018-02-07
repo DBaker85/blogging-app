@@ -1,22 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostBodyComponent } from './post-body.component';
-import { Logger } from '../../core';
+import { SpinnerComponent } from './spinner.component';
 
-describe('PostBodyComponent', () => {
-  let component: PostBodyComponent;
-  let fixture: ComponentFixture<PostBodyComponent>;
+describe('SpinnerComponent', () => {
+  let component: SpinnerComponent;
+  let fixture: ComponentFixture<SpinnerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostBodyComponent ],
-      providers: [Logger]
+      declarations: [ SpinnerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostBodyComponent);
+    fixture = TestBed.createComponent(SpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

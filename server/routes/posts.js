@@ -10,7 +10,6 @@ module.exports = function(app,db) {
 
 
   app.get('/api/posts', function(req,res){
-		console.log(req.query)
     getPosts(req,res,req.query.category,req.query.start,req.query.limit);
 	})
 

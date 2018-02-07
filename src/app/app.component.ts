@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Logger, webTagLine } from './common';
+import { Logger, webTagLine } from './core';
 import { Title } from '@angular/platform-browser';
 
 

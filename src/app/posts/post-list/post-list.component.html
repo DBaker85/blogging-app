@@ -1,34 +1,36 @@
 <div class="post_holder">
 
-  <!-- <div *ngIf="!postsLoaded">
-    Loading posts
-  </div> -->
+  <div *ngIf="!postsLoaded && !modelError">
+    <blog-spinner></blog-spinner>
+  </div>
+
   <div>
     No posts found in this category
   </div>
-  <!-- <ng-container *ngIf="postsLoaded"> -->
-    <div class="post" *ngFor="let post of posts; index as i">
 
-        <div class="post-link clickable"
-            (click)="openPost(post.urlSlug)">
-          <div class="post-image">
-            <img style="width:100%;height:80px;" src="http://8409-presscdn-0-53.pagely.netdna-cdn.com/wp-content/uploads/2015/04/typesofblogposts.png">
-          </div>
-          <div class="post-body">
-            <h2>{{post.title}}</h2>
+  <ng-container *ngIf="postsLoaded">
+      <div class="post" *ngFor="let post of posts; index as i">
 
-            <p>{{post.headline}}</p>
-          </div>
-        </div>
-        <div class="post-footer">
-            <div class="date">
-                {{post.date | date:'shortDate'}}
+          <div class="post-link clickable"
+              (click)="openPost(post.urlSlug)">
+            <div class="post-image">
+              <img style="width:100%;height:80px;" src="http://8409-presscdn-0-53.pagely.netdna-cdn.com/wp-content/uploads/2015/04/typesofblogposts.png">
             </div>
-          <a class="category" href="#" title="{{post.category}}">
-            <img style="height:30px;width:auto;" src="assets/images/languages/{{post.category}}.svg">
-          </a>
-      </div>
+            <div class="post-body">
+              <h2>{{post.title}}</h2>
 
- </div>
-<!-- </ng-container> -->
+              <p>{{post.headline}}</p>
+            </div>
+          </div>
+          <div class="post-footer">
+              <div class="date">
+                  {{post.date | date:'shortDate'}}
+              </div>
+            <a class="category" href="#" title="{{post.category}}">
+              <img style="height:30px;width:auto;" src="assets/images/languages/{{post.category}}.svg">
+            </a>
+        </div>
+    </div>
+  </ng-container>
+
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { FullPost } from '../post';
-import { Logger, webTagLine } from '../../common';
+import { Logger, webTagLine } from '../../core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 

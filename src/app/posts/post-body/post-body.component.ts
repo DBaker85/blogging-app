@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Logger } from '../../common';
+import { Logger } from '../../core';
 import { Paragraph } from '../post';
 
 @Component({

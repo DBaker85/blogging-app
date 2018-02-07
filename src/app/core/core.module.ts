@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabDirective } from './directives/tab/tab.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    TabDirective
+    SpinnerComponent
   ],
   exports: [
-    TabDirective
+    SpinnerComponent
   ]
 })
-export class AdminModule { }
+export class CoreModule { }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../post.service';
 import { FullPost, Post } from '../post';
-import { Logger } from '../../common';
+import { Logger } from '../../core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,6 +35,7 @@ export class PostListComponent implements OnInit {
           },
           (err: HttpErrorResponse) => {
             this.postsLoaded = false;
+            this.modelError = true;
             if (err.statusText != null) {
                 this.modelMessage = err.statusText;
             } else {
