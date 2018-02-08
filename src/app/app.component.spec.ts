@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { SidepanelComponent } from './sidepanel/sidepanel.component';
+import { AdminModule } from './admin/admin.module';
 import { Logger } from './core';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
@@ -23,7 +24,8 @@ describe('AppComponent', () => {
         BrowserModule,
         PostsModule,
         HttpClientModule,
-        Routing
+        Routing,
+        AdminModule
         ],
       providers: [
         Logger,

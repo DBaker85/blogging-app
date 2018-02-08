@@ -1,22 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostBodyComponent } from './post-body.component';
-import { Logger } from '../../core';
+import { StatisticsComponent } from './statistics.component';
 
-describe('PostBodyComponent', () => {
-  let component: PostBodyComponent;
-  let fixture: ComponentFixture<PostBodyComponent>;
+describe('StatisticsComponent', () => {
+  let component: StatisticsComponent;
+  let fixture: ComponentFixture<StatisticsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostBodyComponent ],
-      providers: [Logger]
+      declarations: [ StatisticsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostBodyComponent);
+    fixture = TestBed.createComponent(StatisticsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

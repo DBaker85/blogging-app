@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { CoreModule } from '../../../core/core.module';
 import { AdminComponent } from './admin.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { CreatePostComponent } from '../create-post/create-post.component';
+import { Logger } from '../../../core';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -8,7 +12,18 @@ describe('AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent ]
+      imports: [
+        CoreModule,
+        FormsModule
+      ],
+      declarations: [
+        AdminComponent,
+        SidebarComponent,
+        CreatePostComponent
+      ],
+      providers: [
+          Logger
+      ]
     })
     .compileComponents();
   }));

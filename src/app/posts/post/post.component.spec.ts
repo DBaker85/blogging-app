@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostComponent } from './post.component';
-import { PostBodyComponent } from '../post-body/post-body.component';
+import { CoreModule } from '../../core/core.module';
 import { PostService } from '../post.service';
 import { Logger } from '../../core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -20,8 +20,8 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ PostComponent, PostBodyComponent ],
+      imports: [HttpClientTestingModule, CoreModule],
+      declarations: [ PostComponent ],
       providers: [
         PostService,
         Logger,

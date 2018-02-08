@@ -1,0 +1,51 @@
+Create post
+
+<div class="creation-area">
+  Title
+  <input type="text" name="" id="" [(ngModel)]="postPreview.title">
+
+  headline
+  <textarea name="" id="" cols="30" rows="10" [(ngModel)]="postPreview.headline"></textarea>
+
+
+  <button (click)="createParagraph()">
+    Add paragraph
+  </button>
+
+</div>
+
+<div class="preview-area">
+
+    <div class="row">
+        <div class="col-12">
+            <article class="post">
+            <div class="post-image">
+              <img style="width:100%;height:250px;" src="http://via.placeholder.com/350x250">
+            </div>
+            <div class="post-date-category">
+              <div class="date">
+                <i class="icon-calendar-full"></i>
+                {{postPreview.date | date:'shortDate'}}
+              </div>
+              <a href="#" title="{{postPreview.category}}">
+                <img src="/images/icons/tech/{{postPreview.category}}.svg">
+              </a>
+            </div>
+            <div class="post-body">
+               <h2>{{postPreview.title}}</h2>
+               <blockquote class="post-description">
+                <p>
+                   {{postPreview.headline}}
+                </p>
+               </blockquote>
+               <blog-post-body [bodyContent]="postPreview.body"></blog-post-body>
+            </div>
+
+          </article>
+
+      </div>
+      </div>
+
+
+
+</div>

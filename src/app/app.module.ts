@@ -24,7 +24,8 @@ import { Routing } from './app.routes';
     BrowserModule,
     PostsModule,
     CoreModule,
-    Routing
+    Routing,
+    AdminModule
   ],
   providers: [
     Logger,

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Logger } from '../../core';
-import { Paragraph } from '../post';
+import { Logger } from '../../helpers/logger';
+import { Paragraph } from '../../../posts';
 
 @Component({
   selector: 'blog-post-body',
