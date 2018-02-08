@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostPreview } from '../../admin';
 
+
 @Component({
   selector: 'blog-create-post',
   templateUrl: './create-post.component.html',
@@ -21,7 +22,14 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
   }
 
-  createParagraph() {
+  createParagraph(type: string, content: string, language = null, legend = null ) {
+
+    this.postPreview.body.push({
+      content,
+      type,
+      language,
+      legend
+    });
 
   }
 

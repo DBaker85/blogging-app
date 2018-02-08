@@ -7,8 +7,21 @@ Create post
   headline
   <textarea name="" id="" cols="30" rows="10" [(ngModel)]="postPreview.headline"></textarea>
 
+  <select name="" id="">
+    <option>text</option>
+    <option>image</option>
+    <option>code</option>
+    <option>title</option>
+  </select>
 
-  <button (click)="createParagraph()">
+  <select name="" id="">
+      <option>html</option>
+      <option>javascript</option>
+      <option>json</option>
+      <option>python</option>
+    </select>
+
+  <button (click)="createParagraph('text','hello world')">
     Add paragraph
   </button>
 

@@ -11,7 +11,7 @@
 
   <!-- <prism-block *ngIf="paragraph.type === 'code'" [code]="paragraph.content" [language]="paragraph.language"></prism-block>-->
 
-  <!-- <ngx-prism *ngIf="paragraph.type === 'code'" [language]="paragraph.language" [code]="paragraph.content"></ngx-prism> -->
+  <pre *ngIf="paragraph.type === 'code'">{{paragraph.content}}</pre>
 
 
 </ng-template>
