@@ -13,5 +13,12 @@
 
   <pre *ngIf="paragraph.type === 'code'">{{paragraph.content}}</pre>
 
+  <!-- <ngx-prism
+    *ngIf="paragraph.type === 'code'"
+    [language] = "paragraph.language"
+    [code] = "paragraph.content"
+    [interpolation] = "{language: 'language interpolated'}"
+  ></ngx-prism>` -->
+
 
 </ng-template>
