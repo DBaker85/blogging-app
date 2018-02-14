@@ -25,14 +25,13 @@
       <option value="code">Code</option>
     </select>
 
-    <select *ngIf="paragraphType === 'code'" name="" id="">
-        <option>html</option>
-        <option>javascript</option>
-        <option>json</option>
-        <option>python</option>
+    <select *ngIf="paragraphType === 'code'" name="" id="" [(ngModel)]="paragraphLanguage">
+        <option value="html">html</option>
+        <option value="javascript">javascript</option>
+        <option value="json">json</option>
+        <option value="python">python</option>
       </select>
-
-    <button (click)="createParagraph('text','hello world')">
+    <button (click)="createParagraph(paragraphType,'', paragraphLanguage)">
       Add paragraph
     </button>
 

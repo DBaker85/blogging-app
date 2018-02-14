@@ -20,6 +20,7 @@ export class CreatePostComponent implements OnInit {
   };
 
   paragraphType: string;
+  paragraphLanguage: string;
   arrayRemoveByAttr = arrayRemoveByAttr;
 
   constructor(
