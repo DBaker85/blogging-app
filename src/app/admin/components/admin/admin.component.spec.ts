@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { Logger } from '../../../core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -14,7 +15,8 @@ describe('AdminComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CoreModule,
-        FormsModule
+        FormsModule,
+        HttpClientTestingModule
       ],
       declarations: [
         AdminComponent,
