@@ -1,34 +1,45 @@
-Create post
+
 
 <div class="creation-area">
-  Title
+  Create post
+  <select name="postcategory" id="post-category" [(ngModel)]="postPreview.category">
+    <optgroup *ngFor="let category of categories" [label]="category.category">
+      <option *ngFor="let subcategory of category.subcategories" [value]="subcategory.subcategory">{{subcategory.subcategory}}</option>
+    </optgroup>
+  </select>
   <input type="text" name="" id="" [(ngModel)]="postPreview.title">
 
   headline
   <textarea name="" id="" cols="30" rows="10" [(ngModel)]="postPreview.headline"></textarea>
 
-  <select name="" id="">
-    <option>text</option>
-    <option>image</option>
-    <option>code</option>
-    <option>title</option>
-  </select>
+  <div class="paragraph-editor" *ngFor="let paragraph of postPreview.body; index as i">
+    <textarea name="" id="" cols="30" rows="10" [(ngModel)]="postPreview.body[i].content"></textarea>
+    <button (click)="removeParagraph(i)"> remove this one boss </button>
+  </div>
 
-  <select name="" id="">
-      <option>html</option>
-      <option>javascript</option>
-      <option>json</option>
-      <option>python</option>
+  <div class="paragraph-creator">
+    <select name="paragraph-creator-type" id="paragraph-creator-type" [(ngModel)]="paragraphType">
+      <option value="text">Text</option>
+      <option value="title">Title</option>
+      <option value="image">Image</option>
+      <option value="code">Code</option>
     </select>
 
-  <button (click)="createParagraph('text','hello world')">
-    Add paragraph
-  </button>
+    <select *ngIf="paragraphType === 'code'" name="" id="">
+        <option>html</option>
+        <option>javascript</option>
+        <option>json</option>
+        <option>python</option>
+      </select>
 
+    <button (click)="createParagraph('text','hello world')">
+      Add paragraph
+    </button>
+
+  </div>
 </div>
-
 <div class="preview-area">
-
+    Preview
     <div class="row">
         <div class="col-12">
             <article class="post">

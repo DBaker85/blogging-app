@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostPreview } from '../../admin';
-
+import { arrayRemoveByAttr, Logger } from '../../../core';
 
 @Component({
   selector: 'blog-create-post',
@@ -8,6 +8,8 @@ import { PostPreview } from '../../admin';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
+
+  @Input() categories;
 
   public postPreview: PostPreview = {
     title: '',
@@ -17,7 +19,12 @@ export class CreatePostComponent implements OnInit {
     body: []
   };
 
-  constructor() { }
+  paragraphType: string;
+  arrayRemoveByAttr = arrayRemoveByAttr;
+
+  constructor(
+    private logger: Logger
+  ) { }
 
   ngOnInit() {
   }
@@ -31,6 +38,10 @@ export class CreatePostComponent implements OnInit {
       legend
     });
 
+  }
+
+  removeParagraph(i: number) {
+    this.postPreview.body.splice(i, 1);
   }
 
 }

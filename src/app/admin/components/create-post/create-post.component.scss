@@ -1,10 +1,17 @@
 :host{
   display: flex;
   flex-direction: row;
+  width: 100vw;
 }
-.creation-area{
-  display: flex;
-}
+.creation-area,
 .preview-area{
+  padding: 50px;
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.paragraph-creator {
+  display: flex;
+  flex-direction: row;
 }

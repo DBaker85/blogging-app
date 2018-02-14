@@ -22,8 +22,8 @@ import { Routing } from './app.routes';
   ],
   imports: [
     BrowserModule,
-    PostsModule,
     CoreModule,
+    PostsModule,
     Routing,
     AdminModule
   ],
